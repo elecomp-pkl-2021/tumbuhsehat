@@ -10,7 +10,6 @@
     </div>
 </footer>
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="<?= base_url() ?>assets/plugins/popper.js/dist/umd/popper.min.js"></script>
 <script src="<?= base_url() ?>assets/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="<?= base_url() ?>assets/plugins/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
@@ -45,5 +44,10 @@
     }(window, document, 'script', 'ga'));
     ga('create', 'UA-XXXXX-X', 'auto');
     ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".js-example-basic-single").select2();
+    });
 </script>
 </body>
