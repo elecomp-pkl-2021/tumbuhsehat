@@ -24,7 +24,7 @@
                             <th>#</th>
                             <th>Hehe</th>
                             <th>Hehe</th>
-                            <th class="nosort">Hehe</th>
+                            <th class="nosort">&nbsp;</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,8 +33,10 @@
                             <td>hehe</td>
                             <td>hehe</td>
                             <td>
-                                <button class="btn btn-success">Terima</button>
-                                <button class="btn btn-danger">Tolak</button>
+                                <div class="table-actions">
+                                    <button class="btn btn-success">Aksi 1</button>
+                                    <button class="btn btn-danger">Aksi 2</button>
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -42,8 +44,10 @@
                             <td>huhu</td>
                             <td>huhu</td>
                             <td>
-                                <button class="btn btn-success">Terima</button>
-                                <button class="btn btn-danger">Tolak</button>
+                                <div class="table-actions">
+                                    <button class="btn btn-success">Aksi 1</button>
+                                    <button class="btn btn-danger">Aksi 2</button>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -66,7 +70,7 @@
                             <th>#</th>
                             <th>Hehe</th>
                             <th>Hehe</th>
-                            <th class="nosort">Hehe</th>
+                            <th class="nosort">&nbsp;</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -75,8 +79,10 @@
                             <td>hehe</td>
                             <td>hehe</td>
                             <td>
-                                <button class="btn btn-success">Aksi 1</button>
-                                <button class="btn btn-danger">Aksi 2</button>
+                                <div class="table-actions">
+                                    <button class="btn btn-success">Aksi 1</button>
+                                    <button class="btn btn-danger">Aksi 2</button>
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -84,8 +90,10 @@
                             <td>hoho</td>
                             <td>hoho</td>
                             <td>
-                                <button class="btn btn-success">Aksi 1</button>
-                                <button class="btn btn-danger">Aksi 2</button>
+                                <div class="table-actions">
+                                    <button class="btn btn-success">Aksi 1</button>
+                                    <button class="btn btn-danger">Aksi 2</button>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
