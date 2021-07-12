@@ -20,6 +20,7 @@ $hari = date('l ');
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800" rel="stylesheet">
 
 
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/ionicons/dist/css/ionicons.min.css">
@@ -43,6 +44,7 @@ $hari = date('l ');
     <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/theme.min.css">
     <script src="<?= base_url() ?>assets/src/js/vendor/modernizr-2.8.3.min.js"></script>
     <script src="<?= base_url() ?>assets/js/time.js"></script>
+    <?= $extraHeaderScript ?>
 </head>
 
 <body>
@@ -52,7 +54,7 @@ $hari = date('l ');
                 <div class="d-flex justify-content-between">
                     <div class="top-menu d-flex align-items-center">
                         <button type="button" class="btn-icon mobile-nav-toggle d-lg-none"><span></span></button>
-                        <button class="btn btn-light"><i class="ik ik-calendar mr-2"></i> <b><?= $hari?></b>, <?= $tanggal ?></button>
+                        <button class="btn btn-light"><i class="ik ik-calendar mr-2"></i> <b><?= $hari ?></b>, <?= $tanggal ?></button>
                         <button class="btn btn-light mr-2 ml-2" id="clock"></button>
                         <button class="btn btn-light mr-2"> <i class="ik ik-map-pin mr-2"></i> <b> Escalade Dental - Tebet </b></button>
                         <button class="btn btn-light"> <i class="ik ik-user mr-2"></i> <b>Frontliner</b> </button>
