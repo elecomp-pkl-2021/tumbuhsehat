@@ -18,7 +18,7 @@
                 <h3>Data table 1</h3>
             </div>
             <div class="card-body">
-                <table class="table" id="simpletable">
+                <table class="table" id="data_table">
                     <thead>
                         <tr>
                             <th>#</th>
