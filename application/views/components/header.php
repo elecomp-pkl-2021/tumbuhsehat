@@ -44,7 +44,8 @@ $hari = date('l ');
     <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/theme.min.css">
     <script src="<?= base_url() ?>assets/src/js/vendor/modernizr-2.8.3.min.js"></script>
     <script src="<?= base_url() ?>assets/js/time.js"></script>
-    <?= $extraHeaderScript ?>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 </head>
 
 <body>
