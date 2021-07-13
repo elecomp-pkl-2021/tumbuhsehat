@@ -8,6 +8,8 @@ class Home extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Klinik_model');
+        $this->load->model('Cabang_model');
+        $this->load->model('Dokter_model');
     }
 
 
@@ -22,6 +24,8 @@ class Home extends CI_Controller
             <li class="breadcrumb-item active"><i class="ik ik-home"></i></li>';
 
         $data['keluarga'] = $this->Klinik_model->tampil();
+        $data['dokter'] = $this->Dokter_model->get_dokter();
+        $data['cabang'] = $this->Cabang_model->get_cabang();
         $this->load->view('components/header', $data);
         $this->load->view('components/sidebar_resepsionis');
         $this->load->view('components/breadcrumbs', $data);
