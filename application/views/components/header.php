@@ -45,8 +45,9 @@ $hari = date('l ');
     <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/theme.min.css">
     <script src="<?= base_url() ?>assets/src/js/vendor/modernizr-2.8.3.min.js"></script>
     <script src="<?= base_url() ?>assets/js/time.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <!-- Select2 Plugins -->
+    <link rel="stylesheet" href="<?= base_url('assets') ?>/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="<?= base_url('assets') ?>/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 </head>
 
 <body>
