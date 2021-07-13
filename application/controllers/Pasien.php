@@ -19,6 +19,12 @@ class Pasien extends CI_Controller
 
     public function getDataPasien($id_user)
     {
+        header('Access-Control-Allow-Origin: *');
         echo json_encode($this->Pasien_model->get_pasien($id_user));
+    }
+
+    public function tambahPasienBaruWithId($id_user)
+    {
+        echo "Garap gengg add pasien, iki keluarga id ne wes metu = " . $id_user;
     }
 }
