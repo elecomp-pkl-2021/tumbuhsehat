@@ -59,7 +59,7 @@ class Auth extends CI_Controller {
             $this->session->set_userdata('level', $row->level);
             
             if ($this->session->userdata('level') == "Dokter") {
-                $cekDokter = $this->dokter_model->getDokterById($this->session->userdata('id_user'));
+                $cekDokter = $this->dokter_model->get_dokter_by_id($this->session->userdata('id_user'));
                 foreach ($cekDokter as $row);
                 $this->session->set_userdata('id_dokter', $row->id_dokter);
                 $this->session->set_userdata('nama_dokter', $row->nama_dokter);
