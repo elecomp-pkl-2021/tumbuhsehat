@@ -5,4 +5,9 @@ class Cabang_model extends CI_Model
     {
         return $this->db->get('cabang')->result();
     }
+
+    function get_cabang2()
+    {
+        return $this->db->get('cabang');
+    }
 }
