@@ -10,6 +10,7 @@ class Home extends CI_Controller
         $this->load->model('Klinik_model');
         $this->load->model('Cabang_model');
         $this->load->model('Dokter_model');
+        $this->load->model('Rencana_model');
     }
 
 
@@ -26,6 +27,7 @@ class Home extends CI_Controller
         $data['keluarga'] = $this->Klinik_model->tampil();
         $data['dokter'] = $this->Dokter_model->get_dokter();
         $data['cabang'] = $this->Cabang_model->get_cabang();
+        $data['$rencana_sebelum'] = $this->Rencana_model->get_rencana_sebelum();
         $this->load->view('components/header', $data);
         $this->load->view('components/sidebar_resepsionis');
         $this->load->view('components/breadcrumbs', $data);

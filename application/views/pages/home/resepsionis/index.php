@@ -55,6 +55,104 @@
                 </form>
             </div>
         </div>
+        <div class="card">
+            <div class="card-header justify-content-between">
+                <h3>Timeline Jadwal</h3>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-sm-1">
+                        <h6>Filter Data</h6>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="date" class="form-control">
+                    </div>
+                    <div class="col-sm-3">
+                        <select class="select2bs4" name="id_dokter" id="dokter" style="width: 100%;">
+                            <option disabled selected><?= "Pilih Dokter" ?></option>
+                            <?php foreach ($dokter as $d) : ?>
+                                <option value="<?= $d->id_dokter ?>"><?= $d->nama_dokter ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <button class="btn btn-info"><i class="fa fa-search"></i> Filter Data</button>
+                </div>
+                <div class="row">
+                    <div class="col-md-4" style="height: 400px; overflow-y: scroll; overflow-x: hidden;">
+                        <div class="timeline">
+                            <div class="entry">
+                                <div class="title">
+                                    <font style="text-align: right;">
+                                        <h3><b>04:00-05:00</b></h3>
+                                        <p>Drg. Anjauy</p>
+                                    </font>
+                                </div>
+                                <div class="body">
+                                    <p style="font-size: 12px;"><i>
+                                            Waktu tersisa tinggal 229 jam, 45 menit
+                                        </i></p>
+                                    <p><b>Rachma Wati - Ibu</b></p>
+                                    <p>Pemeriksaan dengan drg. Lila Asri di Escalade Dental</p>
+                                    <div class="form-group">
+                                        <font style="background-color: lightgreen; color: black; padding: 5px" size="2px">
+                                            Pemeriksaan Selesai</font><br><br>
+                                        <a href="" type="button" class="col-md-10 btn-bayar">Proses Bayar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" style="height: 400px; overflow-y: scroll; overflow-x: hidden;">
+                        <div class="timeline">
+                            <div class="entry">
+                                <div class="title">
+                                    <font style="text-align: right;">
+                                        <h3><b>04:00-05:00</b></h3>
+                                        <p>Drg. Anjauy</p>
+                                    </font>
+                                </div>
+                                <div class="body">
+                                    <p style="font-size: 12px;"><i>
+                                            Waktu tersisa tinggal 229 jam, 45 menit
+                                        </i></p>
+                                    <p><b>Rachma Wati - Ibu</b></p>
+                                    <p>Pemeriksaan dengan drg. Lila Asri di Escalade Dental</p>
+                                    <div class="form-group">
+                                        <font style="background-color: lightgreen; color: black; padding: 5px" size="2px">
+                                            Pemeriksaan Selesai</font><br><br>
+                                        <a href="" type="button" class="col-md-10 btn-bayar">Proses Bayar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" style="height: 400px; overflow-y: scroll; overflow-x: hidden;">
+                        <div class="timeline">
+                            <div class="entry">
+                                <div class="title">
+                                    <font style="text-align: right;">
+                                        <h3><b>04:00-05:00</b></h3>
+                                        <p>Drg. Anjauy</p>
+                                    </font>
+                                </div>
+                                <div class="body">
+                                    <p style="font-size: 12px;"><i>
+                                            Waktu tersisa tinggal 229 jam, 45 menit
+                                        </i></p>
+                                    <p><b>Rachma Wati - Ibu</b></p>
+                                    <p>Pemeriksaan dengan drg. Lila Asri di Escalade Dental</p>
+                                    <div class="form-group">
+                                        <font style="background-color: lightgreen; color: black; padding: 5px" size="2px">
+                                            Pemeriksaan Selesai</font><br><br>
+                                        <a href="" type="button" class="col-md-10 btn-bayar">Proses Bayar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -67,7 +165,6 @@
     });
 
     function pilih_pasien(id) {
-        console.log(id);
         if (id == "-" && id == "empty") {
             document.getElementById("id_pasien").setAttribute("disabled", "disabled");
             document.getElementById("cabang").setAttribute("disabled", "disabled");
@@ -85,7 +182,6 @@
                 success: (hasil) => {
                     let isi = `<option disabled selected>Pilih Profil Pasien</option>`;
                     hasil.forEach(function(item) {
-                        console.log(item.alamat);
                         isi += `
                         <option value="${item.id_pasien}">${item.nama_depan} ${item.nama_belakang} - ${item.alamat}</option>`
                     });

@@ -36,10 +36,10 @@ $hari = date('l ');
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/jvectormap/jquery-jvectormap.css">
-    <link rel="stylesheet"
-        href="<?= base_url() ?>assets/plugins/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/weather-icons/css/weather-icons.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/c3/c3.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/css/style.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/owl.carousel/dist/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/owl.carousel/dist/assets/owl.theme.default.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/theme.min.css">
@@ -66,12 +66,9 @@ $hari = date('l ');
                     </div>
                     <div class="top-menu d-flex align-items-center mr-20">
                         <div class="dropdown">
-                            <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false"><img class="avatar"
-                                    src="<?= base_url('assets') ?>/img/user.png" alt=""></a>
+                            <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="avatar" src="<?= base_url('assets') ?>/img/user.png" alt=""></a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="<?= base_url() ?>"><i
-                                        class="ik ik-power dropdown-icon"></i>
+                                <a class="dropdown-item" href="<?= base_url() ?>"><i class="ik ik-power dropdown-icon"></i>
                                     Logout</a>
                             </div>
                         </div>
