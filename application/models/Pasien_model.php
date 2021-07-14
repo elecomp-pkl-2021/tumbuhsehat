@@ -12,6 +12,11 @@ class Pasien_model extends CI_Model
     }
 
     function get_pasien_byIdKeluarga($id){
-        return $this->db->get_where('pasien', ['id_pasien' => $id])->result_array();
+        return $this->db->get_where('pasien', ['id_user' => $id])->result_array();
+    }
+
+    function get_nama_pasien($id){
+        $nama = $this->db->get_where('pasien', ['id_pasien' => $id])->row_array();
+        return $nama['nama_depan'].' '.$nama['nama_belakang'];
     }
 }
