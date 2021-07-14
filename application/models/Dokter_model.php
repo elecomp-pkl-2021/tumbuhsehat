@@ -7,6 +7,11 @@ class Dokter_model extends CI_Model
         return $query->result();
     }
 
+    public function get_dokter2()
+    {
+        return $this->db->get('dokter');
+    }
+
     public function get_dokter_by_id($id)
     {
         return $this->db->get_where('dokter', ['id_user' => $id])->result();
@@ -15,5 +20,16 @@ class Dokter_model extends CI_Model
     public function get_nama_dokter($id){
         $nama = $this->db->get_where('dokter', ['id_dokter' => $id])->row_array();
         return $nama['nama_dokter'];
+    }
+    
+    function get_dokter_id3($id, $day)
+    {
+        $this->db->select('*');
+        $this->db->from('jadwal_dokter a');
+        $this->db->join('booking b', 'a.id_dokter=b.id_dokter');
+        $this->db->where('b.id_booking', $id);
+        $this->db->where('a.hari', $day);
+        $query = $this->db->get();
+        return $query;
     }
 }
