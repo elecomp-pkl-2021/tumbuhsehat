@@ -19,6 +19,6 @@ class Pasien extends CI_Controller
 
     public function getDataPasien($id_user)
     {
-        echo json_encode($this->Pasien_model->get_pasien($id_user));
+        echo json_encode($this->Pasien_model->get_data_keluarga($id_user));
     }
 }
