@@ -11,6 +11,8 @@ class Home extends CI_Controller
             redirect('','refresh');
         }
         $this->load->model('Klinik_model');
+        $this->load->model('Cabang_model');
+        $this->load->model('Dokter_model');
     }
 
 
@@ -24,12 +26,10 @@ class Home extends CI_Controller
         $data['breadcrumbs'] = '
             <li class="breadcrumb-item active"><i class="ik ik-home"></i></li>';
 
-        // extra script for select2 dropdown search
-        $data['extraHeaderScript'] = '<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>';
-
         $data['keluarga'] = $this->Klinik_model->tampil();
         
+        $data['dokter'] = $this->Dokter_model->get_dokter();
+        $data['cabang'] = $this->Cabang_model->get_cabang();
         $this->load->view('components/header', $data);
         
         if ($this->session->userdata('level') == "Owner") {

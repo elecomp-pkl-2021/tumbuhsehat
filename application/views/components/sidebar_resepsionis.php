@@ -8,7 +8,8 @@
 
             <div class="nav-lavel">Janji Pasien</div>
             <div class="nav-item">
-                <a href="<?= base_url('konfirmasi_janji') ?>"><i class="ik ik-calendar"></i><span>Konfirmasi Janji</span></a>
+                <a href="<?= base_url('konfirmasi_janji') ?>"><i class="ik ik-calendar"></i><span>Konfirmasi
+                        Janji</span></a>
                 <a href="index.html"><i class="ik ik-check-circle"></i><span>Daftar / Ubah Janji</span></a>
             </div>
 
