@@ -89,7 +89,6 @@
 
                             <div id="data-diri-part" class="content" role="tabpanel"
                                 aria-labelledby="data-diri-part-trigger">
-
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="inputEmail4">Email</label>
@@ -133,6 +132,17 @@
                                         <label class="form-check-label" for="gridCheck">
                                             Check me out
                                         </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                    </div>
+                                    <div class="my-3">
+                                        <button type="button" class="btn btn-secondary btn-prev-form"
+                                            onclick="stepper.previous()">Kembali</button>
+                                        <button type="button" class="btn btn-primary btn-next-form"
+                                            onclick="stepper.next()">Selanjutnya</button>
                                     </div>
                                 </div>
 
