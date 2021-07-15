@@ -61,8 +61,8 @@ ga('create', 'UA-XXXXX-X', 'auto');
 ga('send', 'pageview');
 </script>
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(".js-example-basic-single").select2();
-    });
+$(document).ready(function() {
+    $(".js-example-basic-single").select2();
+});
 </script>
 </body>
