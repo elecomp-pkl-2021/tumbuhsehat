@@ -27,10 +27,10 @@ $hari = date('l ');
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/jvectormap/jquery-jvectormap.css">
-    <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet"
+        href="<?= base_url() ?>assets/plugins/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/weather-icons/css/weather-icons.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/c3/c3.min.css">
-    <link rel="stylesheet" href="<?= base_url() ?>assets/css/style.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/owl.carousel/dist/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/owl.carousel/dist/assets/owl.theme.default.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/theme.min.css">
@@ -39,6 +39,11 @@ $hari = date('l ');
     <!-- Select2 Plugins -->
     <link rel="stylesheet" href="<?= base_url('assets') ?>/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="<?= base_url('assets') ?>/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <!-- STEPPER -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css">
+    <!-- OUR CSS -->
+    <link rel="stylesheet" href="<?= base_url() ?>assets/css/radioInput.css">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/css/style.css">
 </head>
 
 <body>
@@ -48,22 +53,28 @@ $hari = date('l ');
                 <div class="d-flex justify-content-between">
                     <div class="top-menu d-flex align-items-center">
                         <button type="button" class="btn-icon mobile-nav-toggle d-lg-none"><span></span></button>
-                        <button class="btn btn-light"><i class="ik ik-calendar mr-2"></i> <b><?= $hari ?></b>, <?= $tanggal ?></button>
+                        <button class="btn btn-light"><i class="ik ik-calendar mr-2"></i> <b><?= $hari ?></b>,
+                            <?= $tanggal ?></button>
                         <button class="btn btn-light mr-2 ml-2" id="clock"></button>
-                        <button class="btn btn-light mr-2"> <i class="ik ik-map-pin mr-2"></i> <b> Escalade Dental - Tebet </b></button>
+                        <button class="btn btn-light mr-2"> <i class="ik ik-map-pin mr-2"></i> <b> Escalade Dental -
+                                Tebet </b></button>
                         <?php if ($this->session->userdata("level") == "Klinik") : ?>
-                            <button class="btn btn-light"> <i class="ik ik-user mr-2"></i> <b>Frontliner</b> </button>
+                        <button class="btn btn-light"> <i class="ik ik-user mr-2"></i> <b>Frontliner</b> </button>
                         <?php elseif ($this->session->userdata("level") == "Owner") : ?>
-                            <button class="btn btn-light"> <i class="ik ik-user mr-2"></i> <b>Owner</b> </button>
+                        <button class="btn btn-light"> <i class="ik ik-user mr-2"></i> <b>Owner</b> </button>
                         <?php else : ?>
-                            <button class="btn btn-light"> <i class="ik ik-user mr-2"></i> <b><?= $this->session->userdata('nama_dokter'); ?></b> </button>
+                        <button class="btn btn-light"> <i class="ik ik-user mr-2"></i>
+                            <b><?= $this->session->userdata('nama_dokter'); ?></b> </button>
                         <?php endif ?>
                     </div>
                     <div class="top-menu d-flex align-items-center mr-20">
                         <div class="dropdown">
-                            <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="avatar" src="<?= base_url('assets') ?>/img/user.png" alt=""></a>
+                            <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false"><img class="avatar"
+                                    src="<?= base_url('assets') ?>/img/user.png" alt=""></a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="<?= base_url('auth/logout') ?>"><i class="ik ik-power dropdown-icon"></i>
+                                <a class="dropdown-item" href="<?= base_url('auth/logout') ?>"><i
+                                        class="ik ik-power dropdown-icon"></i>
                                     Logout</a>
                             </div>
                         </div>
