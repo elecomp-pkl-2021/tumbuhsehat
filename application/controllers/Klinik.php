@@ -16,55 +16,6 @@ class Klinik extends CI_Controller
         $this->load->model('Pasien_model');
     }
 
-    public function buat_jadwal_view(){
-        $id_pasien = $this->input->post("id_pasien");
-        $id_cabang = $this->input->post("id_cabang");
-        $id_dokter = $this->input->post("id_dokter");
-
-        if ($id_pasien == "" || $id_cabang == "" || $id_dokter == "") {
-            // ini nanti diganti alert 
-            echo "<script>alert('Pastikan data terisi semua!');history.go(-1);</script>";
-            redirect('/home');
-        } 
-        
-        $nama_pasien = $this->Pasien_model->get_nama_pasien($id_pasien);
-        $nama_dokter = $this->Dokter_model->get_nama_dokter($id_dokter);
-        
-        $data = [
-            'title' => 'Buat Jadwal | Tumbuh Sehat',
-            'judulHalaman' => 'Buat Jadwal Pemeriksaan',
-            'subJudulHalaman' => 'Buat Jadwal Pemeriksaan <b>'. $nama_pasien .'</b> dengan Dokter <b>'.$nama_dokter.'</b>',
-            'iconHalaman' => 'ik-home',
-            'breadcrumbs' => '<li class="breadcrumb-item active"><i class="ik ik-home"></i></li> <li class="breadcrumb-item active">Jadwal Pemeriksaan</i></li>'
-        ];   
-        
-        $this->load->view('components/header', $data);
-        if ($this->session->userdata('level') == "Owner") {
-            $this->load->view('components/sidebar_owner');
-        }elseif ($this->session->userdata('level') == "Klinik") {
-            $this->load->view('components/sidebar_resepsionis');
-        }else {
-            $this->load->view('components/sidebar_dokter');
-        }
-        
-        $this->load->view('components/breadcrumbs', $data);
-        
-        if ($this->session->userdata('level') == "Owner" || $this->session->userdata('level') == "Klinik") {
-            $this->load->view('pages/home/resepsionis/buat-jadwal', $data);
-        }else {
-            $this->load->view('pages/home/dokter/index');
-        }
-        
-        $this->load->view('components/footer');
-        // end resepsionis
-    }
-
-    public function buat_jadwal()
-    {
-        
-        
-    }
-
     function filter_profil()
     {
         $id_user = $this->session->userdata('id_user');
@@ -154,20 +105,20 @@ class Klinik extends CI_Controller
         }
         if (!empty($data)) {
             foreach ($data as $result) : ?>
-<?php if ($result->konfirmasi == '1') { ?>
-<?php
+                <?php if ($result->konfirmasi == '1') { ?>
+                    <?php
                     $jam = $result->jam_mulai . '-' . $result->jam_tutup;
                     $a = 0;
                     $b = 1;
                     $a++;
                     if ($result->jam_rencana_mulai . '-' . $result->jam_rencana_selesai == $jam) {
                         if ($a <= $b) { ?>
-<div class="timeline">
-    <div class="entry">
-        <div class="title">
-            <font style="text-align: right;">
-                <?php $namahari = date('l', strtotime($result->tanggal_rencana)); ?>
-                <?php
+                            <div class="timeline">
+                                <div class="entry">
+                                    <div class="title">
+                                        <font style="text-align: right;">
+                                            <?php $namahari = date('l', strtotime($result->tanggal_rencana)); ?>
+                                            <?php
                                             switch ($namahari) {
                                                 case 'Sunday':
                                                     $hari_ini = "Minggu";
@@ -202,15 +153,15 @@ class Klinik extends CI_Controller
                                                     break;
                                             }
                                             ?>
-                <p><?php echo $hari_ini ?></p>
-                <?php $tgl = date('d M', strtotime($result->tanggal_rencana)); ?>
-                <h3><b><?php echo $tgl ?></b></h3>
-                <p><?php echo $result->jam_mulai_periksa; ?>-<?php echo $result->jam_selesai_periksa; ?></p>
-            </font>
-        </div>
-        <div class="body">
-            <p style="font-size: 12px;"><i>
-                    <?php
+                                            <p><?php echo $hari_ini ?></p>
+                                            <?php $tgl = date('d M', strtotime($result->tanggal_rencana)); ?>
+                                            <h3><b><?php echo $tgl ?></b></h3>
+                                            <p><?php echo $result->jam_mulai_periksa; ?>-<?php echo $result->jam_selesai_periksa; ?></p>
+                                        </font>
+                                    </div>
+                                    <div class="body">
+                                        <p style="font-size: 12px;"><i>
+                                                <?php
                                                 $awal  = strtotime($result->tanggal_rencana . $result->jam_selesai_periksa);
                                                 $akhir = time();
                                                 $diff  = $akhir - $awal;
@@ -222,29 +173,28 @@ class Klinik extends CI_Controller
                                                     echo 'Waktu tersisa tinggal ' . $jam .  ' jam, ' . floor($menit / 60) . ' menit';
                                                 }
                                                 ?>
-                </i></p>
-            <p><b><?php echo $result->nama_depan  ?> <?php echo $result->nama_belakang  ?> -
-                    <?php echo $result->hubungan  ?></b></p>
-            <p>Pemeriksaan dengan <?php echo $result->nama_dokter  ?> di <?php echo $result->nama_cabang  ?></p>
-            <div class="form-group">
-                <font style="background-color: lightgreen; color: black; padding: 5px" size="2px">
-                    Pemeriksaan Selesai</font><br><br>
-                <a href="<?php echo base_url() ?>klinik/metode_bayar/<?php echo $result->id_booking ?>/<?php echo $result->id_rekam_medis ?>.html"
-                    type="button" class="col-md-10 btn-bayar">Proses Bayar</a>
-            </div>
-        </div>
-    </div>
-</div>
-<?php }
+                                            </i></p>
+                                        <p><b><?php echo $result->nama_depan  ?> <?php echo $result->nama_belakang  ?> -
+                                                <?php echo $result->hubungan  ?></b></p>
+                                        <p>Pemeriksaan dengan <?php echo $result->nama_dokter  ?> di <?php echo $result->nama_cabang  ?></p>
+                                        <div class="form-group">
+                                            <font style="background-color: lightgreen; color: black; padding: 5px" size="2px">
+                                                Pemeriksaan Selesai</font><br><br>
+                                            <a href="<?php echo base_url() ?>klinik/metode_bayar/<?php echo $result->id_booking ?>/<?php echo $result->id_rekam_medis ?>.html" type="button" class="col-md-10 btn-bayar">Proses Bayar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                <?php }
                     }
                 } ?>
-<?php endforeach;
+            <?php endforeach;
         } else {
             ?>
-<font style="text-align: center;">
-    <h4>Tidak Ada Data</h4>
-</font>
-<?php
+            <font style="text-align: center;">
+                <h4>Tidak Ada Data</h4>
+            </font>
+            <?php
         }
     }
 
@@ -311,20 +261,20 @@ class Klinik extends CI_Controller
         }
         if (!empty($data)) {
             foreach ($data as $result) : ?>
-<?php if ($result->konfirmasi == '1') { ?>
-<?php
+                <?php if ($result->konfirmasi == '1') { ?>
+                    <?php
                     $jam = $result->jam_mulai . '-' . $result->jam_tutup;
                     $a = 0;
                     $b = 1;
                     $a++;
                     if ($result->jam_rencana_mulai . '-' . $result->jam_rencana_selesai == $jam) {
                         if ($a <= $b) { ?>
-<div class="timeline">
-    <div class="entry">
-        <div class="title">
-            <font style="text-align: right;">
-                <?php $namahari = date('l', strtotime($result->tanggal_rencana)); ?>
-                <?php
+                            <div class="timeline">
+                                <div class="entry">
+                                    <div class="title">
+                                        <font style="text-align: right;">
+                                            <?php $namahari = date('l', strtotime($result->tanggal_rencana)); ?>
+                                            <?php
                                             switch ($namahari) {
                                                 case 'Sunday':
                                                     $hari_ini = "Minggu";
@@ -359,15 +309,15 @@ class Klinik extends CI_Controller
                                                     break;
                                             }
                                             ?>
-                <p><?php echo $hari_ini ?></p>
-                <?php $tgl = date('d M', strtotime($result->tanggal_rencana)); ?>
-                <h3><b><?php echo $tgl ?></b></h3>
-                <p><?php echo $result->jam_mulai ?>-<?php echo $result->jam_tutup ?></p>
-            </font>
-        </div>
-        <div class="body">
-            <p style="font-size: 12px;"><i>
-                    <?php
+                                            <p><?php echo $hari_ini ?></p>
+                                            <?php $tgl = date('d M', strtotime($result->tanggal_rencana)); ?>
+                                            <h3><b><?php echo $tgl ?></b></h3>
+                                            <p><?php echo $result->jam_mulai ?>-<?php echo $result->jam_tutup ?></p>
+                                        </font>
+                                    </div>
+                                    <div class="body">
+                                        <p style="font-size: 12px;"><i>
+                                                <?php
                                                 $awal  = strtotime($result->tanggal_rencana . $result->jam_mulai);
                                                 $akhir = time();
                                                 $diff  = $akhir - $awal;
@@ -379,27 +329,27 @@ class Klinik extends CI_Controller
                                                     echo 'Waktu tersisa tinggal ' . $jam .  ' jam, ' . floor($menit / 60) . ' menit';
                                                 }
                                                 ?>
-                </i></p>
-            <p><b><?php echo $result->nama_depan  ?> <?php echo $result->nama_belakang  ?> -
-                    <?php echo $result->hubungan  ?></b></p>
-            <p>Pemeriksaan dengan <?php echo $result->nama_dokter  ?> di <?php echo $result->nama_cabang  ?></p>
-            <div class="form-group">
-                <font style="background-color: yellow; color: black; padding: 5px" size="2px">
-                    Sedang Pemeriksaan</font>
-            </div>
-        </div>
-    </div>
-</div>
-<?php }
+                                            </i></p>
+                                        <p><b><?php echo $result->nama_depan  ?> <?php echo $result->nama_belakang  ?> -
+                                                <?php echo $result->hubungan  ?></b></p>
+                                        <p>Pemeriksaan dengan <?php echo $result->nama_dokter  ?> di <?php echo $result->nama_cabang  ?></p>
+                                        <div class="form-group">
+                                            <font style="background-color: yellow; color: black; padding: 5px" size="2px">
+                                                Sedang Pemeriksaan</font>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                <?php }
                     }
                 } ?>
-<?php endforeach;
+            <?php endforeach;
         } else {
             ?>
-<font style="text-align: center;">
-    <h4>Tidak Ada Data</h4>
-</font>
-<?php
+            <font style="text-align: center;">
+                <h4>Tidak Ada Data</h4>
+            </font>
+            <?php
         }
     }
 
@@ -492,20 +442,20 @@ class Klinik extends CI_Controller
         }
         if (!empty($data)) {
             foreach ($data as $result) : ?>
-<?php if ($result->konfirmasi == '1') { ?>
-<?php
+                <?php if ($result->konfirmasi == '1') { ?>
+                    <?php
                     $jam = $result->jam_mulai . '-' . $result->jam_tutup;
                     $a = 0;
                     $b = 1;
                     $a++;
                     if ($result->jam_rencana_mulai . '-' . $result->jam_rencana_selesai == $jam) {
                         if ($a <= $b) { ?>
-<div class="timeline">
-    <div class="entry">
-        <div class="title">
-            <font style="text-align: right;">
-                <?php $namahari = date('l', strtotime($result->tanggal_rencana)); ?>
-                <?php
+                            <div class="timeline">
+                                <div class="entry">
+                                    <div class="title">
+                                        <font style="text-align: right;">
+                                            <?php $namahari = date('l', strtotime($result->tanggal_rencana)); ?>
+                                            <?php
                                             switch ($namahari) {
                                                 case 'Sunday':
                                                     $hari_ini = "Minggu";
@@ -540,17 +490,17 @@ class Klinik extends CI_Controller
                                                     break;
                                             }
                                             ?>
-                <p><?php echo $hari_ini ?></p>
-                <?php
+                                            <p><?php echo $hari_ini ?></p>
+                                            <?php
                                             $tgl = date('d M', strtotime($result->tanggal_rencana));
                                             ?>
-                <h3><b><?php echo $tgl ?></b></h3>
-                <p><?php echo $result->jam_mulai_periksa; ?>-<?php echo $result->jam_selesai_periksa; ?></p>
-            </font>
-        </div>
-        <div class="body">
-            <p style="font-size: 12px;"><i>
-                    <?php
+                                            <h3><b><?php echo $tgl ?></b></h3>
+                                            <p><?php echo $result->jam_mulai_periksa; ?>-<?php echo $result->jam_selesai_periksa; ?></p>
+                                        </font>
+                                    </div>
+                                    <div class="body">
+                                        <p style="font-size: 12px;"><i>
+                                                <?php
                                                 $awal  = strtotime($result->tanggal_rencana . $result->jam_selesai_periksa);
                                                 $akhir = time();
                                                 $diff  = $akhir - $awal;
@@ -562,29 +512,28 @@ class Klinik extends CI_Controller
                                                     echo 'Waktu tersisa tinggal ' . $jam .  ' jam, ' . floor($menit / 60) . ' menit';
                                                 }
                                                 ?>
-                </i></p>
-            <p><b><?php echo $result->nama_depan  ?> <?php echo $result->nama_belakang  ?> -
-                    <?php echo $result->hubungan  ?></b></p>
-            <p>Pemeriksaan dengan <?php echo $result->nama_dokter  ?> di <?php echo $result->nama_cabang  ?></p>
-            <div class="form-group">
-                <font style="background-color: lightgreen; color: black; padding: 5px" size="2px">
-                    Pemeriksaan Selesai</font><br><br>
-                <a href="<?php echo base_url() ?>klinik/metode_bayar/<?php echo $result->id_booking ?>/<?php echo $result->id_rekam_medis ?>.html"
-                    type="button" class="col-md-10 btn-bayar">Proses Bayar</a>
-            </div>
-        </div>
-    </div>
-</div>
-<?php }
+                                            </i></p>
+                                        <p><b><?php echo $result->nama_depan  ?> <?php echo $result->nama_belakang  ?> -
+                                                <?php echo $result->hubungan  ?></b></p>
+                                        <p>Pemeriksaan dengan <?php echo $result->nama_dokter  ?> di <?php echo $result->nama_cabang  ?></p>
+                                        <div class="form-group">
+                                            <font style="background-color: lightgreen; color: black; padding: 5px" size="2px">
+                                                Pemeriksaan Selesai</font><br><br>
+                                            <a href="<?php echo base_url() ?>klinik/metode_bayar/<?php echo $result->id_booking ?>/<?php echo $result->id_rekam_medis ?>.html" type="button" class="col-md-10 btn-bayar">Proses Bayar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                <?php }
                     }
                 } ?>
-<?php endforeach;
+            <?php endforeach;
         } else {
             ?>
-<font style="text-align: center;">
-    <h4>Tidak Ada Data</h4>
-</font>
-<?php
+            <font style="text-align: center;">
+                <h4>Tidak Ada Data</h4>
+            </font>
+            <?php
         }
     }
 
@@ -651,20 +600,20 @@ class Klinik extends CI_Controller
         }
         if (!empty($data)) {
             foreach ($data as $result) : ?>
-<?php if ($result->konfirmasi == '1') { ?>
-<?php
+                <?php if ($result->konfirmasi == '1') { ?>
+                    <?php
                     $jam = $result->jam_mulai . '-' . $result->jam_tutup;
                     $a = 0;
                     $b = 1;
                     $a++;
                     if ($result->jam_rencana_mulai . '-' . $result->jam_rencana_selesai == $jam) {
                         if ($a <= $b) { ?>
-<div class="timeline">
-    <div class="entry">
-        <div class="title">
-            <font style="text-align: right;">
-                <?php $namahari = date('l', strtotime($result->tanggal_rencana)); ?>
-                <?php
+                            <div class="timeline">
+                                <div class="entry">
+                                    <div class="title">
+                                        <font style="text-align: right;">
+                                            <?php $namahari = date('l', strtotime($result->tanggal_rencana)); ?>
+                                            <?php
                                             switch ($namahari) {
                                                 case 'Sunday':
                                                     $hari_ini = "Minggu";
@@ -699,15 +648,15 @@ class Klinik extends CI_Controller
                                                     break;
                                             }
                                             ?>
-                <p><?php echo $hari_ini ?></p>
-                <?php $tgl = date('d M', strtotime($result->tanggal_rencana)); ?>
-                <h3><b><?php echo $tgl ?></b></h3>
-                <p><?php echo $result->jam_mulai ?>-<?php echo $result->jam_tutup ?></p>
-            </font>
-        </div>
-        <div class="body">
-            <p style="font-size: 12px;"><i>
-                    <?php
+                                            <p><?php echo $hari_ini ?></p>
+                                            <?php $tgl = date('d M', strtotime($result->tanggal_rencana)); ?>
+                                            <h3><b><?php echo $tgl ?></b></h3>
+                                            <p><?php echo $result->jam_mulai ?>-<?php echo $result->jam_tutup ?></p>
+                                        </font>
+                                    </div>
+                                    <div class="body">
+                                        <p style="font-size: 12px;"><i>
+                                                <?php
                                                 $awal  = strtotime($result->tanggal_rencana . $result->jam_mulai);
                                                 $akhir = time();
                                                 $diff  = $akhir - $awal;
@@ -719,26 +668,26 @@ class Klinik extends CI_Controller
                                                     echo 'Waktu tersisa tinggal ' . $jam .  ' jam, ' . floor($menit / 60) . ' menit';
                                                 }
                                                 ?>
-                </i></p>
-            <p><b><?php echo $result->nama_depan  ?> <?php echo $result->nama_belakang  ?> -
-                    <?php echo $result->hubungan  ?></b></p>
-            <p>Pemeriksaan dengan <?php echo $result->nama_dokter  ?> di <?php echo $result->nama_cabang  ?></p>
-            <div class="form-group">
-                <font style="background-color: yellow; color: black; padding: 5px" size="2px">
-                    Sedang Pemeriksaan</font>
-            </div>
-        </div>
-    </div>
-</div>
-<?php }
+                                            </i></p>
+                                        <p><b><?php echo $result->nama_depan  ?> <?php echo $result->nama_belakang  ?> -
+                                                <?php echo $result->hubungan  ?></b></p>
+                                        <p>Pemeriksaan dengan <?php echo $result->nama_dokter  ?> di <?php echo $result->nama_cabang  ?></p>
+                                        <div class="form-group">
+                                            <font style="background-color: yellow; color: black; padding: 5px" size="2px">
+                                                Sedang Pemeriksaan</font>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                <?php }
                     }
                 } ?>
-<?php endforeach;
+            <?php endforeach;
         } else {
             ?>
-<font style="text-align: center;">
-    <h4>Tidak Ada Data</h4>
-</font>
+            <font style="text-align: center;">
+                <h4>Tidak Ada Data</h4>
+            </font>
 <?php
         }
     }

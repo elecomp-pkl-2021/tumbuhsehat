@@ -5,7 +5,7 @@
                 <h3>Buat Janji Pemeriksaan</h3>
             </div>
             <div class="card-body">
-                <form method="POST" action="<?= base_url() ?>Klinik/add_booking">
+                <form method="POST" action="<?= base_url('pemeriksaan/buat-janji') ?>">
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-6 col-12">
@@ -52,7 +52,7 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-6">
-                                <button type="submit" class="btn btn-primary">Buat Jadwal</button>
+                                <button type="submit" class="btn btn-primary">Buat Janji</button>
                             </div>
                         </div>
                     </div>

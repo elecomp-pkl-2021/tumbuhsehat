@@ -29,9 +29,6 @@ class Klinik_model extends CI_Model
         $this->db->where('level', $level);
         return $this->db->get('login_session')->result();
     }
-<<<<<<< HEAD
-}
-=======
 
     public function get_janji_datang_profil_klinik()
     {
@@ -141,4 +138,3 @@ class Klinik_model extends CI_Model
         return $this->db->get();
     }
 }
->>>>>>> 05bbe93d666b9a33281b7aae0c997a11573c3b8b
