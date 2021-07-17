@@ -33,4 +33,13 @@ class Dokter_model extends CI_Model
         $query = $this->db->get();
         return $query;
     }
+
+    public function get_jam_praktek_tersedia($id, $day)
+    {
+        return $this->db->query('SELECT `jam_mulai`, `jam_tutup`,`ket` 
+                                FROM `jadwal_dokter` 
+                                WHERE `id_dokter` =' . $id . ' 
+                                    AND `hari` = "' . $day . '" 
+                                    AND `kuota` > 0 ')->result_array();
+    }
 }
