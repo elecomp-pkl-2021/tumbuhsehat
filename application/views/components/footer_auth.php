@@ -6,7 +6,9 @@
 <script src="<?= base_url('assets')?>/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="<?= base_url('assets')?>/plugins/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
 <script src="<?= base_url('assets')?>/plugins/screenfull/dist/screenfull.js"></script>
+<script src="<?= base_url('assets')?>/plugins/sweetalert2/sweetalert2.all.min.js"></script>
 <script src="<?= base_url('assets')?>/dist/js/theme.js"></script>
+<script src="<?= base_url('assets')?>/js/myalert.js"></script>
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script>
     (function(b, o, i, l, e, r) {
