@@ -8,6 +8,8 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="exampleSelectGender">Cari Akun Keluarga <i class="fa fa-search"></i></label>
+                        <div class="row">
+                        <div class="col-lg-8">
                         <select class="js-example-basic-single form-control" id="exampleSelectGender" onchange="pilih_pasien(this.value)">
                             <option value="-">Pilih Data Keluarga</option>
                             <?php
@@ -18,6 +20,11 @@
                             }
                             ?>
                         </select>
+                        </div>
+                        <div class="col-lg-4">
+                        <button class="btn btn-anim btn-white" style="width: 200px; border-radius: 5px" type="button" onclick="location.href ='<?php echo base_url('home/buatAkunKeluarga'); ?>'"><span class="btn-text">Buat Akun Keluarga</span></button></center>
+                        </div>
+                        </div>
                         <div id="data_pasien">
 
                         </div>

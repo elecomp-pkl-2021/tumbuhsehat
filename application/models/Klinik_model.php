@@ -29,4 +29,5 @@ class Klinik_model extends CI_Model
         $this->db->where('level', $level);
         return $this->db->get('login_session')->result();
     }
+    
 }
