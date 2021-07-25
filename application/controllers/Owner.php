@@ -11,6 +11,7 @@ class Owner extends CI_Controller
             redirect('', 'refresh');
         }
         $this->load->model('Pasien_model');
+        $this->load->model('Rencana_model');
         $this->load->model('Cabang_model');
         $this->load->model('Dokter_model');
         $this->load->model('Jadwaldokter_model');
@@ -48,6 +49,7 @@ class Owner extends CI_Controller
         $output = [];
 
         $html .= '<div class="col-lg-12" style="margin-bottom: 23px;">';
+        $html .= '<div class="row">';
         $html .= '<div class="col-lg-4">';
         $html .= '<p style="text-align: center;">Pagi/Siang</p>';
         foreach ($dokter->result() as $result) :
@@ -92,6 +94,7 @@ class Owner extends CI_Controller
                 $html .= '<a href="#" onclick="cek_jadwal_janji(' . $result->id_jadwal . ')" id="jadwal_janji' . $result->id_jadwal . '" class="btn salmon stil1" style="float: right;margin-top: 7%;background-color:#ddd; color:black" ' . ($jadwal > $result->kuota ? "disabled" : "") . '>' . $result->jam_mulai . ' - ' . $result->jam_tutup . '</a><br /><br />';
             }
         endforeach;
+        $html .= '</div>';
         $html .= '</div>';
 
         $html .= '</div>';

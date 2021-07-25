@@ -17,6 +17,12 @@ class Dokter_model extends CI_Model
         return $this->db->get_where('dokter', ['id_user' => $id])->result();
     }
 
+    public function get_nama_dokter($id)
+    {
+        $nama = $this->db->get_where('dokter', ['id_dokter' => $id])->row_array();
+        return $nama['nama_dokter'];
+    }
+
     function get_dokter_id3($id, $day)
     {
         $this->db->select('*');
@@ -26,5 +32,14 @@ class Dokter_model extends CI_Model
         $this->db->where('a.hari', $day);
         $query = $this->db->get();
         return $query;
+    }
+
+    public function get_jam_praktek_tersedia($id, $day)
+    {
+        return $this->db->query('SELECT `jam_mulai`, `jam_tutup`,`ket` 
+                                FROM `jadwal_dokter` 
+                                WHERE `id_dokter` =' . $id . ' 
+                                    AND `hari` = "' . $day . '" 
+                                    AND `kuota` > 0 ')->result_array();
     }
 }

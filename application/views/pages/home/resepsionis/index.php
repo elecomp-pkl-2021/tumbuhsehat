@@ -5,7 +5,7 @@
                 <h3>Buat Janji Pemeriksaan</h3>
             </div>
             <div class="card-body">
-                <form method="POST" action="<?= base_url() ?>Klinik/add_booking">
+                <form method="POST" action="<?= base_url('pemeriksaan/buat-janji') ?>">
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-6 col-12">
@@ -32,7 +32,8 @@
                                 <select class="select2bs4" name="id_cabang" id="cabang" style="width: 100%;">
                                     <option disabled selected><?= "Pilih Cabang Klinik" ?></option>
                                     <?php foreach ($cabang as $c) : ?>
-                                        <option value="<?= $c->id_cabang ?>"><?= $c->nama_cabang ?> - <?= $c->alamat ?></option>
+                                        <option value="<?= $c->id_cabang ?>"><?= $c->nama_cabang ?> - <?= $c->alamat ?>
+                                        </option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -41,14 +42,15 @@
                                 <select class="select2bs4" name="id_dokter" id="dokter" style="width: 100%;">
                                     <option disabled selected><?= "Pilih Dokter" ?></option>
                                     <?php foreach ($dokter as $d) : ?>
-                                        <option value="<?= $d->id_dokter ?>"><?= $d->nama_dokter ?> - <?= $d->spesialis ?> (Pengalaman = <?= $d->pengalaman ?> Tahun)</option>
+                                        <option value="<?= $d->id_dokter ?>"><?= $d->nama_dokter ?> - <?= $d->spesialis ?>
+                                            (Pengalaman = <?= $d->pengalaman ?> Tahun)</option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-6">
-                                <button type="submit" class="btn btn-primary">Buat Jadwal</button>
+                                <button type="submit" class="btn btn-primary">Buat Janji</button>
                             </div>
                         </div>
                     </div>
@@ -263,7 +265,8 @@
             document.getElementById("id_pasien").removeAttribute("disabled", "disabled");
             document.getElementById("cabang").removeAttribute("disabled", "disabled");
             document.getElementById("dokter").removeAttribute("disabled", "disabled");
-            let buatPasienBaru = `<a href="${linke}pasien/tambahPasienBaruWithId/${id}">- Buat Profil Pasien Baru(Pilih opsi ini apabila calon pasien belum terdaftar)</a>`
+            let buatPasienBaru =
+                `<a href="${linke}pasien/tambahPasienBaruWithId/${id}">- Buat Profil Pasien Baru(Pilih opsi ini apabila calon pasien belum terdaftar)</a>`
             $('#buatPasienBaru').html(buatPasienBaru);
             $.ajax({
                 type: 'GET',
@@ -272,7 +275,8 @@
                 success: (hasil) => {
                     let isi = `<option disabled selected>Pilih Profil Pasien</option>`;
                     hasil.forEach(function(item) {
-                        isi += `
+                        isi +=
+                            `
                         <option value="${item.id_pasien}">${item.nama_depan} ${item.nama_belakang} - ${item.alamat}</option>`
                     });
                     $('#id_pasien').html(isi);

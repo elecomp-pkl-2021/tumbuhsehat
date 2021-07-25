@@ -13,18 +13,7 @@ class Klinik extends CI_Controller
         $this->load->model('Cabang_model');
         $this->load->model('Dokter_model');
         $this->load->model('Klinik_model');
-    }
-
-    public function add_booking()
-    {
-        $id_pasien = $this->input->post("id_pasien");
-        $id_cabang = $this->input->post("id_cabang");
-        $id_dokter = $this->input->post("id_dokter");
-        if ($id_pasien == "" || $id_cabang == "" || $id_dokter == "") {
-            echo "<script>alert('Pastikan data terisi semua!');history.go(-1);</script>";
-        } else {
-            echo "Garap den data dah masuk" . $id_pasien . $id_cabang . $id_dokter;
-        }
+        $this->load->model('Pasien_model');
     }
 
     function filter_profil()
@@ -185,7 +174,8 @@ class Klinik extends CI_Controller
                                                 }
                                                 ?>
                                             </i></p>
-                                        <p><b><?php echo $result->nama_depan  ?> <?php echo $result->nama_belakang  ?> - <?php echo $result->hubungan  ?></b></p>
+                                        <p><b><?php echo $result->nama_depan  ?> <?php echo $result->nama_belakang  ?> -
+                                                <?php echo $result->hubungan  ?></b></p>
                                         <p>Pemeriksaan dengan <?php echo $result->nama_dokter  ?> di <?php echo $result->nama_cabang  ?></p>
                                         <div class="form-group">
                                             <font style="background-color: lightgreen; color: black; padding: 5px" size="2px">
@@ -340,7 +330,8 @@ class Klinik extends CI_Controller
                                                 }
                                                 ?>
                                             </i></p>
-                                        <p><b><?php echo $result->nama_depan  ?> <?php echo $result->nama_belakang  ?> - <?php echo $result->hubungan  ?></b></p>
+                                        <p><b><?php echo $result->nama_depan  ?> <?php echo $result->nama_belakang  ?> -
+                                                <?php echo $result->hubungan  ?></b></p>
                                         <p>Pemeriksaan dengan <?php echo $result->nama_dokter  ?> di <?php echo $result->nama_cabang  ?></p>
                                         <div class="form-group">
                                             <font style="background-color: yellow; color: black; padding: 5px" size="2px">
@@ -522,7 +513,8 @@ class Klinik extends CI_Controller
                                                 }
                                                 ?>
                                             </i></p>
-                                        <p><b><?php echo $result->nama_depan  ?> <?php echo $result->nama_belakang  ?> - <?php echo $result->hubungan  ?></b></p>
+                                        <p><b><?php echo $result->nama_depan  ?> <?php echo $result->nama_belakang  ?> -
+                                                <?php echo $result->hubungan  ?></b></p>
                                         <p>Pemeriksaan dengan <?php echo $result->nama_dokter  ?> di <?php echo $result->nama_cabang  ?></p>
                                         <div class="form-group">
                                             <font style="background-color: lightgreen; color: black; padding: 5px" size="2px">
@@ -677,7 +669,8 @@ class Klinik extends CI_Controller
                                                 }
                                                 ?>
                                             </i></p>
-                                        <p><b><?php echo $result->nama_depan  ?> <?php echo $result->nama_belakang  ?> - <?php echo $result->hubungan  ?></b></p>
+                                        <p><b><?php echo $result->nama_depan  ?> <?php echo $result->nama_belakang  ?> -
+                                                <?php echo $result->hubungan  ?></b></p>
                                         <p>Pemeriksaan dengan <?php echo $result->nama_dokter  ?> di <?php echo $result->nama_cabang  ?></p>
                                         <div class="form-group">
                                             <font style="background-color: yellow; color: black; padding: 5px" size="2px">
@@ -697,5 +690,25 @@ class Klinik extends CI_Controller
             </font>
 <?php
         }
+    }
+
+    public function update_rencana_h_profil()
+    {
+        $data_booking = array(
+            'id_cabang' => $this->input->post('id_cabang'),
+            'id_dokter' => $this->input->post('id_dokter'),
+        );
+
+        $data_rencana = array(
+            'id_booking' => $this->input->post('id_booking'),
+            'tanggal_rencana' => $this->input->post('tanggal_rencana'),
+            'jam_rencana_mulai' => $this->input->post('jam_rencana_mulai'),
+            'jam_rencana_selesai' => $this->input->post('jam_rencana_selesai'),
+        );
+
+        $this->Klinik_model->update_stat_book($this->input->post('id_booking'), $data_booking);
+        $this->Klinik_model->update_rencana($this->input->post('id_rcn'), $data_rencana);
+
+        redirect('Home');
     }
 }

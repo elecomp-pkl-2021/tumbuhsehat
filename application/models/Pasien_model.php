@@ -6,9 +6,25 @@ class Pasien_model extends CI_Model
     public $id = 'id_pasien';
     public $order = 'DESC';
 
-    function get_pasien($id_user)
+    function get_data_keluarga($id_user)
     {
         return $this->db->get_where('pasien', array('id_user' => $id_user))->result();
+    }
+
+    function get_pasien_byIdKeluarga($id)
+    {
+        return $this->db->get_where('pasien', ['id_user' => $id])->result_array();
+    }
+
+    function get_nama_pasien($id)
+    {
+        $nama = $this->db->get_where('pasien', ['id_pasien' => $id])->row_array();
+        return $nama['nama_depan'] . ' ' . $nama['nama_belakang'];
+    }
+
+    function get_pasien_byId($id)
+    {
+        return $this->db->get_where('pasien', ['id_pasien' => $id])->row_array();
     }
 
     public function get_by_id_janji_akan_datang_2($id_booking)
