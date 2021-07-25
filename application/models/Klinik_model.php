@@ -137,4 +137,16 @@ class Klinik_model extends CI_Model
         $this->db->order_by('b.jam_rencana_selesai', 'asc');
         return $this->db->get();
     }
+
+    function update_stat_book($id, $data)
+    {
+        $this->db->where("id_booking", $id);
+        $this->db->update("booking", $data);
+    }
+
+    function update_rencana($id, $data)
+    {
+        $this->db->where("id_rcn", $id);
+        $this->db->update("rencana", $data);
+    }
 }
