@@ -38,17 +38,17 @@ if (!empty($janji_datang)) {
                                 <?php if ($result->konfirmasi == '0'  && $result->status == '0') { ?>
                                     <font style="background-color: yellow; color: black; padding: 5px" size="2px">
                                         Belum terkonfirmasi </font><br>
-                                    <font size="2px"> <a href="#" onclick="janji('<?php echo $result->id_booking ?>')" style=" color: #f40049; padding: 5px; margin-top: 10px; float: left;"> Ubah Rencana </a></font>
+                                    <font size="2px"> <a href="#" onclick="janji('<?php echo $result->id_booking ?>')" style=" color: #19B5FE; padding: 5px; margin-top: 10px; float: left;"> Ubah Rencana </a></font>
                                 <?php } elseif ($result->konfirmasi == '1' && $result->status == '0') { ?>
                                     <font style="background-color: yellow; color: black; padding: 5px" size="2px">
                                         Menunggu Pendaftaran</font><br>
-                                    <font size="2px"><a href="#" onclick="janji('<?php echo $result->id_booking ?>')" style=" color: #f40049; padding: 5px; margin-top: 10px; float: left;">Lihat</a>
-                                        <a href="#" onclick="janji('<?php echo $result->id_booking ?>')" style=" color: #f40049; padding: 5px; margin-top: 10px; float: left;">Daftar</a>
-                                        <a href="#" onclick="janji('<?php echo $result->id_booking ?>')" style=" color: #f40049; padding: 5px; margin-top: 10px; float: left;">Ubah Rencana</a></font>
+                                    <font size="2px"><a href="#" onclick="janji('<?php echo $result->id_booking ?>')" style=" color: #19B5FE; padding: 5px; margin-top: 10px; float: left;">Lihat</a>
+                                        <a href="#" onclick="janji('<?php echo $result->id_booking ?>')" style=" color: #19B5FE; padding: 5px; margin-top: 10px; float: left;">Daftar</a>
+                                        <a href="#" onclick="janji('<?php echo $result->id_booking ?>')" style=" color: #19B5FE; padding: 5px; margin-top: 10px; float: left;">Ubah Rencana</a></font>
                                 <?php } elseif ($result->konfirmasi == '2') { ?>
                                     <font style="background-color: red; color: black; padding: 5px" size="2px">
                                         Booking Ditolak</font><br>
-                                    <font size="2px"> <a href="#" onclick="janji('<?php echo $result->id_booking ?>')" style=" color: #f40049; padding: 5px; margin-top: 10px; float: left;"> Ubah Rencana </a></font>
+                                    <font size="2px"> <a href="#" onclick="janji('<?php echo $result->id_booking ?>')" style=" color: #19B5FE; padding: 5px; margin-top: 10px; float: left;"> Ubah Rencana </a></font>
                                 <?php } elseif ($result->konfirmasi == '1' && $result->status == '1') { ?>
                                     <font style="background-color: lightgreen; color: black; padding: 5px" size="2px">
                                         Sudah Terdaftar</font><br>
@@ -119,7 +119,7 @@ if (!empty($janji_datang)) {
                         <div class="form-group">
                             <label class="col-lg-3 col-sm-3 control-label">Jam Periksa</label>
                             <div class="col-lg-3">
-                                <button class="btn salmon" style="background-color:#F40049; color:white">
+                                <button class="btn salmon" style="background-color:#19B5FE; color:white">
                                     <p style="color:white;" id="jam_mulai_selesai_janji"></p>
                                 </button>
                             </div>
@@ -253,8 +253,8 @@ if (!empty($janji_datang)) {
 
                         $('#button_footer').html(`
             
-                  <button class="btn" style="background-color:salmon; color:white" type="submit"> Ubah&nbsp;</button>
-                  <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="Batal_janji()"> Batal</button>
+                        <button class="btn btn-info" type="submit"> Ubah&nbsp;</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="Batal_janji()"> Batal</button>
             `);
 
                         document.getElementById('pertama').style.display = "block";
@@ -304,7 +304,7 @@ if (!empty($janji_datang)) {
     function cek_jadwal_janji(id_jadwal) {
         console.log('coba');
         document.getElementById("jadwal_janji" + id_jadwal).style.color = "white";
-        document.getElementById("jadwal_janji" + id_jadwal).style.background = "#f40049";
+        document.getElementById("jadwal_janji" + id_jadwal).style.background = "#19B5FE";
 
         $.ajax({
             url: "<?= base_url() ?>" + "Owner/get_jadwal/" + id_jadwal,
