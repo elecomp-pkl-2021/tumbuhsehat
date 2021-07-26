@@ -196,6 +196,12 @@ class Klinik_model extends CI_Model
         $this->db->where("id_booking", $id);
         $this->db->update("booking", $data);
     }
+
+    function update_stat_book($id, $data)
+    {
+        $this->db->where("id_booking", $id);
+        $this->db->update("booking", $data);
+    }
     public function ajax_get_terima($id_pasien)
     {
         $konf = '0';
@@ -221,5 +227,10 @@ class Klinik_model extends CI_Model
         $this->db->group_by('a.id_booking');
         $query = $this->db->get();
         return $query->row();
+    }
+    function update_rencana($id, $data)
+    {
+        $this->db->where("id_rcn", $id);
+        $this->db->update("rencana", $data);
     }
 }
