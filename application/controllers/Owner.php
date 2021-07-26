@@ -15,6 +15,7 @@ class Owner extends CI_Controller
         $this->load->model('Cabang_model');
         $this->load->model('Dokter_model');
         $this->load->model('Jadwaldokter_model');
+        $this->load->model('Klinik_model');
     }
 
     function show_ubah_janji_akan_datang($id_booking)
@@ -102,9 +103,95 @@ class Owner extends CI_Controller
         echo json_encode($output);
     }
 
-    public function get_jadwal($id)
+    public function get_konfirmasi_janji($nama = "", $tgl_lahir = "", $rekam_medis = "", $id_dokter = "", $tanggal_rencana = "", $jam_rencana_mulai = "")
     {
-        $data = $this->Jadwaldokter_model->get_jadwal($id);
+
+        $nama3 =  $this->uri->segment(3);
+        if ($nama3 == '0') {
+            $nama = "0";
+        } else {
+            $nama =  $this->uri->segment(3);
+        }
+
+        $tgl_lahir3 = $this->uri->segment(4);
+        if ($tgl_lahir3 == '0') {
+            $tgl_lahir = "0";
+        } else {
+            $tgl_lahir = $this->uri->segment(4);
+        }
+
+        $rekam_medis3 = $this->uri->segment(5);
+        if ($rekam_medis3 == '0') {
+            $rekam_medis = "0";
+        } else {
+            $rekam_medis = $this->uri->segment(5);
+        }
+
+        $id_dokter3 = $this->uri->segment(6);
+        if ($id_dokter3 == '0') {
+            $id_dokter = "0";
+        } else {
+            $id_dokter = $this->uri->segment(6);
+        }
+
+        $tanggal_rencana3 = $this->uri->segment(7);
+        if ($tanggal_rencana3 == '0') {
+            $tanggal_rencana = "0";
+        } else {
+            $tanggal_rencana = $this->uri->segment(7);
+        }
+
+        $jam_rencana_mulai3 = $this->uri->segment(8);
+        if ($jam_rencana_mulai3 == '0') {
+            $jam_rencana_mulai = "0";
+        } else {
+            $jam_rencana_mulai = $this->uri->segment(8);
+        }
+
+        echo json_encode($this->Klinik_model->get_konfirmasi_janji($nama, $tgl_lahir, $rekam_medis, $id_dokter, $tanggal_rencana, $jam_rencana_mulai)->result());
+        // $this->Klinik_model->get_konfirmasi_janji()->result();
+        // print_r($this->db->last_query());
+    }
+    public function konfirmasi()
+    {
+        $konfirmasi = '1';
+        $data_booking = array(
+            'konfirmasi' => $konfirmasi,
+        );
+
+        $rekam_medis = substr(md5(rand()), 0, 9);
+        $id_rekam_medis = base64_encode($rekam_medis);
+        $status = '0';
+        $data_rekam_medis = array(
+            'id_rekam_medis' => $id_rekam_medis,
+            'id_booking' => $this->input->post('id_booking'),
+            'id_pasien' => $this->input->post('id_pasien'),
+            'status' => $status,
+        );
+
+        $this->Klinik_model->add_rekam_medis($data_rekam_medis);
+        $this->Klinik_model->update_booking($this->input->post('id_booking'), $data_booking);
+
+        redirect(site_url('owner/konfirmasi_janji'));
+    }
+
+    public function konfirmasi_tolak()
+    {
+        $konfirmasi = '2';
+        $stt = '4';
+        $data_booking = array(
+            'konfirmasi' => $konfirmasi,
+            'status' => $stt,
+            'alasan_tolak' => $this->input->post('alasan_tolak'),
+        );
+
+        $this->Klinik_model->update_booking($this->input->post('id_booking'), $data_booking);
+
+        redirect(site_url('owner/konfirmasi_janji'));
+    }
+    public function ajax_get_terima($id_pasien)
+    {
+        $data = $this->Klinik_model->ajax_get_terima($id_pasien);
         //print_r($this->db->last_query());
         echo json_encode($data);
     }

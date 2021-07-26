@@ -137,13 +137,97 @@ class Klinik_model extends CI_Model
         $this->db->order_by('b.jam_rencana_selesai', 'asc');
         return $this->db->get();
     }
+    public function get_konfirmasi_janji($nama, $tgl_lahir, $rekam_medis, $id_dokter, $tanggal_rencana, $jam_rencana_mulai)
+    {
+        $konf = '0';
+
+        //
+
+        if ($nama != '0') {
+            $this->db->like('c.nama_depan', $nama);
+        }
+
+        if ($tgl_lahir != '0') {
+            $this->db->like('c.tanggal_lahir', $tgl_lahir);
+        }
+
+        if ($rekam_medis != '0') {
+            $this->db->like('a.id_booking', $rekam_medis);
+        }
+
+        if ($id_dokter != '0') {
+            $this->db->like('d.nama_dokter', $id_dokter);
+        }
+
+        if ($tanggal_rencana != '0') {
+            $this->db->like('b.tanggal_rencana', $tanggal_rencana);
+        }
+
+        if ($jam_rencana_mulai != '0') {
+            $this->db->like('b.jam_rencana_mulai', $jam_rencana_mulai);
+        }
+
+        $this->db->select('*');
+        $this->db->from('booking a');
+        $this->db->join('rencana b', 'a.id_booking=b.id_booking');
+        $this->db->join('pasien c', 'a.id_pasien=c.id_pasien');
+        $this->db->join('dokter d', ' a.id_dokter=d.id_dokter');
+        $this->db->join('cabang e', 'a.id_cabang=e.id_cabang');
+        $this->db->join('jadwal_dokter f', 'a.id_dokter=f.id_dokter');
+        // $this->db->where('curdate() <= b.tanggal_rencana');
+        $this->db->where('a.konfirmasi', $konf);
+        $this->db->group_by('a.id_booking');
+        return $this->db->get();
+    }
+    public function add_rekam_medis($data)
+    {
+
+        $query = $this->db->insert("rekam_medis", $data);
+
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function update_booking($id, $data)
+    {
+        $this->db->where("id_booking", $id);
+        $this->db->update("booking", $data);
+    }
 
     function update_stat_book($id, $data)
     {
         $this->db->where("id_booking", $id);
         $this->db->update("booking", $data);
     }
-
+    public function ajax_get_terima($id_pasien)
+    {
+        $konf = '0';
+        $this->db->select('c.nama_depan, 
+						  c.nama_belakang,
+						  d.nama_dokter,
+						  e.nama_cabang,
+						  DATE_FORMAT(b.tanggal_rencana, "%d-%m-%Y") as tgl,
+						  b.jam_rencana_mulai,
+						  b.jam_rencana_selesai,
+						  b.id_booking,
+						  a.id_pasien,
+						  a.id_dokter');
+        $this->db->from('booking a');
+        $this->db->join('rencana b', 'a.id_booking=b.id_booking');
+        $this->db->join('pasien c', 'a.id_pasien=c.id_pasien');
+        $this->db->join('dokter d', ' a.id_dokter=d.id_dokter');
+        $this->db->join('cabang e', 'a.id_cabang=e.id_cabang');
+        $this->db->join('jadwal_dokter f', 'a.id_dokter=f.id_dokter');
+        // $this->db->where('curdate() <= b.tanggal_rencana');
+        $this->db->where('a.konfirmasi', $konf);
+        $this->db->where('a.id_pasien', $id_pasien);
+        $this->db->group_by('a.id_booking');
+        $query = $this->db->get();
+        return $query->row();
+    }
     function update_rencana($id, $data)
     {
         $this->db->where("id_rcn", $id);
