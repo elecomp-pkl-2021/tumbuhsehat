@@ -28,7 +28,6 @@ class Home extends CI_Controller
             <li class="breadcrumb-item active"><i class="ik ik-home"></i></li>';
 
         $data['keluarga'] = $this->Klinik_model->tampil();
-
         $data['dokter'] = $this->Dokter_model->get_dokter();
         $data['cabang'] = $this->Cabang_model->get_cabang();
         $data['rencana_sebelum'] = $this->Rencana_model->get_rencana_sebelum();
