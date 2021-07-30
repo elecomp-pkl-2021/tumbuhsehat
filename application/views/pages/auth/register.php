@@ -43,21 +43,21 @@
                                         <input type="alamat" name="alamat" class="form-control form-control-warning form-txt-warning" placeholder="<?= strip_tags(form_error('alamat')) ?>">
                                         <i class="ik ik-home"></i>
                                     <?php else : ?>
-                                        <input type="alamat" name="alamat" class="form-control" value="<?= set_value('alamat') ?>">
+                                        <input type="alamat" name="alamat" class="form-control" placeholder="Alamat" value="<?= set_value('alamat') ?>">
                                         <i class="ik ik-home"></i>
                                     <?php endif ?>
                                 </div>
                                 <div class="form-group">
-                                    <?php if (form_error('alamat')) : ?>
+                                    <?php if (form_error('handphone')) : ?>
                                         <input type="handphone" name="handphone" class="form-control form-control-warning form-txt-warning" placeholder="<?= strip_tags(form_error('handphone')) ?>">
                                         <i class="ik ik-phone"></i>
                                     <?php else : ?>
-                                        <input type="handphone" name="handphone" class="form-control" value="<?= set_value('handphone') ?>">
+                                        <input type="handphone" name="handphone" class="form-control" placeholder="Handphone" value="<?= set_value('handphone') ?>">
                                         <i class="ik ik-phone"></i>
                                     <?php endif ?>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-xl-5 col-lg-6">
                                 <div class="form-group">
                                     <?php if (form_error('nama_belakang')) : ?>
                                         <input type="text" name="nama_belakang" class="form-control form-control-warning form-txt-warning" placeholder="<?= strip_tags(form_error('nama_belakang')) ?>">
@@ -91,16 +91,16 @@
                                         <input type="email" name="email" class="form-control form-control-warning form-txt-warning" placeholder="<?= strip_tags(form_error('email')) ?>">
                                         <i class="ik ik-mail"></i>
                                     <?php else : ?>
-                                        <input type="email" name="email" class="form-control" placeholder="Emal" value="<?= set_value('email') ?>">
+                                        <input type="email" name="email" class="form-control" placeholder="Email" value="<?= set_value('email') ?>">
                                         <i class="ik ik-mail"></i>
                                     <?php endif ?>
                                 </div>
                                 <div class="form-group">
-                                    <?php if (form_error('email')) : ?>
+                                    <?php if (form_error('password')) : ?>
                                         <input type="password" name="password" class="form-control form-control-warning form-txt-warning" placeholder="<?= strip_tags(form_error('password')) ?>">
                                         <i class="ik ik-lock"></i>
                                     <?php else : ?>
-                                        <input type="password" name="password" class="form-control" value="<?= set_value('password') ?>">
+                                        <input type="password" name="password" class="form-control" placeholder="Password" value="<?= set_value('password') ?>">
                                         <i class="ik ik-lock"></i>
                                     <?php endif ?>
                                 </div>
