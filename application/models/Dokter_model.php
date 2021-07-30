@@ -42,4 +42,12 @@ class Dokter_model extends CI_Model
                                     AND `hari` = "' . $day . '" 
                                     AND `kuota` > 0 ')->result_array();
     }
+
+    public function getJadwal($id, $hari){
+        return $this->db->get_where('jadwal_dokter', ['id_dokter' => $id, 'hari' =>$hari])->row_array();
+    }
+
+    public function updateKuotaPemeriksaan($id,$hari,$kuota){
+        $this->db->update('jadwal_dokter',['kuota' => $kuota], ['id_dokter' => $id, 'hari' => $hari]);
+    }
 }

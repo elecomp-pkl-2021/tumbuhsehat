@@ -49,7 +49,6 @@
                                     <span class="bs-stepper-label">Survei & Pembayaran</span>
                                 </button>
                             </div>
-
                         </div>
 
                         <div class="bs-stepper-content">
