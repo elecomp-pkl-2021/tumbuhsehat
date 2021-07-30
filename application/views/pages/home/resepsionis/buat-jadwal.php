@@ -5,11 +5,8 @@
                 <h3>Buat Janji Pemeriksaan</h3>
             </div>
             <div class="card-body">
-                <form method="POST" action="<?= base_url() ?>Pemeriksaan/addJadwalPemeriksaan">
-                    <input type="hidden" name="id_pasien" value="<?= $id_pasien;?>">
-                    <input type="hidden" name="id_dokter" value="<?= $id_dokter;?>">
-                    <input type="hidden" name="id_keluarga" value="<?= $id_keluarga;?>">
-                    <input type="hidden" name="id_cabang" value="<?= $id_cabang;?>">
+                <form method="POST" action="<?= base_url() ?>Klinik/add_booking">
+
                     <div class="bs-stepper" id="stepper">
                         <div class="bs-stepper-header" role="tablist">
                             <!-- your steps here -->
@@ -52,7 +49,6 @@
                                     <span class="bs-stepper-label">Survei & Pembayaran</span>
                                 </button>
                             </div>
-
                         </div>
 
                         <div class="bs-stepper-content">
@@ -63,8 +59,7 @@
                                         <div class="col-md-6 col-12">
                                             <label for="tgl_pemeriksaan">Tanggal Pemeriksaan</label>
                                             <input type="text" class="form-control" id="tgl_pemeriksaan"
-                                                name="tgl_pemeriksaan" data-id="<?= $id_dokter; ?>"
-                                                autocomplete="off" required/>
+                                                name="tgl_pemeriksaan" data-id="<?= $id_dokter; ?>" />
                                         </div>
                                         <div class="col-md-6 col-12">
 
@@ -228,23 +223,16 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-6">
                                         <label>Provinsi</label>
                                         <select class="select2bs4" name="provinsi" id="provinsi" style="width: 100%;">
                                             <option disabled selected><?= "Pilih Provinsi" ?></option>
                                         </select>
-                                        <input type="hidden" name="provinsi-nama" id="pn" value="<?= $data_pasien['provinsi'];?>">
                                     </div>
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-6">
                                         <label>Kota</label>
                                         <select class="select2bs4" name="kota" id="kota" style="width: 100%;">
                                         </select>
-                                        <input type="hidden" name="kota-nama" id="kn" value="<?= $data_pasien['kota_kab'];?>">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label>Kodepos</label>
-                                        <input type="text" class="form-control" name="kode-pos" id="kode-pos"
-                                            value="<?= $data_pasien['kode_pos'];?>">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -339,24 +327,12 @@
                                     <p class="h6">Buat Data Orang Dekat Pasien</p>
                                     <div class="line my-3"></div>
                                     <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            <label>Status Hubungan</label>
-                                            <select class="form-control i-od" name="hubungan-od" id="hubungan-od">
-                                                <option value="">Pilih Hubungan</option>
-                                                <option value="Suami">Suami </option>
-                                                <option value="Istri">Istri </option>
-                                                <option value="Ayah">Ayah </option>
-                                                <option value="Ibu">Ibu </option>
-                                                <option value="Anak">Anak </option>
-                                                <option value="Lainnya">Lainnya </option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-6">
                                             <label for="input-nama-depan-od">Nama Depan</label>
                                             <input type="text" class="form-control i-od" name="first-name-od"
                                                 id="input-nama-depan-od">
                                         </div>
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-6">
                                             <label for="input-nama-belakang-od">Nama belakang</label>
                                             <input type="text" class="form-control i-od" name="last-name-od"
                                                 id="input-nama-belakang-od">
@@ -448,24 +424,18 @@
                                         </div>
                                     </div>
                                     <div class="form-row">
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-6">
                                             <label>Provinsi</label>
                                             <select class="select2bs4 i-od" name="provinsi-od" id="provinsi-od"
                                                 style="width: 100%;">
                                                 <option disabled selected><?= "Pilih Provinsi-od" ?></option>
                                             </select>
-                                            <input type="hidden" name="provinsi-nama-od" id="pn-od">
                                         </div>
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-6">
                                             <label>Kota</label>
                                             <select class="select2bs4 i-od" name="kota-od" id="kota-od"
                                                 style="width: 100%;">
                                             </select>
-                                            <input type="hidden" name="kota-nama-od" id="kn-od">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label>Kodepos</label>
-                                            <input type="text" class="form-control" name="kode-pos-od" id="kode-pos-od">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -517,9 +487,9 @@
                                     <label for="jns-pembayaran">Jenis Pembayaran</label>
                                     <select class="form-control" name="jns-pembayaran" id="jns-pembayaran">
                                         <option>Pilih Jenis Pembayaran</option>
-                                        <?php foreach($list_pembayaran as $p):?>
-                                        <option value="<?= $p['id_metode'];?>"><?= $p['nama_metode'];?></option>
-                                        <?php endforeach;?>
+                                        <option value="Asuransi">Asuransi</option>
+                                        <option value="Kartu Debit">Kartu Debit</option>
+                                        <option value="Tunai">Tunai</option>
                                     </select>
                                 </div>
                                 <p class="h6">Survei Pasien</p>
@@ -592,4 +562,254 @@
     </div>
 </div>
 
-<?php $this->load->view('pages/home/resepsionis/buat-jadwal-script');?>
+<!-- STEPPER -->
+<script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
+<!-- DATEPICKER -->
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css"
+    type="text/css" media="all">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+var tmp_lahir_pasien = "<?= $data_pasien['tempat_lahir'];?>";
+var id_provinsi = "<?= $data_pasien['province_id'];?>";
+var id_city = "<?= $data_pasien['city_id'];?>";
+var id_provinsi_input = "<?= $data_pasien['province_id'];?>";
+
+$(document).ready(function() {
+    // FOR PASIEN
+    loadCity('#tmp-lahir', 'ApiRajaOngkir/get_api_kota/', tmp_lahir_pasien);
+    loadProvinsi('#provinsi', id_provinsi);
+    loadCityByProvince('#kota', id_provinsi_input, id_city);
+    $('#provinsi').on('change', function() {
+        if ($('#kota').val() !=
+            '') {
+            loadCityByProvince('#kota', $('#provinsi').val(), id_city);
+        }
+    });
+    // FOR ORANG DEKAT PASIEN
+    $('#btn-stepper-od').addClass('d-none');
+    $('#form-list-keluarga').addClass('d-none');
+    $('#form-input-baru').addClass('d-none');
+
+
+    // ALLOW ONLY NUMBERS INPUT
+    setInputFilter(document.getElementById("no-id"),
+        function(value) {
+            return /^\d*\.?\d*$/.test(value);
+        });
+    setInputFilter(document.getElementById("no-hp"), function(value) {
+        return /^\d*\d*$/.test(value);
+    });
+
+});
+
+const tambahOrangDekat = () => {
+    $('#od').addClass('d-none');
+    $('#form-input-baru').removeClass('d-none');
+    showBtnDO();
+    loadCity('#tmp-lahir-od', 'ApiRajaOngkir/get_api_kota/', "");
+    loadProvinsi('#provinsi-od', '');
+    loadCityByProvince('#kota-od', $('#provinsi-od').val(), '');
+    $('#provinsi-od').on('change', function() {
+        if ($('#kota-od').val() !=
+            '') {
+            loadCityByProvince('#kota-od', $('#provinsi-od').val(), id_city);
+        }
+    });
+}
+
+const pilihOrangDekat = () => {
+    $('#od').addClass('d-none');
+    $('#form-list-keluarga').removeClass('d-none');
+    showBtnDO();
+}
+
+const tampilMenuOD = () => {
+    $('#btn-stepper-od').addClass('d-none');
+    $('#form-list-keluarga').addClass('d-none');
+    $('#form-input-baru').addClass('d-none');
+    $('#od').removeClass('d-none');
+    $('input.i-od').val('');
+    $('select.i-od option[value=""]').prop("selected", true);
+    $('select#org_dekat option[value=""]').prop("selected", true);
+}
+
+const showBtnDO = () => {
+    $('#btn-stepper-od').removeClass('d-none');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    stepper = new Stepper(document.querySelector('#stepper'), {
+        linear: true,
+        animation: true
+    })
+})
+
+// datepicker
+var dateToday = new Date();
+var day = null;
+var dates = $("#tgl_pemeriksaan").datepicker({
+    defaultDate: "+1w",
+    changeMonth: true,
+    numberOfMonths: 1,
+    minDate: dateToday,
+    onSelect: function(selectedDate) {
+        var option = this.id == "tgl_pemeriksaan" ? "minDate" : "maxDate",
+            instance = $(this).data("datepicker"),
+            date = $.datepicker.parseDate(instance.settings.dateFormat ||
+                $.datepicker._defaults.dateFormat,
+                selectedDate, instance.settings);
+        dates.not(this).datepicker("option", option, date);
+        day = String(date).split(' ');
+        const id = $(this).data('id');
+        $.ajax({
+            url: '<?= base_url('/Pemeriksaan/json_get_jam_praktik_dokter'); ?>/' +
+                id + '/' +
+                day[0],
+            data: {
+                id: id
+            },
+            method: 'post',
+            dataType: 'json',
+            success: function(data) {
+                if (data.length > 0) {
+                    $('#waktu-pemeriksaan').empty();
+                    $('#message').empty();
+                    $.each(data, function(key, entry) {
+                        $('#waktu-pemeriksaan').append(
+                            $( // prettier-ignore
+                                `<label class="card-input">
+                                    <input name="plan" class="radio" type="radio" id="input-waktu" value="">
+                                    <span class="plan-details">
+                                        <span class="plan-type">${entry.jam_mulai} - ${entry.jam_tutup}</span>
+                                        <span class="mt-2 font-weight-bold">${entry.ket}</span>
+                                    </span>
+                                </label>`
+                            ));
+                    });
+                } else {
+                    $('#waktu-pemeriksaan').empty();
+                    $('#message').empty();
+                    $('#message').append(
+                        "<h4 class='text-danger'>Jadwal Praktik Dokter Tidak tersedia Di Tanggal Ini < /h4>"
+                    )
+                }
+            }
+        });
+    }
+});
+
+// RAJA ONGKIR API LOAD ALAMAT
+function loadCity(id, url, tag) {
+    $.ajax({
+        url: '<?php echo base_url(); ?>' + url,
+        dataType: 'json',
+        success: function(response) {
+            $(id).html('');
+            city = '';
+            city = ' <option> --Pilih Kota-- </option>';
+            city = city + '';
+            $(id).append(city);
+            $.each(response['rajaongkir']['results'],
+                function(i, n) {
+                    if (tag == n['type'] + " " + n['city_name']) {
+                        city = ' <option value = "' + n['type'] + " " + n['city_name'] +
+                            '" selected > ' + n['type'] + " " + n['city_name'] + '</option>';
+                    } else {
+                        city = '<option value="' + n['type'] + " " + n['city_name'] + '">' + n['type'] +
+                            " " + n['city_name'] + '</option>';
+                    }
+                    city = city + '';
+                    $(id).append(city);
+                });
+        },
+        error: function() {
+            $(id).html('ERROR');
+        }
+    });
+}
+
+function loadProvinsi(id, id_provinsi) {
+    $.ajax({
+        url: '<?php echo base_url("ApiRajaOngkir/get_api_provinsi/"); ?>',
+        dataType: 'json',
+        success: function(response) {
+            $(id).html('');
+            province = '';
+            province = '<option value=""> -- Pilih Provinsi-- </option>';
+            province = province + '';
+            $(id).append(province);
+
+            $.each(response['rajaongkir']['results'], function(i, n) {
+                if (id_provinsi == n['province_id']) {
+                    province = '<option value="' + n['province_id'] + '" selected>' + n[
+                        'province'] + '</option>';
+                } else {
+                    province = '<option value="' + n['province_id'] + '">' + n['province'] +
+                        '</option>';
+                }
+                province = province + '';
+                $(id).append(province);
+                //$('#nama_provinsi').val(n['province']);
+            });
+        },
+        error: function() {
+            alert('ERROR ! Check your internet connection');
+            //$(id).html('ERROR');
+        }
+    });
+}
+
+function loadCityByProvince(id, id_provinsi_input, idcity) {
+    $.ajax({
+        url: '<?php echo base_url("ApiRajaOngkir/get_api_kota_byProvinsi/"); ?>' +
+            '/' + id_provinsi_input,
+        dataType: 'json',
+        data: {
+            province: id_provinsi_input
+        },
+        success: function(response) {
+            $(id).html('');
+            city = '';
+            city = '<option> -- Pilih Kota-- </option>';
+            city = city + '';
+            $(id).append(city);
+            $.each(response['rajaongkir']['results'], function(i, n) {
+                if (idcity == n['city_id']) {
+                    city = '<option value="' + n['city_id'] + '" selected>' + n['type'] + " " + n[
+                        'city_name'] + '</option>';
+                } else {
+                    city = '<option value="' + n['city_id'] + '">' + n['type'] + " " + n[
+                        'city_name'] + '</option>';
+                }
+                city = city + '';
+                $(id).append(city);
+            });
+        },
+        error: function() {
+            $(id).html('ERROR');
+        }
+    });
+}
+
+
+// FILTER FORM ONLY NUMBER INPUT
+function setInputFilter(textbox, inputFilter) {
+    ["input", "keydown", "keyup", "mousedown", "mouseup", "select",
+        "contextmenu", "drop"
+    ].forEach(function(event) {
+        textbox.addEventListener(event, function() {
+            if (inputFilter(this.value)) {
+                this.oldValue = this.value;
+                this.oldSelectionStart = this.selectionStart;
+                this.oldSelectionEnd = this.selectionEnd;
+            } else if (this.hasOwnProperty("oldValue")) {
+                this.value = this.oldValue;
+                this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+            } else {
+                this.value = "";
+            }
+        });
+    });
+}
+</script>
