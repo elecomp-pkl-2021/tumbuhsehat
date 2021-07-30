@@ -8,18 +8,19 @@ $hari = date('l ');
 <html class="no-js" lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title><?= $title ?></title>
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title><?= $title ?></title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+	<link rel="icon" href="favicon.ico" type="image/x-icon" />
 
-    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/icon-kit/dist/css/iconkit.min.css">
@@ -27,10 +28,10 @@ $hari = date('l ');
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/jvectormap/jquery-jvectormap.css">
-    <link rel="stylesheet"
-        href="<?= base_url() ?>assets/plugins/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/weather-icons/css/weather-icons.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/c3/c3.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/css/style.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/owl.carousel/dist/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/owl.carousel/dist/assets/owl.theme.default.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/theme.min.css">
@@ -59,22 +60,19 @@ $hari = date('l ');
                         <button class="btn btn-light mr-2"> <i class="ik ik-map-pin mr-2"></i> <b> Escalade Dental -
                                 Tebet </b></button>
                         <?php if ($this->session->userdata("level") == "Klinik") : ?>
-                        <button class="btn btn-light"> <i class="ik ik-user mr-2"></i> <b>Frontliner</b> </button>
+                            <button class="btn btn-light"> <i class="ik ik-user mr-2"></i> <b>Frontliner</b> </button>
                         <?php elseif ($this->session->userdata("level") == "Owner") : ?>
-                        <button class="btn btn-light"> <i class="ik ik-user mr-2"></i> <b>Owner</b> </button>
+                            <button class="btn btn-light"> <i class="ik ik-user mr-2"></i> <b>Owner</b> </button>
                         <?php else : ?>
-                        <button class="btn btn-light"> <i class="ik ik-user mr-2"></i>
-                            <b><?= $this->session->userdata('nama_dokter'); ?></b> </button>
+                            <button class="btn btn-light"> <i class="ik ik-user mr-2"></i>
+                                <b><?= $this->session->userdata('nama_dokter'); ?></b> </button>
                         <?php endif ?>
                     </div>
                     <div class="top-menu d-flex align-items-center mr-20">
                         <div class="dropdown">
-                            <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false"><img class="avatar"
-                                    src="<?= base_url('assets') ?>/img/user.png" alt=""></a>
+                            <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="avatar" src="<?= base_url('assets') ?>/img/user.png" alt=""></a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="<?= base_url('auth/logout') ?>"><i
-                                        class="ik ik-power dropdown-icon"></i>
+                                <a class="dropdown-item" href="<?= base_url('auth/logout') ?>"><i class="ik ik-power dropdown-icon"></i>
                                     Logout</a>
                             </div>
                         </div>
@@ -89,6 +87,6 @@ $hari = date('l ');
                         <!-- <div class="logo-img">
                             <img src="<?= base_url('assets') ?>/src/img/logo-escalade.png" class="header-brand-img" alt="lavalite">
                         </div> -->
-                        <span class="text">Tumbuh Sehat</span>
-                    </a>
-                </div>
+						<span class="text">Tumbuh Sehat</span>
+					</a>
+				</div>

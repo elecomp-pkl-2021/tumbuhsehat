@@ -15,7 +15,7 @@
 
             <div class="nav-lavel">Pasien</div>
             <div class="nav-item">
-                <a href="<?= base_url('#') ?>"><i class="ik ik-users"></i><span>Informasi Pasien</span></a>
+                <a href="<?= base_url('pasien') ?>"><i class="ik ik-users"></i><span>Informasi Pasien</span></a>
             </div>
 
             <div class="nav-lavel">Keuangan</div>
