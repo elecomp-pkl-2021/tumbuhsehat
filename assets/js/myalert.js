@@ -51,12 +51,6 @@
         }).then((result) => {
             if (result.value) {
                 document.location.href = href;
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                Swal.fire(
-                    'Dibatalkan',
-                    'Data '+nama+' tidak dihapus!',
-                    'success'
-                )
             }
         })
 
