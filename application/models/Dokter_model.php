@@ -190,4 +190,12 @@ class Dokter_model extends CI_Model
         $this->db->where('id_jadwal', $id_jadwal);
         $this->db->delete('jadwal_dokter');
     }
+    
+    public function getJadwal($id, $hari){
+        return $this->db->get_where('jadwal_dokter', ['id_dokter' => $id, 'hari' =>$hari])->row_array();
+    }
+
+    public function updateKuotaPemeriksaan($id,$hari,$kuota){
+        $this->db->update('jadwal_dokter',['kuota' => $kuota], ['id_dokter' => $id, 'hari' => $hari]);
+    }
 }
