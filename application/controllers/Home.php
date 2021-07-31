@@ -37,13 +37,15 @@ class Home extends CI_Controller
             $this->load->view('components/sidebar_owner');
         } elseif ($this->session->userdata('level') == "Klinik") {
             $this->load->view('components/sidebar_resepsionis');
-        } else {
+        } elseif ($this->session->userdata('level') == "Superadmin") {
+            $this->load->view('components/sidebar_superadmin');
+        } else{
             $this->load->view('components/sidebar_dokter');
         }
 
         $this->load->view('components/breadcrumbs', $data);
 
-        if ($this->session->userdata('level') == "Owner" || $this->session->userdata('level') == "Klinik") {
+        if ($this->session->userdata('level') != "Dokter") {
             $this->load->view('pages/home/resepsionis/index', $data);
         } else {
             $this->load->view('pages/home/dokter/index');
