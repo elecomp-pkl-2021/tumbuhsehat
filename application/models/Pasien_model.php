@@ -70,4 +70,81 @@ class Pasien_model extends CI_Model
         $this->db->order_by('b.jam_rencana_selesai', 'asc');
         return $this->db->get();
     }
+    
+    function get_by_id_ubah_terlambat($id){
+        $status = '0';
+		$konf = '1';
+		$this->db->select('*');
+		$this->db->from('booking a');
+		$this->db->join('rencana b', 'a.id_booking=b.id_booking');
+		$this->db->join('pasien c', 'a.id_pasien=c.id_pasien');
+		$this->db->join('dokter d', ' a.id_dokter=d.id_dokter');
+		$this->db->join('rekam_medis e', 'a.id_booking=e.id_booking');
+		$this->db->join('cabang g', 'a.id_cabang=g.id_cabang');
+		$this->db->where('curdate() > b.tanggal_rencana');
+		$this->db->where('e.status', $status);
+		$this->db->where('a.status', $status);
+		$this->db->where('a.konfirmasi', $konf);
+        $this->db->where('a.id_booking', $id);
+		$this->db->group_by('a.id_booking');
+		$query = $this->db->get();
+		return $query->row();
+    }
+
+    function kuota_booking($id_dokter, $day)
+    {
+        $sql = $this->db->query("
+        SELECT
+        kuota
+        FROM jadwal_dokter
+        WHERE id_dokter = $id_dokter 
+        AND hari = '$day' ");
+
+        if ($sql->row() == NULL) {
+            return 0;
+        } else {
+            return $sql->row()->kuota;
+        }
+    }
+
+    function jmlh_booking($id_dokter, $tgl_rencana, $jam_mulai, $jam_selesai)
+    {
+        $sql = $this->db->query("
+        SELECT IFNULL(COUNT(b.id_booking),0) AS jml_booking
+        FROM rencana r
+        JOIN booking b ON r.id_booking = b.id_booking
+        WHERE b.id_dokter = $id_dokter 
+        AND r.tanggal_rencana = '$tgl_rencana' AND r.jam_rencana_mulai = '$jam_mulai' AND r.jam_rencana_selesai = '$jam_selesai'
+        GROUP BY r.jam_rencana_mulai, r.jam_rencana_selesai");
+
+        if ($sql->row() == NULL) {
+            return 0;
+        } else {
+            return $sql->row()->jml_booking;
+        }
+    }
+
+    function get_dokter_id3($id, $day)
+    {
+        $this->db->select('*');
+        $this->db->from('jadwal_dokter a');
+        $this->db->join('booking b', 'a.id_dokter=b.id_dokter');
+        $this->db->where('b.id_booking', $id);
+        $this->db->where('a.hari', $day);
+        $query = $this->db->get();
+        return $query;
+    }
+    
+    public function get_by_id_ubah($id) {
+		$this->db->select('*');
+		$this->db->from('booking a');
+		$this->db->join('rencana b', 'a.id_booking=b.id_booking');
+		$this->db->join('pasien c', 'a.id_pasien=c.id_pasien');
+		$this->db->join('dokter d', ' a.id_dokter=d.id_dokter');
+		$this->db->join('rekam_medis e', 'a.id_booking=e.id_booking');
+		$this->db->join('cabang g', 'a.id_cabang=g.id_cabang');
+        $this->db->where('a.id_booking', $id);
+		$query = $this->db->get();
+		return $query->row();
+	}
 }
