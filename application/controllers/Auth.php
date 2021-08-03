@@ -63,6 +63,7 @@ class Auth extends CI_Controller {
                 foreach ($cekDokter as $row);
                 $this->session->set_userdata('id_dokter', $row->id_dokter);
                 $this->session->set_userdata('nama_dokter', $row->nama_dokter);
+                redirect('home/dokter', 'refresh');
             }
             
             redirect('home', 'refresh');
