@@ -195,4 +195,70 @@ class Owner extends CI_Controller
         //print_r($this->db->last_query());
         echo json_encode($data);
     }
+
+    public function get_data_pembayaran()
+    {
+        echo json_encode($this->Klinik_model->get_data_pembayaran()->result());
+    }
+    public function get_data_pembayaran2($nama2 = "", $tgl_lahir2 = "", $rekam_medis2 = "", $id_dokter2 = "", $tanggal_rencana2 = "", $jam_rencana_mulai2 = "", $kode_booking2 = "")
+  {
+
+    $nama3 =  $this->uri->segment(3);
+    if ($nama3 == '0') {
+      $nama = "0";
+    } else {
+      $nama =  $this->uri->segment(3);
+    }
+
+    $tgl_lahir3 = $this->uri->segment(4);
+    if ($tgl_lahir3 == '0') {
+      $tgl_lahir = "0";
+    } else {
+      $tgl_lahir = $this->uri->segment(4);
+    }
+
+    $rekam_medis3 = $this->uri->segment(5);
+    if ($rekam_medis3 == '0') {
+      $rekam_medis = "0";
+    } else {
+      $rekam_medis = $this->uri->segment(5);
+    }
+
+    $id_dokter3 = $this->uri->segment(6);
+    if ($id_dokter3 == '0') {
+      $id_dokter = "0";
+    } else {
+      $id_dokter = $this->uri->segment(6);
+    }
+
+    $tanggal_rencana3 = $this->uri->segment(7);
+    if ($tanggal_rencana3 == '0') {
+      $tanggal_rencana = "0";
+    } else {
+      $tanggal_rencana = $this->uri->segment(7);
+    }
+
+    $jam_rencana_mulai3 = $this->uri->segment(8);
+    if ($jam_rencana_mulai3 == '0') {
+      $jam_rencana_mulai = "0";
+    } else {
+      $jam_rencana_mulai = $this->uri->segment(8);
+    }
+
+    $kode_booking3 = $this->uri->segment(9);
+    // echo 'kode_booking'.$kode_booking3;
+    if ($kode_booking3 == '0') {
+      $kode_booking = "0";
+      //   echo "iku";
+    } else {
+      $kode_booking = $this->uri->segment(9);
+      // echo "iki";
+    }
+
+
+    echo json_encode($this->Klinik_model->get_data_pembayaran2($nama, $tgl_lahir, $rekam_medis, $id_dokter, $tanggal_rencana, $jam_rencana_mulai, $kode_booking)->result());
+    // $this->Klinik_model->get_register_janji($nama, $tgl_lahir, $rekam_medis, $id_dokter, $tanggal_rencana, $jam_rencana_mulai,$kode_booking)->result();
+    // print_r($this->db->last_query());
+  }
+
 }
