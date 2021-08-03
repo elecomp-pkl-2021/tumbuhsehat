@@ -17,7 +17,7 @@
                     <p>Senang bertemu Anda kembali!</p>
                     <form action="<?= base_url('auth/register') ?>" method="post" enctype="multipart/form-data">
                         <div class="row">
-                            <div class="col">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <?php if (form_error('nama_depan')) : ?>
                                         <input type="text" name="nama_depan" class="form-control form-control-warning form-txt-warning" placeholder="<?= strip_tags(form_error('nama_depan')) ?>">
@@ -57,7 +57,7 @@
                                     <?php endif ?>
                                 </div>
                             </div>
-                            <div class="col-xl-5 col-lg-6">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <?php if (form_error('nama_belakang')) : ?>
                                         <input type="text" name="nama_belakang" class="form-control form-control-warning form-txt-warning" placeholder="<?= strip_tags(form_error('nama_belakang')) ?>">
