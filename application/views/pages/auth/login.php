@@ -52,7 +52,7 @@
 						</div>
 					</form>
 					<div class="register">
-						<p>Belum punya akun? <a href="<?= base_url('register')?>">Buat akun sekarang</a></p>
+						<p>Belum punya akun? <a href="<?= base_url('auth/register')?>">Buat akun sekarang</a></p>
 					</div>
 				</div>
 			</div>
