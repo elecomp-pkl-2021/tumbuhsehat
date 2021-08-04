@@ -21,4 +21,11 @@ class Booking_model extends CI_Model
                     ->get()->row_array();
         return $data;
     }
+
+    public function get_jadwal($id) {
+		$this->db->from('jadwal_dokter');
+		$this->db->where('id_jadwal',$id);
+		$query = $this->db->get();
+		return $query->row();
+	}
 }

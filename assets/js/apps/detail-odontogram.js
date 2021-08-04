@@ -5750,7 +5750,7 @@ var odontogram_detail = function () {
     // console.log('data',data[i]);
     $.ajax({
       type: "GET",
-      url: link + `Pasien_informasi/getTemp/dental${data[i].title}/${id_pemeriksaan}`,
+      url: link + `doctor/getTemp/dental${data[i].title}/${id_pemeriksaan}`,
       dataType: "json",
       success: (hasil) => {
         // console.log(hasil.ket_pemeriksaan + "Hanya testing");
@@ -9848,7 +9848,7 @@ let dataCheckData = [];
 function getCheckDataFromServer() {
   $.ajax({
     async: false,
-    url: link + "Pasien_informasi/ajax_check_id/",
+    url: link + "Dokter/ajax_check_id/",
     type: "GET",
     dataType: "JSON",
     success: function (data) {

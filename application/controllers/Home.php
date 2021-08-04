@@ -31,6 +31,7 @@ class Home extends CI_Controller
         $data['dokter'] = $this->Dokter_model->get_dokter();
         $data['cabang'] = $this->Cabang_model->get_cabang();
         $data['rencana_sebelum'] = $this->Rencana_model->get_rencana_sebelum();
+
         $this->load->view('components/header', $data);
 
         if ($this->session->userdata('level') == "Owner") {
@@ -42,15 +43,11 @@ class Home extends CI_Controller
         } else{
             $this->load->view('components/sidebar_dokter');
         }
-
+        
         $this->load->view('components/breadcrumbs', $data);
-
         if ($this->session->userdata('level') != "Dokter") {
             $this->load->view('pages/home/resepsionis/index', $data);
-        } else {
-            $this->load->view('pages/home/dokter/index');
-        }
-
+        } 
         $this->load->view('components/footer');
         // end resepsionis
     }

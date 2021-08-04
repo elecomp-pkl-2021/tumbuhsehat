@@ -12,7 +12,7 @@
 			</div>
             
             <nav class="nav-item">
-				<a href="<?= base_url('home')?>"><i class="ik ik-check-circle"></i><span>Daftar / Ubah Janji</span></a>
+				<a href="<?= base_url('janji')?>"><i class="ik ik-check-circle"></i><span>Daftar / Ubah Janji</span></a>
 			</nav>
 
             <div class="nav-lavel">Pasien</div>

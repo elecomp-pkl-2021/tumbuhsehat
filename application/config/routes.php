@@ -54,6 +54,7 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['pemeriksaan/buat-janji'] = 'Pemeriksaan/buat_jadwal_view';
+$route['home/dokter'] = 'Dokter/index';
 
 //daftar dokter
 $route['daftar-dokter'] = "dokter_daftar";

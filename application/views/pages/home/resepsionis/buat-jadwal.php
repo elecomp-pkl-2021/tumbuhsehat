@@ -691,7 +691,7 @@ var dates = $("#tgl_pemeriksaan").datepicker({
                     $('#waktu-pemeriksaan').empty();
                     $('#message').empty();
                     $('#message').append(
-                        "<h4 class='text-danger'>Jadwal Praktik Dokter Tidak tersedia Di Tanggal Ini < /h4>"
+                        "<h4 class='text-danger'>Jadwal Praktik Dokter Tidak tersedia Di Tanggal Ini </h4>"
                     )
                 }
             }
