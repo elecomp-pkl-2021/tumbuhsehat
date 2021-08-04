@@ -45,7 +45,7 @@
                                 <th class="nosort">&nbsp;</th>
                             </tr>
                         </thead>
-                        <<<<<<< HEAD <tbody>
+                        <tbody>
                             <?php $no = 1;?>
                             <?php foreach($daftarPasien as $d):?>
                             <tr>
@@ -68,10 +68,7 @@
                             </tr>
                             <?php $no++;?>
                             <?php endforeach;?>
-                            =======
-                            <tbody id="table-result">
-                                >>>>>>> 532fd060347fe60409b40f94ac21a23888139621
-                            </tbody>
+                        </tbody>
                     </table>
                 </div>
             </div>

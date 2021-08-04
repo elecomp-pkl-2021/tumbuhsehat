@@ -47,8 +47,8 @@ $hari = date('l ');
     <!-- OUR CSS -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/radioInput.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/style.css">
-    <<<<<<< HEAD=======<link rel="stylesheet" href="<?= base_url() ?>assets/css/odontogram.css">
-        >>>>>>> 532fd060347fe60409b40f94ac21a23888139621
+    <link rel="stylesheet" href="<?= base_url() ?>assets/css/odontogram.css">
+
 </head>
 
 <body>
@@ -75,39 +75,29 @@ $hari = date('l ');
                     </div>
                     <div class="top-menu d-flex align-items-center mr-20">
                         <div class="dropdown">
-                            <<<<<<< HEAD <a class="dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="avatar"
+
+                            <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false"><img class="avatar"
                                     src="<?= base_url('assets') ?>/img/user.png" alt=""></a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="<?= base_url('auth/logout') ?>"><i
-                                            class="ik ik-power dropdown-icon"></i>
-                                        =======
-                                        <a class="dropdown-toggle" href="#" id="userDropdown" role="button"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
-                                                class="avatar" src="<?= base_url('assets') ?>/img/user.png" alt=""></a>
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                            <a class="dropdown-item" href="<?= base_url('auth/logout') ?>"><i
-                                                    class="ik ik-power dropdown-icon"></i>
-                                                >>>>>>> 532fd060347fe60409b40f94ac21a23888139621
-                                                Logout</a>
-                                        </div>
-                                </div>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="<?= base_url('auth/logout') ?>"><i
+                                        class="ik ik-power dropdown-icon"></i>
+                                    Logout</a>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
         </header>
         <div class="page-wrap">
             <div class="app-sidebar colored">
                 <div class="sidebar-header">
-                    <<<<<<< HEAD <a class="header-brand"
+
+                    <a class="header-brand"
                         href="<?= $this->session->userdata("level") == "Dokter" ? base_url('home/dokter') : base_url('home') ?>">
-                        =======
-                        <a class="header-brand"
-                            href="<?= $this->session->userdata("level") == "Dokter" ? base_url('home/dokter') : base_url('home') ?>">
-                            >>>>>>> 532fd060347fe60409b40f94ac21a23888139621
-                            <!-- <div class="logo-img">
+                        <!-- <div class="logo-img">
                             <img src="<?= base_url('assets') ?>/src/img/logo-escalade.png" class="header-brand-img" alt="lavalite">
                         </div> -->
-                            <span class="text">Tumbuh Sehat</span>
-                        </a>
+                        <span class="text">Tumbuh Sehat</span>
+                    </a>
                 </div>

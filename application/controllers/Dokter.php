@@ -16,12 +16,8 @@ class Dokter extends CI_Controller
         $this->load->model('Pasien_model');
     }
 
-<<<<<<< HEAD
-    public function index(){
-=======
     public function index()
     {
->>>>>>> 532fd060347fe60409b40f94ac21a23888139621
         $id_user = $this->session->userdata('id_user');
         $id_dokter = $this->Dokter_model->get_dokter_id($id_user);
 
@@ -39,14 +35,6 @@ class Dokter extends CI_Controller
         $this->load->view('components/header', $data);
         $this->load->view('components/sidebar_dokter');
         $this->load->view('components/breadcrumbs', $data);
-<<<<<<< HEAD
-        $this->load->view('pages/home/dokter/index',$data);
-        $this->load->view('components/footer');
-        $this->load->view('pages/home/dokter/dokter-script',$data);
-    }
-
-    public function pemeriksaan($id_pasien = 16)
-=======
         $this->load->view('pages/home/dokter/index', $data);
         $this->load->view('components/footer');
         $this->load->view('pages/home/dokter/dokter-script', $data);
@@ -73,7 +61,6 @@ class Dokter extends CI_Controller
     }
 
     public function pemeriksaan($id_pasien, $id_rekam_medis)
->>>>>>> 532fd060347fe60409b40f94ac21a23888139621
     {
         $data = [
             'title' => 'Pemeriksaan Pasien | Tumbuh Sehat',
