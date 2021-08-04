@@ -253,6 +253,7 @@
                 <div class="mx-4">
                     <h4 class="mt-4">Ini odontogram</h4>
                     <div class="line my-3"></div>
+                    <?php $this->load->view('pages/home/dokter/odontogram');?>
                 </div>
             </div>
             <button class="btn btn-secondary" onclick="stepper.previous()">Back</button>
