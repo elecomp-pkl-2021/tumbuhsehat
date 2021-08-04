@@ -32,7 +32,6 @@ $hari = date('l ');
         href="<?= base_url() ?>assets/plugins/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/weather-icons/css/weather-icons.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/c3/c3.min.css">
-    <link rel="stylesheet" href="<?= base_url() ?>assets/css/odontogram.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/owl.carousel/dist/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/owl.carousel/dist/assets/owl.theme.default.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/theme.min.css">
@@ -48,6 +47,8 @@ $hari = date('l ');
     <!-- OUR CSS -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/radioInput.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/style.css">
+    <<<<<<< HEAD=======<link rel="stylesheet" href="<?= base_url() ?>assets/css/odontogram.css">
+        >>>>>>> 532fd060347fe60409b40f94ac21a23888139621
 </head>
 
 <body>
@@ -63,6 +64,7 @@ $hari = date('l ');
                         <button class="btn btn-light mr-2"> <i class="ik ik-map-pin mr-2"></i> <b> Escalade Dental -
                                 Tebet </b></button>
                         <?php if ($this->session->userdata("level") == "Klinik") : ?>
+
                         <button class="btn btn-light"> <i class="ik ik-user mr-2"></i> <b>Frontliner</b> </button>
                         <?php elseif ($this->session->userdata("level") == "Owner") : ?>
                         <button class="btn btn-light"> <i class="ik ik-user mr-2"></i> <b>Owner</b> </button>
@@ -73,27 +75,39 @@ $hari = date('l ');
                     </div>
                     <div class="top-menu d-flex align-items-center mr-20">
                         <div class="dropdown">
-                            <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false"><img class="avatar"
+                            <<<<<<< HEAD <a class="dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="avatar"
                                     src="<?= base_url('assets') ?>/img/user.png" alt=""></a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="<?= base_url('auth/logout') ?>"><i
-                                        class="ik ik-power dropdown-icon"></i>
-                                    Logout</a>
-                            </div>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="<?= base_url('auth/logout') ?>"><i
+                                            class="ik ik-power dropdown-icon"></i>
+                                        =======
+                                        <a class="dropdown-toggle" href="#" id="userDropdown" role="button"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
+                                                class="avatar" src="<?= base_url('assets') ?>/img/user.png" alt=""></a>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                            <a class="dropdown-item" href="<?= base_url('auth/logout') ?>"><i
+                                                    class="ik ik-power dropdown-icon"></i>
+                                                >>>>>>> 532fd060347fe60409b40f94ac21a23888139621
+                                                Logout</a>
+                                        </div>
+                                </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </header>
         <div class="page-wrap">
             <div class="app-sidebar colored">
                 <div class="sidebar-header">
-                    <a class="header-brand"
+                    <<<<<<< HEAD <a class="header-brand"
                         href="<?= $this->session->userdata("level") == "Dokter" ? base_url('home/dokter') : base_url('home') ?>">
-                        <!-- <div class="logo-img">
+                        =======
+                        <a class="header-brand"
+                            href="<?= $this->session->userdata("level") == "Dokter" ? base_url('home/dokter') : base_url('home') ?>">
+                            >>>>>>> 532fd060347fe60409b40f94ac21a23888139621
+                            <!-- <div class="logo-img">
                             <img src="<?= base_url('assets') ?>/src/img/logo-escalade.png" class="header-brand-img" alt="lavalite">
                         </div> -->
-                        <span class="text">Tumbuh Sehat</span>
-                    </a>
+                            <span class="text">Tumbuh Sehat</span>
+                        </a>
                 </div>

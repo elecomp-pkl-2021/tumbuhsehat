@@ -9,23 +9,23 @@
                     </div>
                     <div class="col">
                         <input type="text" class="form-control" id="filter-kode-booking" placeholder="Kode Booking"
-                            autocomplete="off">
+                            oninput="search_press()" autocomplete="off">
                     </div>
                     <div class="col">
                         <input type="text" class="form-control" id="filter-jam" placeholder="Jam Pemeriksaan"
-                            autocomplete="off">
+                            oninput="search_press()" autocomplete="off">
                     </div>
                     <div class="col">
                         <input type="text" class="form-control" id="filter-nama" placeholder="Nama Pasien"
-                            autocomplete="off">
+                            oninput="search_press()" autocomplete="off">
                     </div>
                     <div class="col">
                         <input type="text" class="form-control" id="filter-tgl-lahir" placeholder="Tanggal Lahir"
-                            autocomplete="off">
+                            oninput="search_press()" autocomplete="off">
                     </div>
                     <div class="col">
                         <input type="text" class="form-control" id="filter-status" placeholder="Status Booking"
-                            autocomplete="off">
+                            oninput="search_press()" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -39,12 +39,13 @@
                                 <th>Jam Periksa</th>
                                 <th>Nama</th>
                                 <th>Tanggal Lahir</th>
+                                <th>ID Booking</th>
                                 <th>No. Rekam Medis</th>
                                 <th>Status</th>
                                 <th class="nosort">&nbsp;</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <<<<<<< HEAD <tbody>
                             <?php $no = 1;?>
                             <?php foreach($daftarPasien as $d):?>
                             <tr>
@@ -67,7 +68,10 @@
                             </tr>
                             <?php $no++;?>
                             <?php endforeach;?>
-                        </tbody>
+                            =======
+                            <tbody id="table-result">
+                                >>>>>>> 532fd060347fe60409b40f94ac21a23888139621
+                            </tbody>
                     </table>
                 </div>
             </div>

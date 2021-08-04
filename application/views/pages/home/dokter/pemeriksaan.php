@@ -244,6 +244,17 @@
                     </div>
                 </div>
             </div>
+
+            <div class="card">
+                <div class="mx-4">
+                    <h4 class="mt-4">Keluhan (Anamnesa)</h4>
+                    <div class="line my-3"></div>
+                    <div class="form-group">
+                        <label for="anamnesa">Deskripsi anamnesa</label>
+                        <textarea class="form-control" name="anamnesa" id="anamnesa" cols="20" rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
             <button class="btn btn-primary" onclick="stepper.next()">Next</button>
         </div>
 
@@ -253,7 +264,7 @@
                 <div class="mx-4">
                     <h4 class="mt-4">Ini odontogram</h4>
                     <div class="line my-3"></div>
-                    <?php $this->load->view('pages/home/dokter/odontogram');?>
+                    <?php $this->load->view('pages/home/dokter/odontogram'); ?>
                 </div>
             </div>
             <button class="btn btn-secondary" onclick="stepper.previous()">Back</button>
@@ -718,7 +729,7 @@
                                                     <a href="" class="btn btn-primary ml-3"> Download Foto</a>
                                                 </div>
                                             </div>
-                                            <img src="<?= base_url('/uploads/foto_radiologi/kpku.png');?>"
+                                            <img src="<?= base_url('/uploads/foto_radiologi/kpku.png'); ?>"
                                                 class="rounded img-fluid" alt="Foto radiologi terupdate"
                                                 style="height: 200px;">
                                         </div>
@@ -772,7 +783,7 @@
                                                     <a href="" class="btn btn-primary ml-3"> Download Foto</a>
                                                 </div>
                                             </div>
-                                            <img src="<?= base_url('/uploads/foto_laboratorium/kpku.png');?>"
+                                            <img src="<?= base_url('/uploads/foto_laboratorium/kpku.png'); ?>"
                                                 class="rounded img-fluid" alt="Foto laboratorium terupdate"
                                                 style="height: 200px;">
                                         </div>
@@ -889,6 +900,22 @@
         </div>
     </div>
 </div>
+<script src="<?php echo base_url(); ?>assets/js/apps/rawat-tambah-after.js"></script>
+
+<script type="text/javascript">
+var session_id = '<?php echo $id_kpesan; ?>';
+var kode_pasien = '<?php echo $id_pasien ?>';
+var link2 = "<?php echo base_url() ?>";
+var id_pemeriksaan2 = "<?php echo @$idpemeriksaan ?>";
+var id_pasien2 = "<?php echo $id_pasien ?>";
+var date = "<?php echo date('Y-m-d') ?>";
+var odontogramDataUtama = '<?php echo @$rawat['odontogram'];; ?>';
+$(document).ready(function() {
+
+    app_rawat_tambah_after.init();
+
+});
+</script>
 
 <!-- STEPPER -->
 <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
