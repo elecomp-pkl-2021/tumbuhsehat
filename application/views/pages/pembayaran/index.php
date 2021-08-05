@@ -82,7 +82,7 @@
     }
 
     function action(value, row, index) {
-        return '<a href="<?php echo base_url(); ?>owner/metode_bayar/' + row.id_booking + '/' + row.id_rekam_medis + '.html" class="btn btn-success col-md-12"  style="text-align: center; color: white; background-color: #00b050; border-radius: 0px;">Proses Bayar</a>';
+        return '<a href="<?php echo base_url(); ?>owner/metode_bayar/' + row.id_booking + '/' + row.id_rekam_medis + '" class="btn btn-success col-md-12"  style="text-align: center; color: white; background-color: #00b050; border-radius: 0px;">Proses Bayar</a>';
     }
 
     $("#filter_all").click(function() {
