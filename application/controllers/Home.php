@@ -31,26 +31,22 @@ class Home extends CI_Controller
         $data['dokter'] = $this->Dokter_model->get_dokter();
         $data['cabang'] = $this->Cabang_model->get_cabang();
         $data['rencana_sebelum'] = $this->Rencana_model->get_rencana_sebelum();
+
         $this->load->view('components/header', $data);
 
-        if ($this->session->userdata('level') == "Owner") {
-            $this->load->view('components/sidebar_owner');
-        } elseif ($this->session->userdata('level') == "Klinik") {
-            $this->load->view('components/sidebar_resepsionis');
-        } elseif ($this->session->userdata('level') == "Superadmin") {
-            $this->load->view('components/sidebar_superadmin');
-        } else{
-            $this->load->view('components/sidebar_dokter');
-        }
-
-        $this->load->view('components/breadcrumbs', $data);
-
+        
         if ($this->session->userdata('level') != "Dokter") {
-            $this->load->view('pages/home/resepsionis/index', $data);
-        } else {
-            $this->load->view('pages/home/dokter/index');
+            if ($this->session->userdata('level') == "Owner") {
+                $this->load->view('components/sidebar_owner');
+            }else if ($this->session->userdata('level') == "Klinik") {
+                $this->load->view('components/sidebar_resepsionis');
+            }
         }
-
+        
+        $this->load->view('components/breadcrumbs', $data);
+        if ($this->session->userdata('level') == "Owner" || $this->session->userdata('level') == "Klinik") {
+            $this->load->view('pages/home/resepsionis/index', $data);
+        } 
         $this->load->view('components/footer');
         // end resepsionis
     }
