@@ -235,6 +235,17 @@
                     </div>
                 </div>
             </div>
+
+            <div class="card">
+                <div class="mx-4">
+                    <h4 class="mt-4">Keluhan (Anamnesa)</h4>
+                    <div class="line my-3"></div>
+                    <div class="form-group">
+                        <label for="anamnesa">Deskripsi anamnesa</label>
+                        <textarea class="form-control" name="anamnesa" id="anamnesa" cols="20" rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
             <button class="btn btn-primary" onclick="stepper.next()">Next</button>
         </div>
 

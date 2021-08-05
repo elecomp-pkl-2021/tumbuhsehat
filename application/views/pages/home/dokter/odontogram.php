@@ -110,86 +110,132 @@ foreach ($pasien->result() as $result) {
                                         <div class="btn-group list-group" data-toggle="buttons" style="margin-bottom: -9px;">
                                             <table class="table table-bordered">
                                                 <tr>
-                                                    <th colspan='2' style='font-size: 9px;color: #fff;background-color: #000;'>Keadaan Gigi</th>
-                                                    <th colspan='2' style='font-size: 9px;color: #fff;background-color: #000;'>Restorasi dan Protesa</th>
+                                                    <th colspan='2' style='font-size: 9px;color: #fff;background-color: #000;'>
+                                                        Keadaan Gigi</th>
+                                                    <th colspan='2' style='font-size: 9px;color: #fff;background-color: #000;'>
+                                                        Restorasi dan Protesa</th>
                                                 </tr>
                                                 <tr>
                                                     <td style='font-size: 9px;'>
-                                                        <div id="non" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0;"> <input type="radio" name="options" id="option14" style="position: fixed;opacity: 0;pointer-events: none;">non</div>
+                                                        <div id="non" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0;">
+                                                            <input type="radio" name="options" id="option14" style="position: fixed;opacity: 0;pointer-events: none;">non
+                                                        </div>
                                                     </td>
                                                     <td style='font-size: 9px;'>
-                                                        <div id="att" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;"> <input type="radio" name="options" id="option15" style="position: fixed;opacity: 0;pointer-events: none;">att</div>
+                                                        <div id="att" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;">
+                                                            <input type="radio" name="options" id="option15" style="position: fixed;opacity: 0;pointer-events: none;">att
+                                                        </div>
                                                     </td>
                                                     <td style='font-size: 9px;'>
-                                                        <div id="gif" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;"> <input type="radio" name="options" id="option16" style="position: fixed;opacity: 0;pointer-events: none;">gif</div>
+                                                        <div id="gif" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;">
+                                                            <input type="radio" name="options" id="option16" style="position: fixed;opacity: 0;pointer-events: none;">gif
+                                                        </div>
                                                     </td>
                                                     <td style='font-size: 9px;'>
-                                                        <div id="pon" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;"> <input type="radio" name="options" id="option17" style="position: fixed;opacity: 0;pointer-events: none;">pon</div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style='font-size: 9px;'>
-                                                        <div id="une" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0;"> <input type="radio" name="options" id="option18" style="position: fixed;opacity: 0;pointer-events: none;">une</div>
-                                                    </td>
-                                                    <td style='font-size: 9px;'>
-                                                        <div id="abr" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;"> <input type="radio" name="options" id="option19" style="position: fixed;opacity: 0;pointer-events: none;">abr</div>
-                                                    </td>
-                                                    <td style='font-size: 9px;'>
-                                                        <div id="inl" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;"> <input type="radio" name="options" id="option20" style="position: fixed;opacity: 0;pointer-events: none;">inl</div>
-                                                    </td>
-                                                    <td style='font-size: 9px;'>
-                                                        <div id="abu" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;"> <input type="radio" name="options" id="option21" style="position: fixed;opacity: 0;pointer-events: none;">abu</div>
+                                                        <div id="pon" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;">
+                                                            <input type="radio" name="options" id="option17" style="position: fixed;opacity: 0;pointer-events: none;">pon
+                                                        </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td style='font-size: 9px;'>
-                                                        <div id="pre" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0;"> <input type="radio" name="options" id="option22" style="position: fixed;opacity: 0;pointer-events: none;">pre</div>
+                                                        <div id="une" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0;">
+                                                            <input type="radio" name="options" id="option18" style="position: fixed;opacity: 0;pointer-events: none;">une
+                                                        </div>
                                                     </td>
                                                     <td style='font-size: 9px;'>
-                                                        <div id="cfr" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;"> <input type="radio" name="options" id="option23" style="position: fixed;opacity: 0;pointer-events: none;">cfr</div>
+                                                        <div id="abr" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;">
+                                                            <input type="radio" name="options" id="option19" style="position: fixed;opacity: 0;pointer-events: none;">abr
+                                                        </div>
                                                     </td>
                                                     <td style='font-size: 9px;'>
-                                                        <div id="onl" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;"> <input type="radio" name="options" id="option24" style="position: fixed;opacity: 0;pointer-events: none;">onl</div>
+                                                        <div id="inl" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;">
+                                                            <input type="radio" name="options" id="option20" style="position: fixed;opacity: 0;pointer-events: none;">inl
+                                                        </div>
                                                     </td>
                                                     <td style='font-size: 9px;'>
-                                                        <div id="prd" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;"> <input type="radio" name="options" id="option25" style="position: fixed;opacity: 0;pointer-events: none;">prd</div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style='font-size: 9px;'>
-                                                        <div id="imv" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0;"> <input type="radio" name="options" id="option26" style="position: fixed;opacity: 0;pointer-events: none;">imv</div>
-                                                    </td>
-                                                    <td style='font-size: 9px;'>
-                                                        <div id="rrx" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;"> <input type="radio" name="options" id="option27" style="position: fixed;opacity: 0;pointer-events: none;">rrx</div>
-                                                    </td>
-                                                    <td style='font-size: 9px;'>
-                                                        <div id="mpc" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;"> <input type="radio" name="options" id="option28" style="position: fixed;opacity: 0;pointer-events: none;">mpc</div>
-                                                    </td>
-                                                    <td style='font-size: 9px;'>
-                                                        <div id="fld" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;"> <input type="radio" name="options" id="option29" style="position: fixed;opacity: 0;pointer-events: none;">fld</div>
+                                                        <div id="abu" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;">
+                                                            <input type="radio" name="options" id="option21" style="position: fixed;opacity: 0;pointer-events: none;">abu
+                                                        </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td style='font-size: 9px;'>
-                                                        <div id="ano" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0;"> <input type="radio" name="options" id="option30" style="position: fixed;opacity: 0;pointer-events: none;">ano</div>
+                                                        <div id="pre" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0;">
+                                                            <input type="radio" name="options" id="option22" style="position: fixed;opacity: 0;pointer-events: none;">pre
+                                                        </div>
                                                     </td>
                                                     <td style='font-size: 9px;'>
-                                                        <div id="miss" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;"> <input type="radio" name="options" id="option31" style="position: fixed;opacity: 0;pointer-events: none;">mis</div>
+                                                        <div id="cfr" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;">
+                                                            <input type="radio" name="options" id="option23" style="position: fixed;opacity: 0;pointer-events: none;">cfr
+                                                        </div>
                                                     </td>
                                                     <td style='font-size: 9px;'>
-                                                        <div id="gmc" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;"> <input type="radio" name="options" id="option32" style="position: fixed;opacity: 0;pointer-events: none;">gmc</div>
+                                                        <div id="onl" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;">
+                                                            <input type="radio" name="options" id="option24" style="position: fixed;opacity: 0;pointer-events: none;">onl
+                                                        </div>
                                                     </td>
                                                     <td style='font-size: 9px;'>
-                                                        <div id="acr" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;"> <input type="radio" name="options" id="option33" style="position: fixed;opacity: 0;pointer-events: none;">acr</div>
+                                                        <div id="prd" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;">
+                                                            <input type="radio" name="options" id="option25" style="position: fixed;opacity: 0;pointer-events: none;">prd
+                                                        </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td style='font-size: 9px;'>
-                                                        <div id="dia" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;"> <input type="radio" name="options" id="option34" style="position: fixed;opacity: 0;pointer-events: none;">dia</div>
+                                                        <div id="imv" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0;">
+                                                            <input type="radio" name="options" id="option26" style="position: fixed;opacity: 0;pointer-events: none;">imv
+                                                        </div>
+                                                    </td>
+                                                    <td style='font-size: 9px;'>
+                                                        <div id="rrx" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;">
+                                                            <input type="radio" name="options" id="option27" style="position: fixed;opacity: 0;pointer-events: none;">rrx
+                                                        </div>
+                                                    </td>
+                                                    <td style='font-size: 9px;'>
+                                                        <div id="mpc" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;">
+                                                            <input type="radio" name="options" id="option28" style="position: fixed;opacity: 0;pointer-events: none;">mpc
+                                                        </div>
+                                                    </td>
+                                                    <td style='font-size: 9px;'>
+                                                        <div id="fld" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;">
+                                                            <input type="radio" name="options" id="option29" style="position: fixed;opacity: 0;pointer-events: none;">fld
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style='font-size: 9px;'>
+                                                        <div id="ano" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0;">
+                                                            <input type="radio" name="options" id="option30" style="position: fixed;opacity: 0;pointer-events: none;">ano
+                                                        </div>
+                                                    </td>
+                                                    <td style='font-size: 9px;'>
+                                                        <div id="miss" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;">
+                                                            <input type="radio" name="options" id="option31" style="position: fixed;opacity: 0;pointer-events: none;">mis
+                                                        </div>
+                                                    </td>
+                                                    <td style='font-size: 9px;'>
+                                                        <div id="gmc" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;">
+                                                            <input type="radio" name="options" id="option32" style="position: fixed;opacity: 0;pointer-events: none;">gmc
+                                                        </div>
+                                                    </td>
+                                                    <td style='font-size: 9px;'>
+                                                        <div id="acr" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;">
+                                                            <input type="radio" name="options" id="option33" style="position: fixed;opacity: 0;pointer-events: none;">acr
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style='font-size: 9px;'>
+                                                        <div id="dia" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;">
+                                                            <input type="radio" name="options" id="option34" style="position: fixed;opacity: 0;pointer-events: none;">dia
+                                                        </div>
                                                     </td>
                                                     <td></td>
                                                     <td style='font-size: 9px;'>
-                                                        <div id="ipx" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;"> <input type="radio" name="options" id="option35" style="position: fixed;opacity: 0;pointer-events: none;">ipx</div>
+                                                        <div id="ipx" class="btn list-group-item" style="width: 100%;color: black;background-color: white;border-color: white;padding: 0px 0px;">
+                                                            <input type="radio" name="options" id="option35" style="position: fixed;opacity: 0;pointer-events: none;">ipx
+                                                        </div>
                                                     </td>
                                                     <td></td>
                                                 </tr>
