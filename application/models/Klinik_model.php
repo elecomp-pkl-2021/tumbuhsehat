@@ -423,4 +423,71 @@ class Klinik_model extends CI_Model
             return false;
         }
     }
+    public function edit_pembayaran($id_booking)
+    {
+
+        $query = $this->db->where("id_booking", $id_booking)
+            ->get("rencana");
+        $query2 = $this->db->where("id_booking", $id_booking)
+            ->get("rekam_medis");
+
+        if ($query && $query2) {
+            return $query->row();
+            return $query2->row();
+        } else {
+            return false;
+        }
+    }
+    function get_proses_bayar($id_booking)
+    {
+        $status = '2';
+        $this->db->select('*');
+        $this->db->from('booking a');
+        $this->db->join('rencana b', 'a.id_booking=b.id_booking');
+        $this->db->join('pasien c', 'a.id_pasien=c.id_pasien');
+        $this->db->join('dokter d', ' a.id_dokter=d.id_dokter');
+        $this->db->join('cabang g', 'a.id_cabang=g.id_cabang');
+        $this->db->join('rekam_medis e', 'a.id_booking=e.id_booking');
+        $this->db->join('metode_pembayaran f', 'b.id_metode=f.id_metode');
+        $this->db->where('a.id_booking', $id_booking);
+        $this->db->where('e.status', $status);
+        return $this->db->get();
+    }
+    function get_layanan($id_booking)
+    {
+        $status = '1';
+        $this->db->select('*');
+        $this->db->from('booking a');
+        $this->db->join('rekam_medis b', 'a.id_booking=b.id_booking');
+        $this->db->join('pilih_layanan c', 'b.id_rekam_medis=c.id_rekam_medis');
+        $this->db->join('layanan d', 'c.id_layanan=d.id_layanan');
+        $this->db->where('a.id_booking', $id_booking);
+        return $this->db->get();
+    }
+    function get_total($id_rekam_medis)
+    {
+        $this->db->where('id_rekam_medis', $id_rekam_medis);
+        return $this->db->get('rekam_medis')->row();
+    }
+    function get_diskon()
+    {
+        $status = '1';
+        $this->db->order_by('id_diskon', 'DESC');
+        return $this->db->get_where('diskon', ['status_diskon' => $status])->result_array();
+    }
+    function update_rekam_medis($id, $data)
+    {
+        $this->db->where("id_booking", $id);
+        $this->db->update("rekam_medis", $data);
+    }
+    function update_rencana_bayar($id, $data)
+    {
+        $this->db->where("id_booking", $id);
+        $this->db->update("rencana", $data);
+    }
+    function update_pilih_layanan($id, $data)
+    {
+        $this->db->where("id_rekam_medis", $id);
+        $this->db->update("pilih_layanan", $data);
+    }
 }
