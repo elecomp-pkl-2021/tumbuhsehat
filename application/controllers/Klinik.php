@@ -691,4 +691,93 @@ class Klinik extends CI_Controller
 <?php
         }
     }
+
+    function buatAkunKeluarga()
+    {
+        $data['title'] = "Buat Akun Keluarga | Tumbuh Sehat";
+        $data['judulHalaman'] = "Buat Akun Keluarga";
+        $data['subJudulHalaman'] = "Selamat datang di <b>Tumbuh Sehat</b>";
+        $data['iconHalaman'] = "ik-home";
+        $data['breadcrumbs'] = '
+            <li class="breadcrumb-item active"><i class="ik ik-home"></i></li>';
+
+        $this->form_validation->set_rules(
+            'nama_depan',
+            'Nama Depan',
+            'required',
+            array(
+                'required' => '%s masih kosong!',
+            )
+        );
+        $this->form_validation->set_rules(
+            'tanggal_lahir',
+            'Tanggal Lahir',
+            'required',
+            array(
+                'required' => '%s masih kosong!',
+            )
+        );
+        $this->form_validation->set_rules(
+            'nama_belakang',
+            'Nama Belakang',
+            'required',
+            array(
+                'required' => '%s masih kosong!',
+            )
+        );
+        $this->form_validation->set_rules(
+            'jenis_kelamin',
+            'Jenis Kelamin',
+            'required',
+            array(
+                'required' => '%s masih kosong!',
+            )
+        );
+        $this->form_validation->set_rules(
+            'no_hp',
+            'No Hp',
+            'required',
+            array(
+                'required' => '%s masih kosong!',
+            )
+        );
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('components/header', $data);
+            $this->load->view('components/sidebar_resepsionis');
+            $this->load->view('components/breadcrumbs', $data);
+            $this->load->view('pages/home/resepsionis/buatAkunKeluarga', $data);
+            $this->load->view('components/footer');
+        } else {
+            $this->add_pasien();
+        }
+    }
+    public function add_pasien()
+    {
+
+        $data_login = array(
+            'nama_depan_u' => $this->input->post('nama_depan'),
+            'nama_belakang_u' => $this->input->post('nama_belakang'),
+            'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+            'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+            'no_hp' => $this->input->post('no_hp'),
+            'level' => 'Pasien',
+        );
+
+        $this->Klinik_model->insert_login($data_login);
+        $data = $this->Klinik_model->get_iduser($this->input->post('nama_depan'), $this->input->post('tanggal_lahir'), $this->input->post('nama_belakang'));
+        $data_pasien = array(
+            'id_user' => $data->id_user,
+            'nama_depan' => $this->input->post('nama_depan'),
+            'nama_belakang' => $this->input->post('nama_belakang'),
+            'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+            'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+            'no_hp' => $this->input->post('no_hp'),
+            'hubungan' => 'Anda',
+        );
+        $this->Klinik_model->insert_pasien($data_pasien);
+        $this->session->set_flashdata('notif', '<div class="alert alert-success alert-dismissible"> Data Mahasiswa berhasil ditambah.
+    </div>');
+
+        redirect(site_url('home'));
+    }
 }

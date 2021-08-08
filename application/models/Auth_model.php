@@ -20,6 +20,10 @@ class Auth_model extends CI_Model
             return false;
         }
     }
+    function where($where){     
+        //$this->db->join('tab_akses_menu','tab_akses_menu.id_posisi=karyawan.id_posisi');
+    return $this->db->get_where('login_session',$where);
+}
 }
 
 /* End of file Login_model.php */
