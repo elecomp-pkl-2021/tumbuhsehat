@@ -8,18 +8,24 @@ class Auth_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('login_session');
-        $this->db->where('email', $email); 
+        $this->db->where('email', $email);
         $this->db->where('password', $password);
         $this->db->limit(1);
 
         $query = $this->db->get();
-        if ($query->num_rows() == 1)
-        {
+        if ($query->num_rows() == 1) {
             return $query->result();
         } else {
             return false;
         }
     }
+
+    function where($where)
+    {
+        //$this->db->join('tab_akses_menu','tab_akses_menu.id_posisi=karyawan.id_posisi');
+        return $this->db->get_where('login_session', $where);
+    }
+
 
     public function get_latest_id_user()
     {

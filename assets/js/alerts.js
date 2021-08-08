@@ -1,5 +1,5 @@
-(function($) {
-  showSuccessToast = function() {
+(function ($) {
+  showSuccessToast = function () {
     'use strict';
     resetToastPosition();
     $.toast({
@@ -11,7 +11,7 @@
       position: 'top-right'
     })
   };
-  showInfoToast = function() {
+  showInfoToast = function () {
     'use strict';
     resetToastPosition();
     $.toast({
@@ -23,7 +23,7 @@
       position: 'top-right'
     })
   };
-  showWarningToast = function() {
+  showWarningToast = function () {
     'use strict';
     resetToastPosition();
     $.toast({
@@ -35,7 +35,7 @@
       position: 'top-right'
     })
   };
-  showDangerToast = function() {
+  showDangerToast = function () {
     'use strict';
     resetToastPosition();
     $.toast({
@@ -47,7 +47,7 @@
       position: 'top-right'
     })
   };
-  showToastPosition = function(position) {
+  showToastPosition = function (position) {
     'use strict';
     resetToastPosition();
     $.toast({
@@ -59,7 +59,7 @@
       loaderBg: '#f96868'
     })
   }
-  showToastInCustomPosition = function() {
+  showToastInCustomPosition = function () {
     'use strict';
     resetToastPosition();
     $.toast({
@@ -74,7 +74,7 @@
       loaderBg: '#f96868'
     })
   }
-  resetToastPosition = function() {
+  resetToastPosition = function () {
     $('.jq-toast-wrap').removeClass('bottom-left bottom-right top-left top-right mid-center'); // to remove previous position class
     $(".jq-toast-wrap").css({
       "top": "",
