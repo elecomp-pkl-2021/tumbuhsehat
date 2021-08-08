@@ -1,6 +1,11 @@
 <?php
 class Klinik_model extends CI_Model
 {
+    function get_pasien()
+    {
+        $query = $this->db->get('pasien');
+        return $query;
+    }
     function tampil($nama = null, $tgl_lahir = null, $no_hp = null, $email = null)
     {
         $level = 'Pasien';
@@ -136,5 +141,62 @@ class Klinik_model extends CI_Model
         $this->db->order_by('b.jam_rencana_mulai', 'asc');
         $this->db->order_by('b.jam_rencana_selesai', 'asc');
         return $this->db->get();
+    }
+    function insert_pasien($data)
+    {
+        $query = $this->db->insert("pasien", $data);
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function insert_login($data)
+    {
+        $query = $this->db->insert("login_session", $data);
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function get_iduser($nama_d, $tgl, $nama_b)
+    {
+        $this->db->where('nama_depan_u', $nama_d);
+        $this->db->where('tanggal_lahir', $tgl);
+        $this->db->where('nama_belakang_u', $nama_b);
+        return $this->db->get('login_session')->row();
+    }
+    public function cekkode($where)
+    {
+        $subquery = $this->db->select('kode_verifikasi')
+            ->from('temp_verifikasi')
+            ->where('kode_verifikasi is not null', NULL, FALSE)
+            ->get_compiled_select();
+
+        return $this->db->where('kode_verifikasi in (' . $subquery . ')', NULL, FALSE)
+            ->where('kode_verifikasi', $where)
+            ->get('temp_verifikasi');
+    }
+    function insert_verifikasi($data)
+    {
+        $query = $this->db->insert("temp_verifikasi", $data);
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function changeActiveState($key)
+    {
+        $this->load->database();
+        $data = array(
+            'active' => 1
+        );
+
+        $this->db->where('md5(id_user)', $key);
+        $this->db->update('mytable', $data);
+
+        return true;
     }
 }

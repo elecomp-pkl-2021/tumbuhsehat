@@ -9,28 +9,48 @@
                     
                     <div class="col-xl-4 col-lg-6 col-md-7 my-auto p-0">
                         <div class="authentication-form mx-auto">
-                        <?php echo form_open('Login/kirimEmail');?>
-                            <div class="logo-centered">
-                                <a href="../index.html"><img src="../src/img/brand.svg" alt=""></a>
-                            </div>
+                        <div class="logo mb-50">
+						<center>
+							<a href="<?= base_url() ?>"><img src="<?= base_url('assets') ?>/src/img/logo-escalade.png"
+									alt="" style="border-radius: 8px;"></a>
+						</center>
+					    </div>
                             <h3>Forgot Password</h3>
                             <p>We will send you a link to reset password.</p>
-                            <form action="../index.html">
-                                <div class="form-group">
-                                    <input type="email" value="<?php echo set_value('email'); ?>" class="form-control" placeholder="Your email address" required="">
-                                    <i class="ik ik-mail"></i>
+                            <?php if($this->session->flashdata('berhasil_reset') != null) : ?>
+						        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>Reset Password Berhasil!</strong> <br><?= $this->session->flashdata('berhasil_reset')?>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="ik ik-x"></i></button>
                                 </div>
+					        <?php elseif($this->session->flashdata('gagal_reset') != null) : ?>
+						        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>Gagal Reset Password!</strong> <?= $this->session->flashdata('gagal_reset')?>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="ik ik-x"></i></button>
+                                </div>		
+					        <?php endif?>
+                            <form action="<?= base_url('auth/forgotPassword') ?>" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+							<?php if (form_error('email')) : ?>
+							<input type="email" class="form-control form-control-warning form-txt-warning"
+								placeholder="<?= strip_tags(form_error('email')) ?>" name="email" ?>
+							<i class="ik ik-mail"></i>
+							<?php else : ?>
+							<input type="email" class="form-control" placeholder="Masukkan email"
+								name="email" value="<?= set_value('email')?>">
+							<i class="ik ik-mail"></i>
+							<?php endif ?>
+						</div>
                                 <div class="sign-btn text-center">
-                                    <button class="btn btn-theme">Submit</button>
+                                    <button class="btn btn-theme">Kirim</button>
                                 </div>
-                            </form>
+                                </form>
                             <div class="register">
-                                <p>Not a member? <a href="register.html">Create an account</a></p>
+                                <p>Kembali ke <a href="<?= base_url('')?>">halaman login</a></p>
                             </div>
                         </div>
                     </div>
                 
-                    <?php echo form_close() ?>
+                    
             </div>
             </div>
         </div>
