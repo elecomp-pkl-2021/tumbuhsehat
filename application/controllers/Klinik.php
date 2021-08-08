@@ -692,6 +692,7 @@ class Klinik extends CI_Controller
         }
     }
 
+
     function buatAkunKeluarga()
     {
         $data['title'] = "Buat Akun Keluarga | Tumbuh Sehat";
@@ -776,8 +777,28 @@ class Klinik extends CI_Controller
         );
         $this->Klinik_model->insert_pasien($data_pasien);
         $this->session->set_flashdata('notif', '<div class="alert alert-success alert-dismissible"> Data Mahasiswa berhasil ditambah.
-    </div>');
+        </div>');
 
         redirect(site_url('home'));
+    }
+
+    public function update_rencana_h_profil()
+    {
+        $data_booking = array(
+            'id_cabang' => $this->input->post('id_cabang'),
+            'id_dokter' => $this->input->post('id_dokter'),
+        );
+
+        $data_rencana = array(
+            'id_booking' => $this->input->post('id_booking'),
+            'tanggal_rencana' => $this->input->post('tanggal_rencana'),
+            'jam_rencana_mulai' => $this->input->post('jam_rencana_mulai'),
+            'jam_rencana_selesai' => $this->input->post('jam_rencana_selesai'),
+        );
+
+        $this->Klinik_model->update_stat_book($this->input->post('id_booking'), $data_booking);
+        $this->Klinik_model->update_rencana($this->input->post('id_rcn'), $data_rencana);
+
+        redirect('Home');
     }
 }

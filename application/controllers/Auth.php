@@ -61,10 +61,11 @@ class Auth extends CI_Controller
             $this->session->set_userdata('level', $row->level);
 
             if ($this->session->userdata('level') == "Dokter") {
-                $cekDokter = $this->dokter_model->get_dokter_by_id($this->session->userdata('id_user'));
+                $cekDokter = $this->dokter_model->get_dokter_by_id_user($this->session->userdata('id_user'));
                 foreach ($cekDokter as $row);
                 $this->session->set_userdata('id_dokter', $row->id_dokter);
                 $this->session->set_userdata('nama_dokter', $row->nama_dokter);
+                redirect('home/dokter', 'refresh');
             }
 
             redirect('home', 'refresh');
@@ -72,6 +73,87 @@ class Auth extends CI_Controller
             $this->session->set_flashdata('gagal_login', 'Cek kembali email dan password!');
             redirect('');
         }
+    }
+
+    public function Register(){
+
+        $data['title'] = "Register | Tumbuh Sehat";
+        $this->form_validation->set_rules(
+            'nama_depan',
+            'Nama Depan',
+            'required',
+            array(
+                'required' => '%s masih kosong!',
+            )
+        );
+        $this->form_validation->set_rules(
+            'nama_belakang',
+            'Nama Belakang',
+            'required',
+            array(
+                'required' => '%s masih kosong!',
+            )
+        );
+        $this->form_validation->set_rules(
+            'tanggal_lahir',
+            'Tanggal Lahir',
+            'required',
+            array(
+                'required' => '%s masih kosong!',
+            )
+        );
+        $this->form_validation->set_rules(
+            'jenis_kelamin',
+            'Jenis Kelamin',
+            'required',
+            array(
+                'required' => '%s masih kosong!',
+            )
+        );
+        $this->form_validation->set_rules(
+            'alamat',
+            'Alamat',
+            'required',
+            array(
+                'required' => '%s masih kosong!',
+            )
+        );
+        $this->form_validation->set_rules(
+            'email',
+            'Email',
+            'required|valid_email',
+            array(
+                'required' => '%s masih kosong!',
+                'valid_email' => '%s format emailnya salah!',
+            )
+        );
+        $this->form_validation->set_rules(
+            'handphone',
+            'Handphone',
+            'required',
+            array(
+                'required' => '%s masih kosong!',
+            )
+        );
+        $this->form_validation->set_rules(
+            'password',
+            'Password',
+            'required',
+            array(
+                'required' => '%s masih kosong!',
+            )
+        );
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('components/header_auth', $data);
+            $this->load->view('pages/auth/register', $data);
+            $this->load->view('components/footer_auth');
+        } else{
+            $this->prosesRegister();
+        }
+    }
+
+    private function prosesRegister(){
+        echo 'berhasil';
     }
 
     public function logout()

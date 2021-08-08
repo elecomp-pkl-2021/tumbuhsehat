@@ -1,0 +1,184 @@
+.panel {
+	background-color: transparent;
+	/* border: 0 none; */
+	box-shadow: none;
+}
+.panel-default {
+	border-color: #ddd;
+}
+
+.panel {
+	margin-bottom: 173px;
+	background-color: #fff;
+	border: 1px solid transparent;
+	border-radius: 0px;
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+	border-color: #000;
+	margin-left: -15px;
+}
+.desabilitado {
+	fill: black;
+	stroke: black;
+	stroke-width: 1px;
+	opacity: 0.3;
+}
+.marcadoAzul {
+	fill: none;
+	stroke: blue;
+	stroke-width: 7px;
+}
+.marcadoVerde {
+	fill: green;
+	stroke: black;
+	stroke-width: 1px;
+}
+.marcadoMorado {
+	fill: #cc66cc;
+	stroke: black;
+	stroke-width: 1px;
+}
+.marcadoMarron {
+	fill: #cc6600;
+	stroke: black;
+	stroke-width: 1px;
+}
+.marcadoAmarillo {
+	fill: yellow;
+	stroke: black;
+	stroke-width: 1px;
+}
+.marcadoRojo {
+	fill: red;
+	stroke: black;
+	stroke-width: 1px;
+}
+.marcadoNaranja {
+	fill: orange;
+	stroke: black;
+	stroke-width: 1px;
+}
+.marcadoTomate {
+	fill: tomato;
+	stroke: black;
+	stroke-width: 1px;
+}
+.diente {
+	fill-opacity: 0;
+	stroke: black;
+	stroke-width: 1px;
+}
+
+.ausente2e {
+	fill: none;
+	opacity: 0;
+}
+
+.ausente44 {
+	fill: none;
+	opacity: 0;
+}
+
+.ausente63 {
+	fill: none;
+	opacity: 0;
+}
+
+.ausente64 {
+	fill: none;
+	opacity: 0;
+}
+
+.corona {
+	fill: none;
+	opacity: 0;
+}
+.endodoncia {
+	fill: none;
+	opacity: 0;
+}
+
+.implante {
+	fill: none;
+	opacity: 0;
+}
+
+.desabilitado {
+	fill: black;
+	stroke: black;
+	stroke-width: 1px;
+	opacity: 0.3;
+}
+.marcadoAzul {
+	fill: none;
+	stroke: blue;
+	stroke-width: 7px;
+}
+.marcadoVerde {
+	fill: green;
+	stroke: black;
+	stroke-width: 1px;
+}
+.marcadoMorado {
+	fill: #cc66cc;
+	stroke: black;
+	stroke-width: 1px;
+}
+.marcadoMarron {
+	fill: #cc6600;
+	stroke: black;
+	stroke-width: 1px;
+}
+.marcadoAmarillo {
+	fill: yellow;
+	stroke: black;
+	stroke-width: 1px;
+}
+.marcadoRojo {
+	fill: red;
+	stroke: black;
+	stroke-width: 1px;
+}
+.marcadoNaranja {
+	fill: orange;
+	stroke: black;
+	stroke-width: 1px;
+}
+.marcadoTomate {
+	fill: tomato;
+	stroke: black;
+	stroke-width: 1px;
+}
+.marcadoBlack {
+	fill: black;
+	stroke: black;
+	stroke-width: 1px;
+}
+.marcadoBlack2 {
+	/* fill:black; */
+	stroke: black;
+	stroke-width: 2px;
+}
+.diente {
+	fill-opacity: 0;
+	stroke: black;
+	stroke-width: 1px;
+}
+/* .ausente
+{
+    fill:none;
+    opacity: 0;
+} */
+.corona {
+	fill: none;
+	opacity: 0;
+}
+.endodoncia {
+	fill: none;
+	opacity: 0;
+}
+
+.implante {
+	fill: none;
+	opacity: 0;
+}

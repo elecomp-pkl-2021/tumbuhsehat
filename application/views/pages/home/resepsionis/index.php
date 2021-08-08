@@ -86,8 +86,7 @@
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <button class="btn btn-info" onclick="getDataJadwal()"><i class="fa fa-search"></i> Filter
-                        Data</button>
+                    <button class="btn btn-info" onclick="getDataJadwal()"><i class="fa fa-search"></i> Filter Data</button>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
@@ -105,7 +104,6 @@
                     <div class="col-md-4">
                         <h5 style="text-align: center;">Jadwal Pemeriksaan Sebelumnya</h5>
                         <div class="col-lg-12" id="txtfilter_2" style="height: 400px; overflow-y: scroll; overflow-x: hidden;">
-                            >>>>>>> origin/main
 
                         </div>
                     </div>

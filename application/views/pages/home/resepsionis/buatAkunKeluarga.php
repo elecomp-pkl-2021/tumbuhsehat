@@ -85,7 +85,6 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary mr-2" id="btn_save">Buat akun Keluarga</button>
-                                <button class="btn btn-light">Cancel</button>
                             </div>
                         </div>
                     </div>

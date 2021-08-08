@@ -15,48 +15,103 @@
                     </div>
                     <h3>Daftar ke Tumbuh Sehat</h3>
                     <p>Senang bertemu Anda kembali!</p>
-                    <form action="<?= base_url('home') ?>">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Nama Depan" required="">
-                            <i class="ik ik-user"></i>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Nama Belakang" required="">
-                            <i class="ik ik-user"></i>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group">
-
-                                <input type="text" name="tanggal_lahir" id="date" class="form-control" placeholder="Tanggal Lahir" required="required">
-                                <i class="ik ik-calendar"></i>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="ik ik-user"></i></span>
-                                <select class="form-control" name="jenis_kelamin" required data-required-msg="Address is required">
-                                    <option value="" disabled selected style="display: none;">Jenis Kelamin</option>
-                                    <option value="Laki-Laki" id="Laki-Laki">Laki-Laki</option>
-                                    <option value="Perempuan" id="Perempuan">Perempuan</option>
-                                </select>
-                                <span data-for="status" class="k-invalid-msg"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Password" required="">
-                            <i class="ik ik-lock"></i>
-                        </div>
+                    <form action="<?= base_url('auth/register') ?>" method="post" enctype="multipart/form-data">
                         <div class="row">
-                            <div class="col text-right">
-                            <a href="<?php echo base_url() ?>Auth/forgotPassword/">Lupa Password ?</a>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <?php if (form_error('nama_depan')) : ?>
+                                        <input type="text" name="nama_depan" class="form-control form-control-warning form-txt-warning" placeholder="<?= strip_tags(form_error('nama_depan')) ?>">
+                                        <i class="ik ik-user"></i>
+                                    <?php else : ?>
+                                        <input type="text" name="nama_depan" class="form-control" placeholder="Nama Depan" value="<?= set_value('nama_depan') ?>">
+                                        <i class="ik ik-user"></i>
+                                    <?php endif ?>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <?php if (form_error('tanggal_lahir')) : ?>
+                                            <input type="date" name="tanggal_lahir" id="date" class="form-control form-control-warning form-txt-warning" value="<?= strip_tags(form_error('tanggal_lahir')) ?>">
+                                            <i class="ik ik-calendar"></i>
+                                        <?php else : ?>
+                                            <input type="date" name="tanggal_lahir" id="date" class="form-control" placeholder="Tanggal Lahir" value="<?= set_value('tanggal_lahir') ?>">
+                                            <i class="ik ik-calendar"></i>
+                                        <?php endif ?>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <?php if (form_error('alamat')) : ?>
+                                        <input type="alamat" name="alamat" class="form-control form-control-warning form-txt-warning" placeholder="<?= strip_tags(form_error('alamat')) ?>">
+                                        <i class="ik ik-home"></i>
+                                    <?php else : ?>
+                                        <input type="alamat" name="alamat" class="form-control" placeholder="Alamat" value="<?= set_value('alamat') ?>">
+                                        <i class="ik ik-home"></i>
+                                    <?php endif ?>
+                                </div>
+                                <div class="form-group">
+                                    <?php if (form_error('handphone')) : ?>
+                                        <input type="handphone" name="handphone" class="form-control form-control-warning form-txt-warning" placeholder="<?= strip_tags(form_error('handphone')) ?>">
+                                        <i class="ik ik-phone"></i>
+                                    <?php else : ?>
+                                        <input type="handphone" name="handphone" class="form-control" placeholder="Handphone" value="<?= set_value('handphone') ?>">
+                                        <i class="ik ik-phone"></i>
+                                    <?php endif ?>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <?php if (form_error('nama_belakang')) : ?>
+                                        <input type="text" name="nama_belakang" class="form-control form-control-warning form-txt-warning" placeholder="<?= strip_tags(form_error('nama_belakang')) ?>">
+                                        <i class="ik ik-user"></i>
+                                    <?php else : ?>
+                                        <input type="text" name="nama_belakang" class="form-control" placeholder="Nama Belakang" value="<?= set_value('tanggal_lahir') ?>">
+                                        <i class="ik ik-user"></i>
+                                    <?php endif ?>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <?php if (form_error('jenis_kelamin')) : ?>
+                                            <select class="form-control form-control-warning form-txt-warning" name="jenis_kelamin">
+                                                <option value="" disabled selected style="display: none;"><?= strip_tags(form_error('jenis_kelamin')) ?></option>
+                                                <option value="Laki-Laki" id="Laki-Laki">Laki-Laki</option>
+                                                <option value="Perempuan" id="Perempuan">Perempuan</option>
+                                            </select>
+                                            <i class="ik ik-users"></i>
+                                        <?php else : ?>
+                                            <select class="form-control" name="jenis_kelamin">
+                                                <option value="" disabled selected style="display: none;">Jenis Kelamin</option>
+                                                <option value="Laki-Laki" id="Laki-Laki">Laki-Laki</option>
+                                                <option value="Perempuan" id="Perempuan">Perempuan</option>
+                                            </select>
+                                            <i class="ik ik-users"></i>
+                                        <?php endif ?>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <?php if (form_error('email')) : ?>
+                                        <input type="email" name="email" class="form-control form-control-warning form-txt-warning" placeholder="<?= strip_tags(form_error('email')) ?>">
+                                        <i class="ik ik-mail"></i>
+                                    <?php else : ?>
+                                        <input type="email" name="email" class="form-control" placeholder="Email" value="<?= set_value('email') ?>">
+                                        <i class="ik ik-mail"></i>
+                                    <?php endif ?>
+                                </div>
+                                <div class="form-group">
+                                    <?php if (form_error('password')) : ?>
+                                        <input type="password" name="password" class="form-control form-control-warning form-txt-warning" placeholder="<?= strip_tags(form_error('password')) ?>">
+                                        <i class="ik ik-lock"></i>
+                                    <?php else : ?>
+                                        <input type="password" name="password" class="form-control" placeholder="Password" value="<?= set_value('password') ?>">
+                                        <i class="ik ik-lock"></i>
+                                    <?php endif ?>
+                                </div>
                             </div>
                         </div>
                         <div class="sign-btn text-center">
-                            <button class="btn btn-theme">Masuk</button>
+                            <button type="submit" class="btn btn-theme">Daftar</button>
                         </div>
                     </form>
                     <div class="register">
-                        <p>Belum punya akun? <a href="register.html">Buat akun sekarang</a></p>
+                        <p>Sudah punya akun? <a href="<?= base_url('') ?>">Kembali ke Login</a></p>
                     </div>
                 </div>
             </div>
