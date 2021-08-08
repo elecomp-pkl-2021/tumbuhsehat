@@ -49,15 +49,12 @@
         }).then((result) => {
             if (result.value) {
                 document.location.href = href;
-<<<<<<< HEAD
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 Swal.fire(
                     'Dibatalkan',
                     'Data ' + nama + ' tidak dihapus!',
                     'success'
                 )
-=======
->>>>>>> origin/main
             }
         })
 
