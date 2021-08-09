@@ -187,11 +187,11 @@ class Dokter extends CI_Controller
     }
     
     private function _updateBooking(){
-
+        // ini buat update tabel booking
     }
    
     private function _updateOdontogram(){
-
+        // ini buat update odontogram
     }
 
     private function _addPemeriksaanUmum(){}
