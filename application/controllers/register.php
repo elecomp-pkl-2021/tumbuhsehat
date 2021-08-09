@@ -11,4 +11,8 @@ class register extends CI_Controller {
         $this->load->view('components/footer_auth');
         
     }
+
 }
+
+/* End of file Login.php */
+

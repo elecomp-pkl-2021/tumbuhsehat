@@ -19,6 +19,7 @@
                                     <?php endforeach; ?>
                                 </select>
                             </div>
+
                             <div class="col-md-6 col-12">
                                 <label>Pilih Profil Calon Pasien</label> <b style="color: blue;" id="buatPasienBaru"></b>
                                 <select class="select2bs4" name="id_pasien" id="id_pasien" style="width: 100%;">
@@ -51,6 +52,7 @@
                         <div class="row mt-3">
                             <div class="col-6">
                                 <button type="submit" class="btn btn-primary">Buat Janji</button>
+                                <button class="btn btn-anim btn-white" style="width: 200px; border-radius: 5px" type="button" onclick="location.href ='<?php echo base_url('klinik/buatAkunKeluarga'); ?>'"><span class="btn-text">Buat Akun Keluarga</span></button></center>
                             </div>
                         </div>
                     </div>
