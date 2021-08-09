@@ -20,7 +20,15 @@ class Pembayaran extends CI_Controller {
             <li class="breadcrumb-item active">Pembayaran</li>';
             
         $this->load->view('components/header', $data);
-        $this->load->view('components/sidebar_resepsionis');
+        if ($this->session->userdata('level') == "Owner") {
+            $this->load->view('components/sidebar_owner');
+        } elseif ($this->session->userdata('level') == "Klinik") {
+            $this->load->view('components/sidebar_resepsionis');
+        } elseif ($this->session->userdata('level') == "Superadmin") {
+            $this->load->view('components/sidebar_superadmin');
+        } else{
+            $this->load->view('components/sidebar_dokter');
+        }
         $this->load->view('components/breadcrumbs', $data);
         $this->load->view('pages/Pembayaran/index');
         $this->load->view('components/footer');
