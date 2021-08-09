@@ -14,6 +14,7 @@ class Dokter extends CI_Controller
         $this->load->model('Dokter_model');
         $this->load->model('Klinik_model');
         $this->load->model('Pasien_model');
+        $this->load->model('Layanan_model');
     }
 
     public function index()
@@ -62,14 +63,17 @@ class Dokter extends CI_Controller
 
     public function pemeriksaan($id_pasien, $id_rekam_medis)
     {
+        $pasien1 = $this->Pasien_model->get_medis_pasien($id_rekam_medis, $id_pasien)->row_array();
         $data = [
             'title' => 'Pemeriksaan Pasien | Tumbuh Sehat',
             'judulHalaman' => 'Data Pemeriksaan',
-            'subJudulHalaman' => 'Pemeriksaan Pasien<b> Alif faizal </b>',
+            'subJudulHalaman' => 'Pemeriksaan Pasien <b>'.$pasien1['nama_depan'].' '.$pasien1['nama_belakang'].'</b>',
             'iconHalaman' => 'ik-calendar',
             'breadcrumbs' => '<li class="breadcrumb-item active"><i class="ik ik-home"></i></li> <li class="breadcrumb-item active">Jadwal Pemeriksaan</i></li>',
+            'layanan' => $this->Layanan_model->getLayananAktif(),
+            'diskon' => $this->Layanan_model->getDiskonAktif()
         ];
-
+        
         $idk_psn = $this->session->userdata('id_kpesan');
         if (!empty($idk_psn)) {
             $id_kpesan = $this->session->userdata('id_kpesan');
@@ -87,7 +91,6 @@ class Dokter extends CI_Controller
         }
 
         $data['rawat'] = $rawat;
-        $pasien1 = $this->Pasien_model->get_medis_pasien($id_rekam_medis, $id_pasien);
         $data['pasien'] = $pasien1;
         $data['_jadwal_pemeriksaan'] = 1;
         $data['id_pasien'] = $id_pasien;
@@ -137,4 +140,86 @@ class Dokter extends CI_Controller
         }
         return $str;
     }
+<<<<<<< HEAD
 }
+=======
+
+    private function _updateRekam(){
+        date_default_timezone_set("Asia/Jakarta");
+        $data = array(
+        'jam_selesai_periksa' =>  date("H:i:s"),
+        'status' => '2',
+        'elemen_gigi' => $this->input->post('elemen_gigi'),
+        'keluhan_utama' => $this->input->post('anamnesa'),
+        'diagnosis' => $this->input->post('diagnosa'),
+        'keadaan_umum' => $this->input->post('kondisi-kesehatan'),
+        'subtotal' => $this->input->post('subtotal'),
+        'grandtotal' => $this->input->post('grandtotal')
+        );
+
+        $this->db->update('rekam_medis',$data, ['id_rekam_medis' => $this->input->post('id_rm')]);
+    }
+
+    private function _updatePasien(){
+        $data = [
+            'id_pasien' => $this->input->post('id_pasien'),
+            'id_user' => $this->input->post('id_keluarga'),
+            'nama_depan' => $this->input->post('first-name',true),
+            'nama_belakang' => $this->input->post('last-name',true),
+            'tempat_lahir' => $this->input->post('tmp-lahir',true),
+            'tanggal_lahir' => $this->input->post('tgl-lahir',true),
+            'jenis_kelamin' => $this->input->post('jns-kelamin',true),
+            'status_nikah' => $this->input->post('status-pernikahan',true),
+            'pekerjaan' => $this->input->post('pekerjaan',true),
+            'pendidikan' => $this->input->post('pendidikan',true),
+            'jenis_id' => $this->input->post('jns-id',true),
+            'no_id' => $this->input->post('no-id',true),
+            'alamat' => $this->input->post('jalan',true),
+            'city_id' => $this->input->post('kota',true),
+            'province_id' => $this->input->post('provinsi',true),
+            'kode_pos' => $this->input->post('kode-pos',true),
+            'provinsi' => $this->input->post('provinsi-nama',true),
+            'kota_kab' => $this->input->post('kota-nama',true),
+            'email' => $this->input->post('email',true),
+            'no_hp' => $this->input->post('no-hp',true),
+            'gol_darah' => $this->input->post('gol-dar',true),
+            'alergi' => $this->input->post('alergi',true),
+            'riwayat_penyakit' => $this->input->post('rwyt-penyakit',true),
+        ];
+        $this->db->update('pasien', $data, ['id_pasien' => $data['id_pasien']]);
+    }
+    
+    private function _updateBooking(){
+        // ini buat update tabel booking
+    }
+   
+    private function _updateOdontogram(){
+        // ini buat update odontogram
+    }
+
+    private function _addPemeriksaanUmum(){}
+
+    private function _addPemeriksaanKhusus(){}
+
+    private function _addPemeriksaanPenunjang(){}
+    
+    private function _addPilihLayanan(){}
+
+    // ODONTOGRAM
+    public function create_odontogram_periksa()
+    {
+      $data_pemeriksaan_odontogram = array(
+        'id_pasien' => $this->input->post('id_pasien'),
+        'id_booking' => $this->input->post('id_booking'),
+        'id_rekam_medis' => $this->input->post('id_rekam_medis'),
+        'odontogram' => $this->input->post('odontogram'),
+        'tgl_pemeriksaan' => date('Y-m-d')
+      );
+  
+      $this->Pemeriksaan_model->insert_pemeriksaan_odontogram($data_pemeriksaan_odontogram);
+      //print_r($this->db->last_query());
+  
+      echo json_encode(array('status' => TRUE));
+    }
+}
+>>>>>>> origin/ismile-branch

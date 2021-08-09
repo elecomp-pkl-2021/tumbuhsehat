@@ -1,5 +1,13 @@
 <!-- STEPPER -->
 <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    stepper = new Stepper(document.querySelector('#stepper'), {
+        linear: true,
+        animation: true
+    })
+})
+</script>
 <!-- DATEPICKER -->
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css"
     type="text/css" media="all">
@@ -22,7 +30,7 @@ $(document).ready(function() {
         }
         $('#pn').val($('#provinsi option:selected').text());
     });
-    $('#kota').on('change', function(){
+    $('#kota').on('change', function() {
         $('#kn').val($('#kota option:selected').text());
     });
     // FOR ORANG DEKAT PASIEN
@@ -63,7 +71,7 @@ const tambahOrangDekat = () => {
         }
         $('#pn-od').val($('#provinsi-od option:selected').text());
     });
-    $('#kota-od').on('change', function(){
+    $('#kota-od').on('change', function() {
         $('#kn-od').val($('#kota-od option:selected').text());
     });
 }
@@ -88,13 +96,6 @@ const showBtnDO = () => {
     $('#btn-stepper-od').removeClass('d-none');
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    stepper = new Stepper(document.querySelector('#stepper'), {
-        linear: true,
-        animation: true
-    })
-})
-
 // datepicker
 var dateToday = new Date();
 var day = null;
@@ -113,9 +114,7 @@ var dates = $("#tgl_pemeriksaan").datepicker({
         var day = String(date).split(' ');
         const id = $(this).data('id');
         $.ajax({
-            url: '<?= base_url('/Pemeriksaan/json_get_jam_praktik_dokter'); ?>/' +
-                id + '/' +
-                day[0],
+            url: '<?= base_url('/Pemeriksaan/json_get_jam_praktik_dokter'); ?>/' + id + '/' + day[0],
             data: {
                 id: id
             },

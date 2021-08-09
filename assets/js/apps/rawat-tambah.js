@@ -10331,7 +10331,7 @@ function load_odontogram() {
 }
 
 function save_temp() {
-	url = base_url + "Doctor/create_odontogram_periksa";
+	url = base_url + "Dokter/create_odontogram_periksa";
 	$.ajax({
 		type: "POST",
 
