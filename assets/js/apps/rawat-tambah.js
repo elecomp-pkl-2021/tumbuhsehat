@@ -10268,7 +10268,7 @@ function clickLine(x) {
 }
 
 function saveHeaderRawat(button) {
-	url = base_url + "Doctor/create_action_periksa";
+	url = base_url + "Dokter/create_action_periksa";
 	var nama_lengkap = $("#nama_depan").val();
 	$.ajax({
 		type: "POST",
@@ -10331,7 +10331,11 @@ function load_odontogram() {
 }
 
 function save_temp() {
-	url = base_url + "Doctor/create_odontogram_periksa";
+	console.log("Testing");
+	id_booking = document.getElementById("id_bookingnya").value;
+	id_pasien = document.getElementById("id_pasiennya").value;
+	id_rekam_medis = document.getElementById("id_rekam_medisnya").value;
+	url = base_url + "Dokter/create_odontogram_periksa";
 	$.ajax({
 		type: "POST",
 
@@ -10339,10 +10343,12 @@ function save_temp() {
 
 		cache: false,
 
-		data:
-			$("#formRawatTambah").serialize() +
-			"&odontogram=" +
-			JSON.stringify(allDental),
+		data: {
+			id_booking: id_booking,
+			id_pasien: id_pasien,
+			id_rekam_medis: id_rekam_medis,
+			odontogram: JSON.stringify(allDental),
+		},
 
 		success: function (json) {
 			///var obj = JSON.parse(json);
@@ -16045,7 +16051,7 @@ function save_temp() {
 			for (var i = 0; i < data.length; i++) {
 				$.ajax({
 					type: "GET",
-					url: link + `doctor/getTemp/dental${data[i].title}/${id_pemeriksaan}`,
+					url: link + `dokter/getTemp/dental${data[i].title}/${id_pemeriksaan}`,
 					dataType: "json",
 					success: (hasil) => {
 						console.log(hasil.ket_pemeriksaan + "Hanya testing untuk after");
