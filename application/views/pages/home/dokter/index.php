@@ -58,7 +58,7 @@
                                 </td>
                                 <td>
                                     <div class="table-actions text-center">
-                                        <a href="<?= base_url('dokter/pemeriksaan')?>">
+                                        <a href="<?= base_url('dokter/pemeriksaan/'.$d['id_pasien'].'/'.$d['id_rekam_medis'])?>">
                                             <button class="btn btn-danger">
                                                 Mulai Pemeriksaan
                                             </button>

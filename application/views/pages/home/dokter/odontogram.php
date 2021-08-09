@@ -1,17 +1,3 @@
-<?php $a = 0;
-$b = 1;
-foreach ($pasien->result() as $result) {
-    $a++;
-    if ($a <= $b) {
-        $idpemeriksaan = $result->id_rekam_medis;
-?>
-<?php echo $result->nama_depan; ?>
-(<?php
-            $idRekamMedis = $result->id_rekam_medis;
-            echo $result->id_rekam_medis;
-            ?>)
-<?php }
-} ?>
 <div class="col-lg-12 mt-4">
     <div class="row">
         <div class="col-sm-1">

@@ -4,6 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Pembayaran extends CI_Controller {
 
+    public function __construct(){
+        parent::__construct();
+        $this->load->helper('global');
+    }
+
     public function index()
     {
         $data['title'] = "Pembayaran | Tumbuh Sehat";
@@ -21,4 +26,20 @@ class Pembayaran extends CI_Controller {
         $this->load->view('components/footer');
     }
 
+    public function hitungTotalBayar($harga, $qty, $diskon = null){
+        $total_harga = $harga * $qty;
+        if($diskon != null){
+            $bayar = $total_harga - ($total_harga * ($diskon/100));
+        }else{
+            $bayar = $total_harga;
+        }
+        $data = [
+            'harga_satuan_rp' => rupiah($harga),
+            'total_harga_rp' => rupiah($total_harga),
+            'bayar_rp' => rupiah($bayar),
+            'total_harga' => $total_harga,
+            'bayar' => $bayar,
+        ];
+        echo json_encode($data);
+    }
 }
