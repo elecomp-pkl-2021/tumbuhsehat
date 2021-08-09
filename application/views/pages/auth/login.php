@@ -1,5 +1,3 @@
-<div class="gagal-login" data-flashdata="<?php echo $this->session->flashdata('gagal-login'); ?>"></div>
-<div class="nama-login" data-flashdata="Login Gagal"></div>
 <div class="auth-wrapper">
 	<div class="container-fluid h-100">
 		<div class="row flex-row h-100 bg-white">
@@ -19,6 +17,18 @@
 					</div>
 					<h3>Masuk ke Tumbuh Sehat</h3>
 					<p>Senang bertemu Anda kembali!</p>
+					<?php if($this->session->flashdata('berhasil_reset') != null) : ?>
+						<!-- <p class="form-txt-success"> <?= $this->session->flashdata('berhasil_reset')?> </p> -->
+						<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>Reset Password Berhasil!</strong> <?= $this->session->flashdata('berhasil_reset')?>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="ik ik-x"></i></button>
+                        </div>
+					<?php elseif($this->session->flashdata('gagal_login') != null) : ?>
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Gagal Login!</strong> <?= $this->session->flashdata('gagal_login')?>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="ik ik-x"></i></button>
+                        </div>		
+					<?php endif?>
 					<form action="<?= base_url('auth') ?>" method="post" enctype="multipart/form-data">
 						<div class="form-group">
 							<?php if (form_error('email')) : ?>
@@ -44,7 +54,7 @@
 						</div>
 						<div class="row">
 							<div class="col text-right">
-								<a href="forgot-password.html">Lupa Password ?</a>
+							<a href="<?php echo base_url() ?>Auth/forgotPassword/">Lupa Password ?</a>
 							</div>
 						</div>
 						<div class="sign-btn text-center">

@@ -1,6 +1,11 @@
 <?php
 class Klinik_model extends CI_Model
 {
+    function get_pasien()
+    {
+        $query = $this->db->get('pasien');
+        return $query;
+    }
     function tampil($nama = null, $tgl_lahir = null, $no_hp = null, $email = null)
     {
         $level = 'Pasien';
@@ -137,6 +142,20 @@ class Klinik_model extends CI_Model
         $this->db->order_by('b.jam_rencana_selesai', 'asc');
         return $this->db->get();
     }
+
+    function insert_pasien($data)
+    {
+        $query = $this->db->insert("pasien", $data);
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function insert_login($data)
+    {
+        $query = $this->db->insert("login_session", $data);
+    }
     public function get_konfirmasi_janji($nama, $tgl_lahir, $rekam_medis, $id_dokter, $tanggal_rencana, $jam_rencana_mulai)
     {
         $konf = '0';
@@ -184,11 +203,20 @@ class Klinik_model extends CI_Model
 
         $query = $this->db->insert("rekam_medis", $data);
 
+
         if ($query) {
             return true;
         } else {
             return false;
         }
+    }
+
+    function get_iduser($nama_d, $tgl, $nama_b)
+    {
+        $this->db->where('nama_depan_u', $nama_d);
+        $this->db->where('tanggal_lahir', $tgl);
+        $this->db->where('nama_belakang_u', $nama_b);
+        return $this->db->get('login_session')->row();
     }
 
     function update_booking($id, $data)
@@ -422,6 +450,19 @@ class Klinik_model extends CI_Model
         } else {
             return false;
         }
+    }
+
+    function changeActiveState($key)
+    {
+        $this->load->database();
+        $data = array(
+            'active' => 1
+        );
+
+        $this->db->where('md5(id_user)', $key);
+        $this->db->update('mytable', $data);
+
+        return true;
     }
     public function edit_pembayaran($id_booking)
     {
