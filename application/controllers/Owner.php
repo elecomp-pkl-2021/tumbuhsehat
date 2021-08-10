@@ -174,7 +174,7 @@ class Owner extends CI_Controller
         $this->Klinik_model->add_rekam_medis($data_rekam_medis);
         $this->Klinik_model->update_booking($this->input->post('id_booking'), $data_booking);
 
-        redirect(site_url('owner/konfirmasi_janji'));
+        redirect(site_url('konfirmasi_janji/index'));
     }
 
     public function konfirmasi_tolak()
@@ -189,7 +189,7 @@ class Owner extends CI_Controller
 
         $this->Klinik_model->update_booking($this->input->post('id_booking'), $data_booking);
 
-        redirect(site_url('owner/konfirmasi_janji'));
+        redirect(site_url('konfirmasi_janji/index'));
     }
     public function ajax_get_terima($id_pasien)
     {
