@@ -42,6 +42,14 @@ class Layanan_model extends CI_Model {
         $this->db->delete('layanan');
     }
 
+    public function getLayananAktif(){
+        return $this->db->get_where('layanan',['status' => '1'])->result_array();
+    }
+
+    public function getDiskonAktif(){
+        return $this->db->get_where('diskon', ['status_diskon' => '1'])->result_array();
+    }
+
 }
 
 /* End of file Layanan_model.php */
