@@ -4,8 +4,8 @@
     const gagal = $('.gagal').data('flashdata');
     const gagalLogin = $('.gagal-login').data('flashdata');
     const nama = $('.nama').data('flashdata');
-    const namaLogin = $('.nama-login').data('flashdata');
-    const login = $('.pesan').data('login');
+    const resetPasswordSuccess = $('.reset_password').data('flashdata');
+
 
     if (berhasil) {
         Swal.fire(
@@ -19,22 +19,20 @@
             'Gagal ' + gagal,
             'error'
         )
-    } else if(gagalLogin){
+    } else if (gagalLogin) {
         Swal.fire(
-            namaLogin,
+            'Login Gagal',
+            gagalLogin,
+            'error'
+        )
+    } else if (resetPasswordSuccess) {
+        Swal.fire(
+            'Login Gagal',
             gagalLogin,
             'error'
         )
     }
 
-    if (login) {
-        Swal.fire(
-            login,
-            'Sepertinya username dan passwordmu salah',
-            'error'
-        )
-    } 
-    
     $('.btn-hapus').on('click', function (e) {
         e.preventDefault();
         const href = $(this).attr('href');
@@ -51,6 +49,12 @@
         }).then((result) => {
             if (result.value) {
                 document.location.href = href;
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Dibatalkan',
+                    'Data ' + nama + ' tidak dihapus!',
+                    'success'
+                )
             }
         })
 
