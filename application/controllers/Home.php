@@ -51,6 +51,31 @@ class Home extends CI_Controller
         $this->load->view('components/footer');
         // end resepsionis
     }
+    function buatAkunKeluarga()
+    {
+        $data['title'] = "Home | Tumbuh Sehat";
+        $data['judulHalaman'] = "Buat Akun Keluarga";
+        $data['subJudulHalaman'] = "Selamat datang di <b>Tumbuh Sehat</b>";
+        $data['iconHalaman'] = "ik ik-edit bg-blue";
+        $data['breadcrumbs'] = '
+            <li class="breadcrumb-item"><a href="'.base_url('home').'"><i class="ik ik-home"></i></a></li>
+            <li class="breadcrumb-item active">Buat Akun Keluarga</li>';
+
+      $data['_antrian'] = 1;
+      $data['content'] = 'klinik/tambah_pasien';
+      $this->load->view('components/header', $data);
+      $this->load->view('components/sidebar_resepsionis');
+      $this->load->view('components/breadcrumbs', $data);
+      $this->load->view('pages/home/resepsionis/buatAkunKeluarga', $data);
+      $this->load->view('components/footer');
+  
+      // if($this->input->post('kirim'))
+      // {
+      //   $nama_depan = $this->input->post('nama_depan');
+      //   $
+      // }
+  
+    }
 }
 
 /* End of file Home.php */

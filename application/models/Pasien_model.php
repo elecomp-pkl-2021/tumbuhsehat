@@ -198,4 +198,22 @@ class Pasien_model extends CI_Model
         $query = $this->db->get();
         return $query->num_rows();
     }
+
+    function insert_pemeriksaan_odontogram($data)
+    {
+
+        $query = $this->db->insert("pemeriksaan_odontogram", $data);
+
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function get_temp($idSvg, $idPemeriksaan)
+    {
+        $query = $this->db->query("SELECT ket_pemeriksaan, idSvg FROM temp WHERE idSvg = '$idSvg' AND idPemeriksaan = '$idPemeriksaan'");
+        return $query->row();
+    }
 }
