@@ -85,17 +85,6 @@ class Pasien extends CI_Controller
 
         $this->load->view('components/breadcrumbs', $data);
         
-        // $tgl_awal = date('Y-m-d');
-        // $data['id_pasien'] = $id_pasien;
-
-        // $rawat = $this->Pasien_informasi_model->get_one_rawat_by_id_medis($id_pasien, $tgl_awal, $id_rekam_medis);
-        // $data_rawat = json_decode(json_encode(@$rawat[0]), true);
-        
-        // if ($data_rawat && is_array($data_rawat)) {
-        //     $rawat = array_merge(@$data_rawat, array("detail_rawat" => array()));
-        // }
-
-        // $data['rawat'] = $rawat;
         $data['pasien'] = $this->Pasien_informasi_model->get_medis_pasien($id_rekam_medis, $id_pasien);
         $data['info'] = $this->Pasien_informasi_model->get_informasi($id_pasien, $id_booking);
         $data['info_umum'] = $this->Pasien_informasi_model->get_informasi_umum($id_pasien, $id_booking);
