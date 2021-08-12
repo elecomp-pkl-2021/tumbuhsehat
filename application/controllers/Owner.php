@@ -382,8 +382,8 @@ class Owner extends CI_Controller
 
         $this->load->library('upload', $config);
 
-        if ($this->upload->do_upload('foto_asuransi')) {
-            return $this->upload->data("file_name");
-        }
+        // if ($this->upload->do_upload('foto_asuransi')) {
+        return $this->upload->data("file_name");
+        // }
     }
 }

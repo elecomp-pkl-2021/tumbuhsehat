@@ -1,12 +1,15 @@
-<?php 
+<?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Pembayaran extends CI_Controller {
+class Pembayaran extends CI_Controller
+{
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
         $this->load->helper('global');
+        $this->load->model('pembayaran_metode_model');
     }
 
     public function index()
@@ -18,7 +21,7 @@ class Pembayaran extends CI_Controller {
         $data['breadcrumbs'] = '
             <li class="breadcrumb-item"><a href="home"><i class="ik ik-home"></i></a></li>
             <li class="breadcrumb-item active">Pembayaran</li>';
-            
+        $data['pembayaran'] = $this->pembayaran_metode_model->get_metode_pembayaran();
         $this->load->view('components/header', $data);
         if ($this->session->userdata('level') == "Owner") {
             $this->load->view('components/sidebar_owner');
@@ -26,7 +29,7 @@ class Pembayaran extends CI_Controller {
             $this->load->view('components/sidebar_resepsionis');
         } elseif ($this->session->userdata('level') == "Superadmin") {
             $this->load->view('components/sidebar_superadmin');
-        } else{
+        } else {
             $this->load->view('components/sidebar_dokter');
         }
         $this->load->view('components/breadcrumbs', $data);
@@ -34,11 +37,12 @@ class Pembayaran extends CI_Controller {
         $this->load->view('components/footer');
     }
 
-    public function hitungTotalBayar($harga, $qty, $diskon = null){
+    public function hitungTotalBayar($harga, $qty, $diskon = null)
+    {
         $total_harga = $harga * $qty;
-        if($diskon != null){
-            $bayar = $total_harga - ($total_harga * ($diskon/100));
-        }else{
+        if ($diskon != null) {
+            $bayar = $total_harga - ($total_harga * ($diskon / 100));
+        } else {
             $bayar = $total_harga;
         }
         $data = [

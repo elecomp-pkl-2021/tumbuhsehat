@@ -159,7 +159,8 @@
 
 
                                 <div class="col-lg-12">
-                                    <button data-toggle="tab" href="#metode_pembayaran" type="button" class="btn btn-primary" style="float: left;margin-top: 3%; margin-bottom:3%;  color:white">Kembali</button>
+                                    <a href="<?= base_url() ?>/pembayaran" type="button" class="btn btn-primary" style="float: left;margin-top: 3%; margin-bottom:3%;  color:white">Kembali</a>
+
                                     <button type="submit" href="#proses_bayar" class="btn btn-primary" style="float: right;margin-top: 3%;  margin-bottom:3%; color:white">Proses</button>
                                 </div>
 
