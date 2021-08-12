@@ -45,7 +45,7 @@
             </div>
         </div>
     </div>
-    <form action="">
+    <form action="<?= base_url('Dokter/addPemeriksaan');?>" method="POST">
         <input type="hidden" name="id_rm" value="<?= $pasien['id_rekam_medis']; ?>">
         <input type="hidden" name="id_pasien" value="<?= $pasien['id_pasien']; ?>">
         <input type="hidden" name="id_booking" value="<?= $pasien['id_booking']; ?>">
@@ -315,13 +315,13 @@
                                         </legend>
                                         <div class="col-sm-10">
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="bibir1" name="bibir" class="custom-control-input" onclick="disableInput('#bibir-lain')">
+                                                <input type="radio" id="bibir1" name="bibir" class="custom-control-input" onclick="disableInput('#bibir-lain')" value="Normal">
                                                 <label class="custom-control-label" for="bibir1">Normal</label>
                                             </div>
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="bibir2" name="bibir" class="custom-control-input" onclick="enableInput('#bibir-lain')">
+                                                <input type="radio" id="bibir2" name="bibir" class="custom-control-input" onclick="enableInput('#bibir-lain')" value="">
                                                 <label class="custom-control-label" for="bibir2">Lainnya</label>
-                                                <input class="form-control ml-3" type="text" name="gridRadios" id="bibir-lain" placeholder="Jenis Bibir" autocomplete="off" disabled>
+                                                <input class="form-control ml-3" type="text" name="bibir-lain" id="bibir-lain" placeholder="Jenis Bibir" autocomplete="off" disabled>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -336,11 +336,11 @@
                                         </legend>
                                         <div class="col-sm-7">
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="subman-kanan1" name="subman-kanan-raba" class="custom-control-input">
+                                                <input type="radio" id="subman-kanan1" name="subman-kanan-raba" class="custom-control-input" value="Teraba">
                                                 <label class="custom-control-label" for="subman-kanan1">Teraba</label>
                                             </div>
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="subman-kanan2" name="subman-kanan-raba" class="custom-control-input">
+                                                <input type="radio" id="subman-kanan2" name="subman-kanan-raba" class="custom-control-input" value="Tidak Teraba">
                                                 <label class="custom-control-label" for="subman-kanan2">Tidak
                                                     Teraba</label>
                                             </div>
@@ -350,11 +350,11 @@
                                         </div>
                                         <div class="col-sm-9">
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="subman-kanan3" name="subman-kanan-sakit" class="custom-control-input">
+                                                <input type="radio" id="subman-kanan3" name="subman-kanan-sakit" class="custom-control-input" value="Sakit">
                                                 <label class="custom-control-label" for="subman-kanan3">Sakit</label>
                                             </div>
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="subman-kanan4" name="subman-kanan-sakit" class="custom-control-input">
+                                                <input type="radio" id="subman-kanan4" name="subman-kanan-sakit" class="custom-control-input" value="Tidak Sakit">
                                                 <label class="custom-control-label" for="subman-kanan4">Tidak
                                                     Sakit</label>
                                             </div>
@@ -377,11 +377,11 @@
                                         </legend>
                                         <div class="col-sm-7">
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="subman-kiri1" name="subman-kiri-raba" class="custom-control-input">
+                                                <input type="radio" id="subman-kiri1" name="subman-kiri-raba" class="custom-control-input" value="Teraba">
                                                 <label class="custom-control-label" for="subman-kiri1">Teraba</label>
                                             </div>
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="subman-kiri2" name="subman-kiri-raba" class="custom-control-input">
+                                                <input type="radio" id="subman-kiri2" name="subman-kiri-raba" class="custom-control-input" value="Tidak Teraba">
                                                 <label class="custom-control-label" for="subman-kiri2">Tidak
                                                     Teraba</label>
                                             </div>
@@ -391,11 +391,11 @@
                                         </div>
                                         <div class="col-sm-9">
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="subman-kiri3" name="subman-kiri-sakit" class="custom-control-input">
+                                                <input type="radio" id="subman-kiri3" name="subman-kiri-sakit" class="custom-control-input" value="Sakit">
                                                 <label class="custom-control-label" for="subman-kiri3">Sakit</label>
                                             </div>
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="subman-kiri4" name="subman-kiri-sakit" class="custom-control-input">
+                                                <input type="radio" id="subman-kiri4" name="subman-kiri-sakit" class="custom-control-input" value="Tidak Sakit">
                                                 <label class="custom-control-label" for="subman-kiri4">Tidak
                                                     Sakit</label>
                                             </div>
@@ -497,12 +497,12 @@
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="row">
                                                 <div class="col-5">
-                                                    <input type="radio" id="gingiva2" name="gingiva" class="custom-control-input" onclick="enableInput('#gingiva-lain')">
+                                                    <input type="radio" id="gingiva2" name="gingiva" class="custom-control-input" onclick="enableInput('#gingiva-lain')" value="">
                                                     <label class="custom-control-label" for="gingiva2">Ada
                                                         Kelainan</label>
                                                 </div>
                                                 <div class="col">
-                                                    <input class="form-control " type="text" name="gingiva" id="gingiva-lain" placeholder="Kelainan Gingiva" autocomplete="off" disabled>
+                                                    <input class="form-control " type="text" name="gingiva-lain" id="gingiva-lain" placeholder="Kelainan Gingiva" autocomplete="off" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -519,13 +519,13 @@
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="row">
                                                 <div class="col-5">
-                                                    <input type="radio" id="debris2" name="debris" class="custom-control-input" onclick="enableInput('#debris-lain')">
+                                                    <input type="radio" id="debris2" name="debris" class="custom-control-input" onclick="enableInput('#debris-lain')" value="">
                                                     <label class="custom-control-label" for="debris2">
                                                         Ada Kelainan
                                                     </label>
                                                 </div>
                                                 <div class="col">
-                                                    <input class="form-control " type="text" name="debris" id="debris-lain" placeholder="Kelainan Debris" autocomplete="off" disabled>
+                                                    <input class="form-control " type="text" name="debris-lain" id="debris-lain" placeholder="Kelainan Debris" autocomplete="off" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -544,12 +544,12 @@
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="row">
                                                 <div class="col-5">
-                                                    <input type="radio" id="mukosa2" name="mukosa" class="custom-control-input" onclick="enableInput('#mukosa-lain')">
+                                                    <input type="radio" id="mukosa2" name="mukosa" class="custom-control-input" onclick="enableInput('#mukosa-lain')" value="">
                                                     <label class="custom-control-label" for="mukosa2">Ada
                                                         Kelainan</label>
                                                 </div>
                                                 <div class="col">
-                                                    <input class="form-control " type="text" name="mukosa" id="mukosa-lain" placeholder="Kelainan Mukosa" autocomplete="off" disabled>
+                                                    <input class="form-control " type="text" name="mukosa-lain" id="mukosa-lain" placeholder="Kelainan Mukosa" autocomplete="off" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -566,12 +566,12 @@
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="row">
                                                 <div class="col-5">
-                                                    <input type="radio" id="palatum2" name="palatum" class="custom-control-input" onclick="enableInput('#palatum-lain')">
+                                                    <input type="radio" id="palatum2" name="palatum" class="custom-control-input" onclick="enableInput('#palatum-lain')" value="">
                                                     <label class="custom-control-label" for="palatum2">Ada
                                                         Kelainan</label>
                                                 </div>
                                                 <div class="col">
-                                                    <input class="form-control " type="text" name="palatum" id="palatum-lain" placeholder="Kelainan Palatum" autocomplete="off" disabled>
+                                                    <input class="form-control " type="text" name="palatum-lain" id="palatum-lain" placeholder="Kelainan Palatum" autocomplete="off" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -588,12 +588,12 @@
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="row">
                                                 <div class="col-5">
-                                                    <input type="radio" id="lidah2" name="lidah" class="custom-control-input" onclick="enableInput('#lidah-lain')">
+                                                    <input type="radio" id="lidah2" name="lidah" class="custom-control-input" onclick="enableInput('#lidah-lain')" value="">
                                                     <label class="custom-control-label" for="lidah2">Ada
                                                         Kelainan</label>
                                                 </div>
                                                 <div class="col">
-                                                    <input class="form-control " type="text" name="lidah" id="lidah-lain" placeholder="Kelainan Lidah" autocomplete="off" disabled>
+                                                    <input class="form-control " type="text" name="lidah-lain" id="lidah-lain" placeholder="Kelainan Lidah" autocomplete="off" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -611,35 +611,35 @@
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="row">
                                                 <div class="col-5">
-                                                    <input type="radio" id="dsr-mulut2" name="dsr-mulut" class="custom-control-input" onclick="enableInput('#dsr-mulut-lain')">
+                                                    <input type="radio" id="dsr-mulut2" name="dsr-mulut" class="custom-control-input" onclick="enableInput('#dsr-mulut-lain')" value="">
                                                     <label class="custom-control-label" for="dsr-mulut2">Ada
                                                         Kelainan</label>
                                                 </div>
                                                 <div class="col">
-                                                    <input class="form-control " type="text" name="dsr-mulut" id="dsr-mulut-lain" placeholder="Kelainan Dasar Mulut" autocomplete="off" disabled>
+                                                    <input class="form-control " type="text" name="dsr-mulut-lain" id="dsr-mulut-lain" placeholder="Kelainan Dasar Mulut" autocomplete="off" disabled>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </fieldset>
-                                <!-- GIGI GERIGI -->
+                                <!-- GIGI geligi -->
                                 <fieldset class="form-group row">
-                                    <legend class="col-form-label col-sm-2 float-sm-right pt-0"><b>Gigi Gerigi</b>
+                                    <legend class="col-form-label col-sm-2 float-sm-right pt-0"><b>Gigi geligi</b>
                                     </legend>
                                     <div class="col-sm-10">
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="gerigi" name="gerigi" class="custom-control-input" value="Normal" onclick="disableInput('#gerigi-lain')">
-                                            <label class="custom-control-label" for="gerigi">Normal</label>
+                                            <input type="radio" id="geligi" name="geligi" class="custom-control-input" value="Normal" onclick="disableInput('#geligi-lain')">
+                                            <label class="custom-control-label" for="geligi">Normal</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="row">
                                                 <div class="col-5">
-                                                    <input type="radio" id="gerigi2" name="gerigi" class="custom-control-input" onclick="enableInput('#gerigi-lain')">
-                                                    <label class="custom-control-label" for="gerigi2">Ada
+                                                    <input type="radio" id="geligi2" name="geligi" class="custom-control-input" onclick="enableInput('#geligi-lain')" value="">
+                                                    <label class="custom-control-label" for="geligi2">Ada
                                                         Kelainan</label>
                                                 </div>
                                                 <div class="col">
-                                                    <input class="form-control " type="text" name="gerigi" id="gerigi-lain" placeholder="Kelainan Gigi Gerigi" autocomplete="off" disabled>
+                                                    <input class="form-control " type="text" name="geligi-lain" id="geligi-lain" placeholder="Kelainan Gigi geligi" autocomplete="off" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -674,20 +674,20 @@
                                     <h5>Radiologi :</h5>
                                     <div id="radiologi" class="ml-4">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="panoramik" value="Panoramik">
+                                            <input class="form-check-input" type="checkbox" name="radiologi[]" id="panoramik" value="Panoramik">
                                             <label class="form-check-label" for="panoramik">Panoramik</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="Sefalometri" value="Sefalometri">
+                                            <input class="form-check-input" type="checkbox" name="radiologi[]" id="Sefalometri" value="Sefalometri">
                                             <label class="form-check-label" for="Sefalometri">Sefalometri</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="Transcranial" value="Transcranial">
+                                            <input class="form-check-input" type="checkbox" name="radiologi[]" id="Transcranial" value="Transcranial">
                                             <label class="form-check-label" for="Transcranial">Transcranial</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="Dental,Regio" value="Dental,Regio">
-                                            <label class="form-check-label" for="Dental,Regio">Dental,Regio</label>
+                                            <input class="form-check-input" type="checkbox" name="radiologi[]" id="Dental Regio" value="Dental Regio">
+                                            <label class="form-check-label py-1" for="Dental Regio">Dental Regio</label>
                                             <input type="text" name="radiologi-46" id="" class="form-control mx-3" placeholder="46">
                                         </div>
                                         <div class="form-group">
@@ -870,7 +870,7 @@
                     </div>
                 </div>
                 <button type="button" class="btn btn-secondary" onclick="stepper.previous()">Back</button>
-                <button type="submit" class="btn btn-primary" onclick="stepper.next()">Next</button>
+                <button type="submit" class="btn btn-primary" onclick="">Submit</button>
             </div>
         </div>
     </form>
