@@ -375,15 +375,17 @@ class Owner extends CI_Controller
         $config['allowed_types']        = 'gif|jpg|png|jpeg';
         $config['file_name']            = $this->input->post('id_booking');
         $config['overwrite']            = true;
-        $config['max_size']             = 1024; // 1MB
+        $config['max_size']             = 4096; // 1MB
         $config['encrypt_name']         = true;
         // $config['max_width']            = 1024;
         // $config['max_height']           = 768;
 
         $this->load->library('upload', $config);
+        $this->upload->initialize($config);
 
-        // if ($this->upload->do_upload('foto_asuransi')) {
-        return $this->upload->data("file_name");
-        // }
+        if ($this->upload->do_upload('foto_asuransi')) {
+            return $this->upload->data("file_name");
+        }
+        return $this->upload->display_errors();
     }
 }
