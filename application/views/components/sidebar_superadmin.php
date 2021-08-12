@@ -31,6 +31,10 @@
 						Pembayaran</span></a>
 			</nav>
 
+			<nav class="nav-item <?= $this->uri->segment(1) == 'diskon' ? 'active' : '' ?>">
+				<a href="<?= base_url('diskon')?>"><i class="ik ik-tag"></i><span>Data Diskon</span></a>
+			</nav>
+
 			<div class="nav-lavel">Janji Pasien</div>
 			<div class="nav-item <?= $this->uri->segment(1) == 'konfirmasi_janji' ? 'active' : '' ?>">
 				<a href="<?= base_url('konfirmasi_janji')?>"><i class="ik ik-calendar"></i><span>Konfirmasi Janji</span></a>
