@@ -143,6 +143,21 @@ class Pasien_informasi_model extends CI_Model {
         return $this->db->get();
     }
 
+    public function get_odontogram($id_pasien)
+    {
+        $this->db->select('*');
+        $this->db->from('booking a');
+        $this->db->join('rencana b','a.id_booking=b.id_booking');
+        $this->db->join('pasien c','a.id_pasien=c.id_pasien');
+        $this->db->join('rekam_medis d','a.id_booking=d.id_booking');
+        $this->db->where('a.id_pasien', $id_pasien);
+        $this->db->where('d.id_pasien', $id_pasien);
+        $this->db->where('a.konfirmasi', 1);
+        $this->db->order_by('d.tanggal_periksa', 'DESC');
+        $this->db->limit(1);
+        return $this->db->get();
+    }
+
     public function get_summary_rekam_medis($id_pasien=null, $dokter=null, $tgl=null){
         $this->db->select('*');
         $this->db->from('booking a');
@@ -184,6 +199,37 @@ class Pasien_informasi_model extends CI_Model {
         $query = $this->db->get();
         return $query->row_array();
     }
+
+    function get_one_rawat_by_id($id, $tgl_awal){
+		$qry = "
+				SELECT t.* FROM pemeriksaan_odontogram t  WHERE t.id_pasien = '$id' AND t.tgl_pemeriksaan = '$tgl_awal';
+				";
+
+		$data = $this->db->query($qry);
+		
+		if($data->num_rows() > 0) return $data->result();
+		else return false;
+	}
+
+    function get_medis_pasien($id_rekam_medis, $id_pasien)
+    {
+        $this->db->select('*');
+        $this->db->from('booking a');
+        $this->db->join('pasien b', 'a.id_pasien=b.id_pasien');
+        $this->db->join('rekam_medis c', 'a.id_booking=c.id_booking', 'a.id_booking=c.id_booking');
+        $this->db->join('rencana d', 'a.id_booking=d.id_booking');
+        $this->db->where('c.id_rekam_medis', $id_rekam_medis);
+        $this->db->where('a.id_pasien', $id_pasien);
+        return $this->db->get();
+        // return $this->db->get_where('pasien', array('id_pasien' => $id));
+    }
+
+    public function get_check_id() {
+		$this->db->select('id_rekam_medis, id_pasien, tgl_pemeriksaan');
+		$this->db->from('pemeriksaan_odontogram');
+		$query = $this->db->get();
+		return $query->result();
+	}
 
 }
 
