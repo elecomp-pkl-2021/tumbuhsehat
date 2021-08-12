@@ -50,7 +50,7 @@ class Dokter_model extends CI_Model
 
     public function tambah_dokter($nama_foto)
     {
-        $nama_dokter = 'drg. ' . $this->input->post('nama_depan_u', true) . " " . $this->input->post('nama_belakang_u', true);
+        $nama_dokter = 'drg. '.$this->input->post('nama_depan_u', true)." ". $this->input->post('nama_belakang_u', true);
         $data = [
             "id_user"         => $this->input->post('id_user', true),
             "nama_dokter"     => $nama_dokter,
@@ -65,7 +65,7 @@ class Dokter_model extends CI_Model
 
     public function edit_dokter($nama_foto)
     {
-        $nama_dokter = 'drg. ' . $this->input->post('nama_depan_u', true) . " " . $this->input->post('nama_belakang_u', true);
+        $nama_dokter = 'drg. '.$this->input->post('nama_depan_u', true)." ". $this->input->post('nama_belakang_u', true);
         $data = [
             "id_user"         => $this->input->post('id_user', true),
             "nama_dokter"     => $nama_dokter,
