@@ -21,7 +21,6 @@ class Pembayaran extends CI_Controller
         $data['breadcrumbs'] = '
             <li class="breadcrumb-item"><a href="home"><i class="ik ik-home"></i></a></li>
             <li class="breadcrumb-item active">Pembayaran</li>';
-        $data['pembayaran'] = $this->pembayaran_metode_model->get_metode_pembayaran();
         $this->load->view('components/header', $data);
         if ($this->session->userdata('level') == "Owner") {
             $this->load->view('components/sidebar_owner');

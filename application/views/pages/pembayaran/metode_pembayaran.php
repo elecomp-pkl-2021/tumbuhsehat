@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12">
-        <div class="card-body">
+        <div class="panel panel-default">
             <div class="panel-body">
                 <div class="col-md-12">
                     <font style="font-weight: bold; font-size: 15px;">Pembayaran <i class="fa fa-chevron-right" aria-hidden="true"></i> Proses Pembayaran</font><br><br>
@@ -150,9 +150,9 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-12"></div>
-                                <div class="col-lg-10" style="background:#ccc; color: #000; padding: 7px 0 6px 10px;">
+                                <div class="col-lg-10" style="background: #f40049; color: #fff; padding: 7px 0 6px 10px;">
                                     <b style="padding: 5px 0 5px 0;"> GRAND TOTAL :
-                                        <p style="float: right; color: #000; margin-bottom: 0;">Rp. <input type="text" value="<?= $total->grandtotal ?>" name="grandtotal" id="grandtotal" style="float:right; color:#000; margin-left: 3px;  width: 65px; border: 0px; background: #ccc;"></p>
+                                        <p style="float: right; color: #fff; margin-bottom: 0;">Rp. <input type="text" value="<?= $total->grandtotal ?>" name="grandtotal" id="grandtotal" style="float:right; color:#fff; margin-left: 3px;  width: 65px; border: 0px; background: #f40049;"></p>
                                     </b>
                                 </div>
                                 <!-- <input type="hidden" name="id_rekam_medis" value="<?= $result->id_rekam_medis ?>">-->
@@ -163,7 +163,6 @@
 
                                     <button type="submit" href="#proses_bayar" class="btn btn-primary" style="float: right;margin-top: 3%;  margin-bottom:3%; color:white">Proses</button>
                                 </div>
-
 
                             </div>
 

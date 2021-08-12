@@ -60,17 +60,17 @@ class Pasien extends CI_Controller
         $this->load->view('components/footer');
     }
 
-    public function detail_informasi_pasien($id_pasien, $id_booking)
+    public function detail_informasi_pasien($id_pasien, $id_booking, $id_rekam_medis)
     {
         $data['title'] = "Pasien | Tumbuh Sehat";
         $data['judulHalaman'] = "Informasi Pasien";
-        $data['subJudulHalaman'] = "Daftar pasien klinik Tumbuh Sehar";
+        $data['subJudulHalaman'] = "Daftar pasien klinik Tumbuh Sehat";
         $data['iconHalaman'] = "ik-users";
         $data['breadcrumbs'] = '
             <li class="breadcrumb-item"><a href="'.base_url('home').'"><i class="ik ik-home"></i></a></li>
             <li class="breadcrumb-item"><a href="'.base_url('pasien').'">Informasi Pasien</a></li>
             <li class="breadcrumb-item active">Detail Informasi Pasien</li>';
-            
+
         $this->load->view('components/header', $data);
         
         if ($this->session->userdata('level') == "Owner") {
@@ -85,10 +85,12 @@ class Pasien extends CI_Controller
 
         $this->load->view('components/breadcrumbs', $data);
         
+        $data['pasien'] = $this->Pasien_informasi_model->get_medis_pasien($id_rekam_medis, $id_pasien);
         $data['info'] = $this->Pasien_informasi_model->get_informasi($id_pasien, $id_booking);
         $data['info_umum'] = $this->Pasien_informasi_model->get_informasi_umum($id_pasien, $id_booking);
         $data['info_klinis'] = $this->Pasien_informasi_model->get_klinis($id_pasien);
         $data['info_penunjang'] = $this->Pasien_informasi_model->get_penunjang($id_pasien);
+        $data['info_odontogram'] = $this->Pasien_informasi_model->get_odontogram($id_pasien);
         $data['info_bayar'] = $this->Pasien_informasi_model->get_pembayaran($id_pasien, $id_booking);
         $data['dokter'] = $this->Dokter_model->get_dokter();
 

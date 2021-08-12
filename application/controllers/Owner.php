@@ -256,12 +256,11 @@ class Owner extends CI_Controller
             $kode_booking = $this->uri->segment(9);
             // echo "iki";
         }
-
-
         echo json_encode($this->Klinik_model->get_data_pembayaran2($nama, $tgl_lahir, $rekam_medis, $id_dokter, $tanggal_rencana, $jam_rencana_mulai, $kode_booking)->result());
         // $this->Klinik_model->get_register_janji($nama, $tgl_lahir, $rekam_medis, $id_dokter, $tanggal_rencana, $jam_rencana_mulai,$kode_booking)->result();
         // print_r($this->db->last_query());
     }
+
     public function metode_bayar($id_booking, $id_rekam_medis)
     {
         $id_booking = $this->uri->segment(3);
@@ -331,6 +330,7 @@ class Owner extends CI_Controller
         $this->Klinik_model->update_pilih_layanan($this->input->post('id_rekam_medis'), $data_pilih);
         redirect(site_url('pembayaran/index'));
     }
+
     public function grandtotal($id_rekam_medis)
     {
 
