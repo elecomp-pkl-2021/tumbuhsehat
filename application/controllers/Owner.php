@@ -174,7 +174,7 @@ class Owner extends CI_Controller
         $this->Klinik_model->add_rekam_medis($data_rekam_medis);
         $this->Klinik_model->update_booking($this->input->post('id_booking'), $data_booking);
 
-        redirect(site_url('owner/konfirmasi_janji'));
+        redirect(site_url('konfirmasi_janji/index'));
     }
 
     public function konfirmasi_tolak()
@@ -189,7 +189,7 @@ class Owner extends CI_Controller
 
         $this->Klinik_model->update_booking($this->input->post('id_booking'), $data_booking);
 
-        redirect(site_url('owner/konfirmasi_janji'));
+        redirect(site_url('konfirmasi_janji/index'));
     }
     public function ajax_get_terima($id_pasien)
     {
@@ -256,12 +256,11 @@ class Owner extends CI_Controller
             $kode_booking = $this->uri->segment(9);
             // echo "iki";
         }
-
-
         echo json_encode($this->Klinik_model->get_data_pembayaran2($nama, $tgl_lahir, $rekam_medis, $id_dokter, $tanggal_rencana, $jam_rencana_mulai, $kode_booking)->result());
         // $this->Klinik_model->get_register_janji($nama, $tgl_lahir, $rekam_medis, $id_dokter, $tanggal_rencana, $jam_rencana_mulai,$kode_booking)->result();
         // print_r($this->db->last_query());
     }
+
     public function metode_bayar($id_booking, $id_rekam_medis)
     {
         $id_booking = $this->uri->segment(3);
@@ -331,6 +330,7 @@ class Owner extends CI_Controller
         $this->Klinik_model->update_pilih_layanan($this->input->post('id_rekam_medis'), $data_pilih);
         redirect(site_url('pembayaran/index'));
     }
+
     public function grandtotal($id_rekam_medis)
     {
 
@@ -375,15 +375,17 @@ class Owner extends CI_Controller
         $config['allowed_types']        = 'gif|jpg|png|jpeg';
         $config['file_name']            = $this->input->post('id_booking');
         $config['overwrite']            = true;
-        $config['max_size']             = 1024; // 1MB
+        $config['max_size']             = 4096; // 1MB
         $config['encrypt_name']         = true;
         // $config['max_width']            = 1024;
         // $config['max_height']           = 768;
 
         $this->load->library('upload', $config);
+        $this->upload->initialize($config);
 
         if ($this->upload->do_upload('foto_asuransi')) {
             return $this->upload->data("file_name");
         }
+        return $this->upload->display_errors();
     }
 }
