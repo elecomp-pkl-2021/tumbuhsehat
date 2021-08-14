@@ -15,7 +15,7 @@
                     </div>
                     <h3>Daftar ke Tumbuh Sehat</h3>
                     <p>Senang bertemu Anda kembali!</p>
-                    <form action="<?= base_url('auth/register') ?>" method="post" enctype="multipart/form-data">
+                    <form action="<?= base_url('auth/Register') ?>" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
