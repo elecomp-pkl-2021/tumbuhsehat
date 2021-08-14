@@ -742,6 +742,15 @@ class Klinik extends CI_Controller
                 'required' => '%s masih kosong!',
             )
         );
+        $this->form_validation->set_rules(
+            'email',
+            'Email',
+            'required|valid_email',
+            array(
+                'required' => '%s masih kosong!',
+                'valid_email' => '%s format emailnya salah!',
+            )
+        );
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('components/header', $data);
             $this->load->view('components/sidebar_resepsionis');
@@ -760,6 +769,7 @@ class Klinik extends CI_Controller
             'nama_belakang_u' => $this->input->post('nama_belakang'),
             'tanggal_lahir' => $this->input->post('tanggal_lahir'),
             'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+            'email' => $this->input->post('email'),
             'no_hp' => $this->input->post('no_hp'),
             'level' => 'Pasien',
         );
@@ -772,6 +782,7 @@ class Klinik extends CI_Controller
             'nama_belakang' => $this->input->post('nama_belakang'),
             'tanggal_lahir' => $this->input->post('tanggal_lahir'),
             'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+            'email' => $this->input->post('email'),
             'no_hp' => $this->input->post('no_hp'),
             'hubungan' => 'Anda',
         );
