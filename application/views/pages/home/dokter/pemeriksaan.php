@@ -38,14 +38,14 @@
             </div>
             <div class="line"></div>
             <div class="step" data-target="#odontogram-after-part">
-                <button type="button" class="step-trigger" role="tab" aria-controls="odontogram-after-part" id="odontogram-after-part-trigger">
+                <button type="button" class="step-trigger" role="tab" aria-controls="odontogram-after-part" id="odontogram-after-part-trigger" disabled>
                     <span class="bs-stepper-circle">6</span>
                     <span class="bs-stepper-label">Odontogram (after)</span>
                 </button>
             </div>
         </div>
     </div>
-    <form action="<?= base_url('Dokter/addPemeriksaan');?>" method="POST">
+    <form action="<?= base_url('Dokter/addPemeriksaan');?>" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="id_rm" value="<?= $pasien['id_rekam_medis']; ?>">
         <input type="hidden" name="id_pasien" value="<?= $pasien['id_pasien']; ?>">
         <input type="hidden" name="id_booking" value="<?= $pasien['id_booking']; ?>">
@@ -301,11 +301,11 @@
                                         </legend>
                                         <div class="col-sm-10">
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="wajah1" name="wajah" class="custom-control-input" value="Simetri">
+                                                <input type="radio" id="wajah1" name="wajah" class="custom-control-input" value="Simetri" <?= $pem_umum['wajah'] == 'Simetri' ? 'checked' : '';?>>
                                                 <label class="custom-control-label" for="wajah1">Simetri</label>
                                             </div>
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="wajah2" name="wajah" class="custom-control-input" value="Asimetri">
+                                                <input type="radio" id="wajah2" name="wajah" class="custom-control-input" value="Asimetri"  <?= $pem_umum['wajah'] == 'Asimetri' ? 'checked' : '';?>>
                                                 <label class="custom-control-label" for="wajah2">Asimetri</label>
                                             </div>
                                         </div>
@@ -315,13 +315,13 @@
                                         </legend>
                                         <div class="col-sm-10">
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="bibir1" name="bibir" class="custom-control-input" onclick="disableInput('#bibir-lain')" value="Normal">
+                                                <input type="radio" id="bibir1" name="bibir" class="custom-control-input" onclick="disableInput('#bibir-lain')" value="Normal"  <?= $pem_umum['bibir'] == 'Normal' ? 'checked' : '';?>>
                                                 <label class="custom-control-label" for="bibir1">Normal</label>
                                             </div>
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="bibir2" name="bibir" class="custom-control-input" onclick="enableInput('#bibir-lain')" value="">
+                                                <input type="radio" id="bibir2" name="bibir" class="custom-control-input" onclick="enableInput('#bibir-lain')" value="" <?= $pem_umum['bibir'] != 'Normal' ? 'checked' : '';?>>
                                                 <label class="custom-control-label" for="bibir2">Lainnya</label>
-                                                <input class="form-control ml-3" type="text" name="bibir-lain" id="bibir-lain" placeholder="Jenis Bibir" autocomplete="off" disabled>
+                                                <input class="form-control ml-3" type="text" name="bibir-lain" id="bibir-lain" placeholder="Jenis Bibir" autocomplete="off" <?= $pem_umum['bibir'] != 'Normal' ? 'value="'.$pem_umum['bibir'].'"' : 'disabled';?> >
                                             </div>
                                         </div>
                                     </fieldset>
@@ -336,11 +336,11 @@
                                         </legend>
                                         <div class="col-sm-7">
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="subman-kanan1" name="subman-kanan-raba" class="custom-control-input" value="Teraba">
+                                                <input type="radio" id="subman-kanan1" name="subman-kanan-raba" class="custom-control-input" value="Teraba" <?php $a = explode(",",$pem_umum['submandibula_kanan'])[0]; echo $a == 'Teraba' ? 'checked' : '';?>>
                                                 <label class="custom-control-label" for="subman-kanan1">Teraba</label>
                                             </div>
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="subman-kanan2" name="subman-kanan-raba" class="custom-control-input" value="Tidak Teraba">
+                                                <input type="radio" id="subman-kanan2" name="subman-kanan-raba" class="custom-control-input" value="Tidak Teraba" <?php $a = explode(",",$pem_umum['submandibula_kanan'])[0]; echo $a == 'Tidak Teraba' ? 'checked' : '';?>>
                                                 <label class="custom-control-label" for="subman-kanan2">Tidak
                                                     Teraba</label>
                                             </div>
@@ -350,11 +350,11 @@
                                         </div>
                                         <div class="col-sm-9">
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="subman-kanan3" name="subman-kanan-sakit" class="custom-control-input" value="Sakit">
+                                                <input type="radio" id="subman-kanan3" name="subman-kanan-sakit" class="custom-control-input" value="Sakit" <?php $a = explode(",",$pem_umum['submandibula_kanan'])[1]; echo $a == 'Sakit' ? 'checked' : '';?>>
                                                 <label class="custom-control-label" for="subman-kanan3">Sakit</label>
                                             </div>
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="subman-kanan4" name="subman-kanan-sakit" class="custom-control-input" value="Tidak Sakit">
+                                                <input type="radio" id="subman-kanan4" name="subman-kanan-sakit" class="custom-control-input" value="Tidak Sakit" <?php $a = explode(",",$pem_umum['submandibula_kanan'])[1]; echo $a == 'Tidak Sakit' ? 'checked' : '';?>>
                                                 <label class="custom-control-label" for="subman-kanan4">Tidak
                                                     Sakit</label>
                                             </div>
@@ -365,9 +365,15 @@
                                         <div class="col-sm-9 mt-1">
                                             <select class="form-control" name="subman-kanan-ket">
                                                 <option>Pilih Keterangan</option>
-                                                <option value="Lunak">Lunak</option>
-                                                <option value="Kenyal">Kenyal</option>
-                                                <option value="Keras">Keras</option>
+                                                <option value="Lunak" <?= $pem_umum['subkanan_kondisi'] == 'Lunak' ? 'selected' : '';?>>
+                                                    Lunak
+                                                </option>
+                                                <option value="Kenyal" <?= $pem_umum['subkanan_kondisi'] == 'Kenyal' ? 'selected' : '';?>>
+                                                    Kenyal
+                                                </option>
+                                                <option value="Keras" <?= $pem_umum['subkanan_kondisi'] == 'Keras' ? 'selected' : '';?>>
+                                                    Keras
+                                                </option>
                                             </select>
                                         </div>
                                     </fieldset>
@@ -377,13 +383,16 @@
                                         </legend>
                                         <div class="col-sm-7">
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="subman-kiri1" name="subman-kiri-raba" class="custom-control-input" value="Teraba">
-                                                <label class="custom-control-label" for="subman-kiri1">Teraba</label>
+                                                <input type="radio" id="subman-kiri1" name="subman-kiri-raba" class="custom-control-input" value="Teraba" <?php $a = explode(",",$pem_umum['submandibula_kiri'])[0]; echo $a == 'Teraba' ? 'checked' : '';?>>
+                                                <label class="custom-control-label" for="subman-kiri1">
+                                                    Teraba
+                                                </label>
                                             </div>
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="subman-kiri2" name="subman-kiri-raba" class="custom-control-input" value="Tidak Teraba">
-                                                <label class="custom-control-label" for="subman-kiri2">Tidak
-                                                    Teraba</label>
+                                                <input type="radio" id="subman-kiri2" name="subman-kiri-raba" class="custom-control-input" value="Tidak Teraba" <?php $a = explode(",",$pem_umum['submandibula_kiri'])[0]; echo $a == 'Tidak Teraba' ? 'checked' : '';?>>
+                                                <label class="custom-control-label" for="subman-kiri2">
+                                                    Tidak Teraba
+                                                </label>
                                             </div>
                                         </div>
                                         <div class="col-sm-3 text-right mt-1">
@@ -391,13 +400,14 @@
                                         </div>
                                         <div class="col-sm-9">
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="subman-kiri3" name="subman-kiri-sakit" class="custom-control-input" value="Sakit">
+                                                <input type="radio" id="subman-kiri3" name="subman-kiri-sakit" class="custom-control-input" value="Sakit" <?php $a = explode(",",$pem_umum['submandibula_kiri'])[1]; echo $a == 'Sakit' ? 'checked' : '';?>>
                                                 <label class="custom-control-label" for="subman-kiri3">Sakit</label>
                                             </div>
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="subman-kiri4" name="subman-kiri-sakit" class="custom-control-input" value="Tidak Sakit">
-                                                <label class="custom-control-label" for="subman-kiri4">Tidak
-                                                    Sakit</label>
+                                                <input type="radio" id="subman-kiri4" name="subman-kiri-sakit" class="custom-control-input" value="Tidak Sakit" <?php $a = explode(",",$pem_umum['submandibula_kiri'])[1]; echo $a == 'Tidak Sakit' ? 'checked' : '';?>>
+                                                <label class="custom-control-label" for="subman-kiri4">
+                                                    Tidak Sakit
+                                                </label>
                                             </div>
                                         </div>
                                         <div class="col-sm-3 mt-1 text-right">
@@ -406,9 +416,15 @@
                                         <div class="col-sm-9 mt-1">
                                             <select class="form-control" name="subman-kiri-ket">
                                                 <option>Pilih Keterangan</option>
-                                                <option value="Lunak">Lunak</option>
-                                                <option value="Kenyal">Kenyal</option>
-                                                <option value="Keras">Keras</option>
+                                                <option value="Lunak" <?= $pem_umum['subkiri_kondisi'] == 'Lunak' ? 'selected' : '';?>>
+                                                    Lunak
+                                                </option>
+                                                <option value="Kenyal" <?= $pem_umum['subkiri_kondisi'] == 'Kenyal' ? 'selected' : '';?>>
+                                                    Kenyal
+                                                </option>
+                                                <option value="Keras" <?= $pem_umum['subkiri_kondisi'] == 'Keras' ? 'selected' : '';?>>
+                                                    Keras
+                                                </option>
                                             </select>
                                         </div>
                                     </fieldset>
@@ -417,7 +433,7 @@
                                             <b>Lainnya :</b>
                                         </legend>
                                         <div class="col-sm-10">
-                                            <input type="text" name="getah-bening-lain" id="" class="form-control" placeholder="keterangan getah bening lain">
+                                            <input type="text" name="getah-bening-lain" id="" class="form-control" placeholder="keterangan getah bening lain" autocomplete="off" value="<?= $pem_umum['lainnya'];?>">
                                         </div>
                                     </fieldset>
                                 </div>
@@ -438,11 +454,11 @@
                                     </legend>
                                     <div class="col-sm-8">
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="stain" name="stain" class="custom-control-input" value="Ada">
+                                            <input type="radio" id="stain" name="stain" class="custom-control-input" value="Ada" <?= $pem_umum['stain'] == 'Ada' ? 'checked' : '';?>>
                                             <label class="custom-control-label" for="stain">Ada</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="stain2" name="stain" class="custom-control-input" value="Normal">
+                                            <input type="radio" id="stain2" name="stain" class="custom-control-input" value="Normal" <?= $pem_umum['stain'] == 'Normal' ? 'checked' : '';?>>
                                             <label class="custom-control-label" for="stain2">Normal</label>
                                         </div>
                                     </div>
@@ -453,15 +469,15 @@
                                     </legend>
                                     <div class="col-sm-7">
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="kalkulus" name="kalkulus" class="custom-control-input" value="Normal">
+                                            <input type="radio" id="kalkulus" name="kalkulus" class="custom-control-input" value="Normal" <?= $pem_umum['kalkulus'] == 'Normal' ? 'checked' : '';?>>
                                             <label class="custom-control-label" for="kalkulus">Normal</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="kalkulus2" name="kalkulus" class="custom-control-input" value="Subgingiva">
+                                            <input type="radio" id="kalkulus2" name="kalkulus" class="custom-control-input" value="Subgingiva" <?= $pem_umum['kalkulus'] == 'Subgingiva' ? 'checked' : '';?>>
                                             <label class="custom-control-label" for="kalkulus2">Subgingiva</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="kalkulus3" name="kalkulus" class="custom-control-input" value="Supragingiva">
+                                            <input type="radio" id="kalkulus3" name="kalkulus" class="custom-control-input" value="Supragingiva" <?= $pem_umum['kalkulus'] == 'Supragingiva' ? 'checked' : '';?>>
                                             <label class="custom-control-label" for="kalkulus3">Supragingiva</label>
                                         </div>
                                     </div>
@@ -473,15 +489,15 @@
                                     </legend>
                                     <div class="col-sm-10">
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="hub-rahang" name="hub-rahang" class="custom-control-input" value="Ortognati">
+                                            <input type="radio" id="hub-rahang" name="hub-rahang" class="custom-control-input" value="Ortognati" <?= $pem_umum['hubungan_rahang'] == 'Ortognati' ? 'checked' : '';?>>
                                             <label class="custom-control-label" for="hub-rahang">Ortognati</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="hub-rahang2" name="hub-rahang" class="custom-control-input" value="Retrognati">
+                                            <input type="radio" id="hub-rahang2" name="hub-rahang" class="custom-control-input" value="Retrognati" <?= $pem_umum['hubungan_rahang'] == 'Retrognati' ? 'checked' : '';?>>
                                             <label class="custom-control-label" for="hub-rahang2">Retrognati</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="hub-rahang3" name="hub-rahang" class="custom-control-input" value="Prognati">
+                                            <input type="radio" id="hub-rahang3" name="hub-rahang" class="custom-control-input" value="Prognati" <?= $pem_umum['hubungan_rahang'] == 'Prognati' ? 'checked' : '';?>>
                                             <label class="custom-control-label" for="hub-rahang3">Prognati</label>
                                         </div>
                                     </div>
@@ -491,18 +507,18 @@
                                     <legend class="col-form-label col-sm-2 float-sm-right pt-0"><b>Gingiva</b></legend>
                                     <div class="col-sm-10">
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="gingiva1" name="gingiva" class="custom-control-input" value="Normal" onclick="disableInput('#gingiva-lain')">
+                                            <input type="radio" id="gingiva1" name="gingiva" class="custom-control-input" value="Normal" onclick="disableInput('#gingiva-lain')" <?= $pem_umum['gingiva'] == 'Normal' ? 'checked' : '';?>>
                                             <label class="custom-control-label" for="gingiva1">Normal</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="row">
                                                 <div class="col-5">
-                                                    <input type="radio" id="gingiva2" name="gingiva" class="custom-control-input" onclick="enableInput('#gingiva-lain')" value="">
+                                                    <input type="radio" id="gingiva2" name="gingiva" class="custom-control-input" onclick="enableInput('#gingiva-lain')" value="" <?= $pem_umum['gingiva'] != 'Normal' ? 'checked' : '';?>>
                                                     <label class="custom-control-label" for="gingiva2">Ada
                                                         Kelainan</label>
                                                 </div>
                                                 <div class="col">
-                                                    <input class="form-control " type="text" name="gingiva-lain" id="gingiva-lain" placeholder="Kelainan Gingiva" autocomplete="off" disabled>
+                                                    <input class="form-control " type="text" name="gingiva-lain" id="gingiva-lain" placeholder="Kelainan Gingiva" autocomplete="off" <?= $pem_umum['gingiva'] != 'Normal' ? 'value="'.$pem_umum['gingiva'].'"' : 'disabled';?>>
                                                 </div>
                                             </div>
                                         </div>
@@ -513,19 +529,19 @@
                                     <legend class="col-form-label col-sm-2 float-sm-right pt-0"><b>Debris</b></legend>
                                     <div class="col-sm-10">
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="debris" name="debris" class="custom-control-input" value="Normal" onclick="disableInput('#debris-lain')">
+                                            <input type="radio" id="debris" name="debris" class="custom-control-input" value="Normal" onclick="disableInput('#debris-lain')" <?= $pem_umum['debris'] == 'Normal' ? 'checked' : '';?>>
                                             <label class="custom-control-label" for="debris">Normal</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="row">
                                                 <div class="col-5">
-                                                    <input type="radio" id="debris2" name="debris" class="custom-control-input" onclick="enableInput('#debris-lain')" value="">
+                                                    <input type="radio" id="debris2" name="debris" class="custom-control-input" onclick="enableInput('#debris-lain')" value="" <?= $pem_umum['debris'] != 'Normal' ? 'checked' : '';?>>
                                                     <label class="custom-control-label" for="debris2">
                                                         Ada Kelainan
                                                     </label>
                                                 </div>
                                                 <div class="col">
-                                                    <input class="form-control " type="text" name="debris-lain" id="debris-lain" placeholder="Kelainan Debris" autocomplete="off" disabled>
+                                                    <input class="form-control " type="text" name="debris-lain" id="debris-lain" placeholder="Kelainan Debris" autocomplete="off" <?= $pem_umum['debris'] != 'Normal' ? 'value="'.$pem_umum['debris'].'"' : 'disabled';?>>
                                                 </div>
                                             </div>
                                         </div>
@@ -538,18 +554,18 @@
                                     <legend class="col-form-label col-sm-2 float-sm-right pt-0"><b>Mukosa</b></legend>
                                     <div class="col-sm-10">
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="mukosa" name="mukosa" class="custom-control-input" value="Normal" onclick="disableInput('#mukosa-lain')">
+                                            <input type="radio" id="mukosa" name="mukosa" class="custom-control-input" value="Normal" onclick="disableInput('#mukosa-lain')" <?= $pem_umum['mukosa'] == 'Normal' ? 'checked' : '';?>>
                                             <label class="custom-control-label" for="mukosa">Normal</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="row">
                                                 <div class="col-5">
-                                                    <input type="radio" id="mukosa2" name="mukosa" class="custom-control-input" onclick="enableInput('#mukosa-lain')" value="">
+                                                    <input type="radio" id="mukosa2" name="mukosa" class="custom-control-input" onclick="enableInput('#mukosa-lain')" value="" <?= $pem_umum['mukosa'] != 'Normal' ? 'checked' : '';?>>
                                                     <label class="custom-control-label" for="mukosa2">Ada
                                                         Kelainan</label>
                                                 </div>
                                                 <div class="col">
-                                                    <input class="form-control " type="text" name="mukosa-lain" id="mukosa-lain" placeholder="Kelainan Mukosa" autocomplete="off" disabled>
+                                                    <input class="form-control " type="text" name="mukosa-lain" id="mukosa-lain" placeholder="Kelainan Mukosa" autocomplete="off" <?= $pem_umum['mukosa'] != 'Normal' ? 'value="'.$pem_umum['mukosa'].'"' : 'disabled';?>>
                                                 </div>
                                             </div>
                                         </div>
@@ -560,18 +576,18 @@
                                     <legend class="col-form-label col-sm-2 float-sm-right pt-0"><b>Palatum</b></legend>
                                     <div class="col-sm-10">
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="palatum" name="palatum" class="custom-control-input" value="Normal" onclick="disableInput('#palatum-lain')">
+                                            <input type="radio" id="palatum" name="palatum" class="custom-control-input" value="Normal" onclick="disableInput('#palatum-lain')" <?= $pem_umum['palatum'] == 'Normal' ? 'checked' : '';?>>
                                             <label class="custom-control-label" for="palatum">Normal</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="row">
                                                 <div class="col-5">
-                                                    <input type="radio" id="palatum2" name="palatum" class="custom-control-input" onclick="enableInput('#palatum-lain')" value="">
+                                                    <input type="radio" id="palatum2" name="palatum" class="custom-control-input" onclick="enableInput('#palatum-lain')" value="" <?= $pem_umum['palatum'] != 'Normal' ? 'checked' : '';?>>
                                                     <label class="custom-control-label" for="palatum2">Ada
                                                         Kelainan</label>
                                                 </div>
                                                 <div class="col">
-                                                    <input class="form-control " type="text" name="palatum-lain" id="palatum-lain" placeholder="Kelainan Palatum" autocomplete="off" disabled>
+                                                    <input class="form-control " type="text" name="palatum-lain" id="palatum-lain" placeholder="Kelainan Palatum" autocomplete="off" <?= $pem_umum['palatum'] != 'Normal' ? 'value="'.$pem_umum['palatum'].'"' : 'disabled';?>>
                                                 </div>
                                             </div>
                                         </div>
@@ -582,18 +598,18 @@
                                     <legend class="col-form-label col-sm-2 float-sm-right pt-0"><b>Lidah</b></legend>
                                     <div class="col-sm-10">
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="lidah" name="lidah" class="custom-control-input" value="Normal" onclick="disableInput('#lidah-lain')">
+                                            <input type="radio" id="lidah" name="lidah" class="custom-control-input" value="Normal" onclick="disableInput('#lidah-lain')" <?= $pem_umum['lidah'] == 'Normal' ? 'checked' : '';?>>
                                             <label class="custom-control-label" for="lidah">Normal</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="row">
                                                 <div class="col-5">
-                                                    <input type="radio" id="lidah2" name="lidah" class="custom-control-input" onclick="enableInput('#lidah-lain')" value="">
+                                                    <input type="radio" id="lidah2" name="lidah" class="custom-control-input" onclick="enableInput('#lidah-lain')" value="" <?= $pem_umum['lidah'] != 'Normal' ? 'checked' : '';?>>
                                                     <label class="custom-control-label" for="lidah2">Ada
                                                         Kelainan</label>
                                                 </div>
                                                 <div class="col">
-                                                    <input class="form-control " type="text" name="lidah-lain" id="lidah-lain" placeholder="Kelainan Lidah" autocomplete="off" disabled>
+                                                    <input class="form-control " type="text" name="lidah-lain" id="lidah-lain" placeholder="Kelainan Lidah" autocomplete="off" <?= $pem_umum['lidah'] != 'Normal' ? 'value="'.$pem_umum['lidah'].'"' : 'disabled';?>>
                                                 </div>
                                             </div>
                                         </div>
@@ -605,18 +621,17 @@
                                     </legend>
                                     <div class="col-sm-10">
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="dsr-mulut" name="dsr-mulut" class="custom-control-input" value="Normal" onclick="disableInput('#dsr-mulut-lain')">
+                                            <input type="radio" id="dsr-mulut" name="dsr-mulut" class="custom-control-input" value="Normal" onclick="disableInput('#dsr-mulut-lain')" <?= $pem_umum['dasar_mulut'] == 'Normal' ? 'checked' : '';?>>
                                             <label class="custom-control-label" for="dsr-mulut">Normal</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="row">
                                                 <div class="col-5">
-                                                    <input type="radio" id="dsr-mulut2" name="dsr-mulut" class="custom-control-input" onclick="enableInput('#dsr-mulut-lain')" value="">
-                                                    <label class="custom-control-label" for="dsr-mulut2">Ada
-                                                        Kelainan</label>
+                                                    <input type="radio" id="dsr-mulut2" name="dsr-mulut" class="custom-control-input" onclick="enableInput('#dsr-mulut-lain')" value="" <?= $pem_umum['dasar_mulut'] != 'Normal' ? 'checked' : '';?>>
+                                                    <label class="custom-control-label" for="dsr-mulut2">Ada Kelainan</label>
                                                 </div>
                                                 <div class="col">
-                                                    <input class="form-control " type="text" name="dsr-mulut-lain" id="dsr-mulut-lain" placeholder="Kelainan Dasar Mulut" autocomplete="off" disabled>
+                                                    <input class="form-control " type="text" name="dsr-mulut-lain" id="dsr-mulut-lain" placeholder="Kelainan Dasar Mulut" autocomplete="off" <?= $pem_umum['dasar_mulut'] != 'Normal' ? 'value="'.$pem_umum['dasar_mulut'].'"' : 'disabled';?>>
                                                 </div>
                                             </div>
                                         </div>
@@ -624,22 +639,22 @@
                                 </fieldset>
                                 <!-- GIGI geligi -->
                                 <fieldset class="form-group row">
-                                    <legend class="col-form-label col-sm-2 float-sm-right pt-0"><b>Gigi geligi</b>
+                                    <legend class="col-form-label col-sm-2 float-sm-right pt-0"><b>Gigi Geligi</b>
                                     </legend>
                                     <div class="col-sm-10">
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="geligi" name="geligi" class="custom-control-input" value="Normal" onclick="disableInput('#geligi-lain')">
+                                            <input type="radio" id="geligi" name="geligi" class="custom-control-input" value="Normal" onclick="disableInput('#geligi-lain')" <?= $pem_umum['kelainan_gigi_geligi'] == 'Normal' ? 'checked' : '';?>>
                                             <label class="custom-control-label" for="geligi">Normal</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="row">
                                                 <div class="col-5">
-                                                    <input type="radio" id="geligi2" name="geligi" class="custom-control-input" onclick="enableInput('#geligi-lain')" value="">
+                                                    <input type="radio" id="geligi2" name="geligi" class="custom-control-input" onclick="enableInput('#geligi-lain')" value="" <?= $pem_umum['kelainan_gigi_geligi'] != 'Normal' ? 'checked' : '';?>>
                                                     <label class="custom-control-label" for="geligi2">Ada
                                                         Kelainan</label>
                                                 </div>
                                                 <div class="col">
-                                                    <input class="form-control " type="text" name="geligi-lain" id="geligi-lain" placeholder="Kelainan Gigi geligi" autocomplete="off" disabled>
+                                                    <input class="form-control " type="text" name="geligi-lain" id="geligi-lain" placeholder="Kelainan Gigi geligi" autocomplete="off" <?= $pem_umum['kelainan_gigi_geligi'] != 'Normal' ? 'value="'.$pem_umum['kelainan_gigi_geligi'].'"' : 'disabled';?>>
                                                 </div>
                                             </div>
                                         </div>
@@ -657,7 +672,7 @@
                         <div class="form-group">
                             <h5>Deskripsi Klinis :</h5>
                             <div id="klinis-khusus" class="ml-4">
-                                <textarea class="form-control" name="klinis-khusus" rows="3" placeholder="46 Only, vitalitas(+), palpasi(-), perkusi(+)"></textarea>
+                                <textarea class="form-control" name="klinis-khusus" rows="3" placeholder="46 Only, vitalitas(+), palpasi(-), perkusi(+)"><?= $pem_khusus['keterangan'];?></textarea>
                             </div>
                         </div>
                     </div>
@@ -671,30 +686,55 @@
                                 <h4 class="mt-4">Pemeriksaan Penunjang</h4>
                                 <div class="line my-3"></div>
                                 <div class="form-group">
+                                    <!-- RADIOLOGI -->
+                                    <?php $arr_rad = explode(",",$pem_penunjang['radiologi']);?>
                                     <h5>Radiologi :</h5>
                                     <div id="radiologi" class="ml-4">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="radiologi[]" id="panoramik" value="Panoramik">
+                                            <input class="form-check-input" type="checkbox" name="radiologi[]" id="panoramik" value="Panoramik" 
+                                                <?php for ($i=0; $i < count($arr_rad); $i++) { 
+                                                    echo $arr_rad[$i] == 'Panoramik' ? 'checked' : '';
+                                                };?>
+                                            >
                                             <label class="form-check-label" for="panoramik">Panoramik</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="radiologi[]" id="Sefalometri" value="Sefalometri">
+                                            <input class="form-check-input" type="checkbox" name="radiologi[]" id="Sefalometri" value="Sefalometri"
+                                                <?php for ($i=0; $i < count($arr_rad); $i++) { 
+                                                    echo $arr_rad[$i] == 'Sefalometri' ? 'checked' : '';
+                                                };?>
+                                            >
                                             <label class="form-check-label" for="Sefalometri">Sefalometri</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="radiologi[]" id="Transcranial" value="Transcranial">
+                                            <input class="form-check-input" type="checkbox" name="radiologi[]" id="Transcranial" value="Transcranial"
+                                                <?php for ($i=0; $i < count($arr_rad); $i++) { 
+                                                    echo $arr_rad[$i] == 'Transcranial' ? 'checked' : '';
+                                                };?>
+                                            >
                                             <label class="form-check-label" for="Transcranial">Transcranial</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="radiologi[]" id="Dental Regio" value="Dental Regio">
+                                            <div class="row justify-content-between">
+                                                <div class="col">
+                                                    <input class="form-check-input" type="checkbox" name="radiologi[]" id="Dental Regio" value="Dental Regio"
+                                                        <?php for ($i=0; $i < count($arr_rad); $i++) { 
+                                                            echo $arr_rad[$i] == 'Dental Regio' ? 'checked' : '';
+                                                        };?>
+                                                    >
                                             <label class="form-check-label py-1" for="Dental Regio">Dental Regio</label>
-                                            <input type="text" name="radiologi-46" id="" class="form-control mx-3" placeholder="46">
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" name="radiologi-46" id="" class="form-control mx-3" placeholder="46">
+                                                </div>
+                                            </div>
+
                                         </div>
                                         <div class="form-group">
                                             <label for="">
                                                 <b>Deskripsi Radiologi</b>
                                             </label>
-                                            <textarea class="form-control" name="radiologi-desk" rows="3" col="10" placeholder="Tampak gambaran radiopak ada oklusal gigi 46 hingga dentin dalam. Tampak gambaran radiolusensi berbatas diffuse pada apical seluas kurang lebih 4 mm."></textarea>
+                                            <textarea class="form-control" name="radiologi-desk" rows="3" col="10" placeholder="Tampak gambaran radiopak ada oklusal gigi 46 hingga dentin dalam. Tampak gambaran radiolusensi berbatas diffuse pada apical seluas kurang lebih 4 mm."><?= $pem_penunjang['keterangan_radiologi'];?></textarea>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col">
@@ -703,16 +743,21 @@
                                                         <label for="">
                                                             <b>Foto Radiologi Terakhir</b>
                                                         </label>
-                                                        <a href="" class="btn btn-primary ml-3"> Download Foto</a>
+                                                        <?php $img_r = $pem_penunjang['foto_radiologi'] != null ? $pem_penunjang['foto_radiologi'] : 'default.jpg';?>
+                                                        <a href="<?= base_url('/uploads/foto_radiologi/'.$img_r); ?>" class="btn btn-primary ml-3 <?= $img_r == 'default.jpg' ? 'd-none' : '';?>" target="_blank"> 
+                                                            Download Foto
+                                                        </a>
                                                     </div>
                                                 </div>
-                                                <img src="<?= base_url('/uploads/foto_radiologi/kpku.png'); ?>" class="rounded img-fluid" alt="Foto radiologi terupdate" style="height: 200px;">
+                                                <img src="<?= base_url('/uploads/foto_radiologi/'.$img_r); ?>" class="rounded img-fluid" alt="Foto radiologi terupdate" style="height: 200px;">
                                             </div>
                                             <div class="col">
                                                 <label for="">
                                                     <b>Foto Radiologi</b>
                                                 </label>
-                                                <input type="file" id="input-file-now" class="dropify" data-allowed-file-extensions="jpg jpeg png raw" />
+                                                <input type="file" id="input-file-now" class="dropify" 
+                                                name="radiologi-img"
+                                                data-allowed-file-extensions="jpg jpeg png raw" />
                                             </div>
                                         </div>
                                     </div>
@@ -730,19 +775,19 @@
                                     <h5>Pemeriksaan Lab :</h5>
                                     <div id="laboratorium" class="ml-4">
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="lab" name="lab" class="custom-control-input" value="Darah Rutin" onclick="disableInput('#lab-lain')">
+                                            <input type="radio" id="lab" name="lab[]" class="custom-control-input" value="Darah Rutin" onclick="disableInput('#lab-lain')" <?= $pem_penunjang['laboratorium'] == 'Darah Rutin' ? 'checked' : '';?>>
                                             <label class="custom-control-label" for="lab">Darah Rutin</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="lab2" name="lab" class="custom-control-input" onclick="enableInput('#lab-lain')">
+                                            <input type="radio" id="lab2" name="lab[]" class="custom-control-input" onclick="enableInput('#lab-lain')" value="" <?= $pem_penunjang['laboratorium'] != 'Darah Rutin' ? 'checked' : '';?>>
                                             <label class="custom-control-label" for="lab2">Lainnya</label>
-                                            <input type="text" name="lab-lain" id="lab-lain" class="form-control mx-3" placeholder="" disabled>
+                                            <input type="text" name="lab[]" id="lab-lain" class="form-control mx-3" placeholder="" <?= $pem_penunjang['laboratorium'] != 'Darah Rutin' ? 'value="'.$pem_penunjang['laboratorium'].'"' : 'disabled';?>>
                                         </div>
                                         <div class="form-group">
                                             <label for="">
                                                 <b>Deskripsi Laboratorium</b>
                                             </label>
-                                            <textarea class="form-control" name="lab-desk" rows="3" col="10" placeholder="Deskripsi Keterangan Laboratorium"></textarea>
+                                            <textarea class="form-control" name="lab-desk" rows="3" col="10" placeholder="Deskripsi Keterangan Laboratorium"><?= $pem_penunjang['keterangan_laboratorium'];?></textarea>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col">
@@ -751,16 +796,18 @@
                                                         <label for="">
                                                             <b>Foto Laboratorium Terakhir</b>
                                                         </label>
-                                                        <a href="" class="btn btn-primary ml-3"> Download Foto</a>
+                                                        <?php $img_l = $pem_penunjang['foto_laboratorium'] != null ? $pem_penunjang['foto_laboratorium'] : 'default.jpg';?>
+                                                        <a href="<?= base_url('/uploads/foto_laboratorium/'.$img_l); ?>" class="btn btn-primary ml-3 <?= $img_l == 'default.jpg' ? 'd-none' : '';?>" target="_blank"> Download Foto</a>
                                                     </div>
                                                 </div>
-                                                <img src="<?= base_url('/uploads/foto_laboratorium/kpku.png'); ?>" class="rounded img-fluid" alt="Foto laboratorium terupdate" style="height: 200px;">
+                                                <img src="<?= base_url('/uploads/foto_laboratorium/'.$img_l); ?>" class="rounded img-fluid" alt="Foto laboratorium terupdate" style="height: 200px;">
                                             </div>
                                             <div class="col">
                                                 <label for="">
                                                     <b>Upload Foto Laboratorium</b>
                                                 </label>
-                                                <input type="file" id="input-file-now" class="dropify-lab" data-allowed-file-extensions="jpg jpeg png raw" />
+                                                <input type="file" id="input-file-now" class="dropify-lab" 
+                                                name="laboratorium-img" data-allowed-file-extensions="jpg jpeg png raw" />
                                             </div>
                                         </div>
                                     </div>
@@ -843,10 +890,13 @@
                                     <select class="select2bs4" name="diskon" id="diskon" style="width: 100%;">
                                         <option><?= "Pilih Discount" ?></option>
                                         <?php foreach ($diskon as $d) : ?>
-                                            <option value="<?= $d['nilai_diskon']; ?>"><?= $d['nama_diskon']; ?></option>
+                                            <option value="<?= $d['id_diskon']; ?>"><?= $d['nama_diskon']; ?></option>
                                         <?php endforeach; ?>
                                     </select>
+                                    <input type="hidden" name="id-diskon" id="id-diskon">
                                 </div>
+                                <div class="col-3"></div>
+                                <div class="col-2"><b class="nilai-diskon">0</b></div>
                             </div>
                             <div class="row bg-danger py-3 mt-2">
                                 <div class="col-2"><b>Grand Total</b></div>
@@ -880,7 +930,10 @@
 <script>
     (function() {
         'use strict'
-        window.stepper = new Stepper(document.querySelector('#stepper'))
+        window.stepper = new Stepper(document.querySelector('#stepper'),{
+            animation : true,
+            linear : false
+        })
     })()
 </script>
 
@@ -926,7 +979,8 @@
 
         // HITUNG HARGA PEMBAYARAN
         let harga;
-        let diskon = null;
+        let id_diskon = null;
+        let diskon= null;
         let qty;
         $('#tindakan').on('change', function() {
             harga = $('#tindakan').val();
@@ -937,10 +991,14 @@
             hitungHargaBayar(harga, qty, diskon);
         });
         $('#diskon').on('change', function() {
-            diskon = $('#diskon').val();
+            id_diskon = $('#diskon').val();
             hitungHargaBayar(harga, qty, diskon);
         });
     });
+
+    function setIdDiskon(data){
+        $('#id-diskon').val = data;
+    }
 
     function hitungHargaBayar(harga, qty, diskon) {
         $.ajax({

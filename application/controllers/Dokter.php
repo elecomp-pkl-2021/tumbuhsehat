@@ -15,6 +15,7 @@ class Dokter extends CI_Controller
         $this->load->model('Klinik_model');
         $this->load->model('Pasien_model');
         $this->load->model('Layanan_model');
+        $this->load->model('Pemeriksaan_model');
     }
 
     public function index()
@@ -65,16 +66,9 @@ class Dokter extends CI_Controller
     {
         $pasien1 = $this->Pasien_model->get_medis_pasien($id_rekam_medis, $id_pasien)->row_array();
         $pasien2 = $this->Pasien_model->get_medis_pasien($id_rekam_medis, $id_pasien);
-        $data = [
-            'title' => 'Pemeriksaan Pasien | Tumbuh Sehat',
-            'judulHalaman' => 'Data Pemeriksaan',
-            'subJudulHalaman' => 'Pemeriksaan Pasien <b>' . $pasien1['nama_depan'] . ' ' . $pasien1['nama_belakang'] . '</b>',
-            'iconHalaman' => 'ik-calendar',
-            'breadcrumbs' => '<li class="breadcrumb-item active"><i class="ik ik-home"></i></li> <li class="breadcrumb-item active">Jadwal Pemeriksaan</i></li>',
-            'layanan' => $this->Layanan_model->getLayananAktif(),
-            'diskon' => $this->Layanan_model->getDiskonAktif()
-        ];
-        
+        $tgl_awal = date('Y-m-d');
+        $rawat = $this->Pasien_model->get_one_rawat_by_id_medis($id_pasien, $tgl_awal, $id_rekam_medis);
+
         $idk_psn = $this->session->userdata('id_kpesan');
         if (!empty($idk_psn)) {
             $id_kpesan = $this->session->userdata('id_kpesan');
@@ -82,21 +76,30 @@ class Dokter extends CI_Controller
             $id_kpesan = $this->randomString();
             $data['id_kpesan'] = $id_kpesan;
         }
-
-        $tgl_awal = date('Y-m-d');
-
-        $rawat = $this->Pasien_model->get_one_rawat_by_id_medis($id_pasien, $tgl_awal, $id_rekam_medis);
+        
         $data_rawat = json_decode(json_encode(@$rawat[0]), true);
         if ($data_rawat && is_array($data_rawat)) {
             $rawat = array_merge(@$data_rawat, array("detail_rawat" => array()));
         }
 
-        $data['rawat'] = $rawat;
-        $data['pasien'] = $pasien1;
-        $data['pasien2'] = $pasien2;
-        $data['_jadwal_pemeriksaan'] = 1;
-        $data['id_pasien'] = $id_pasien;
-
+        $data = [
+            'title' => 'Pemeriksaan Pasien | Tumbuh Sehat',
+            'judulHalaman' => 'Data Pemeriksaan',
+            'subJudulHalaman' => 'Pemeriksaan Pasien <b>' . $pasien1['nama_depan'] . ' ' . $pasien1['nama_belakang'] . '</b>',
+            'iconHalaman' => 'ik-calendar',
+            'breadcrumbs' => '<li class="breadcrumb-item active"><i class="ik ik-home"></i></li> <li class="breadcrumb-item active">Jadwal Pemeriksaan</i></li>',
+            'layanan' => $this->Layanan_model->getLayananAktif(),
+            'diskon' => $this->Layanan_model->getDiskonAktif(),
+            'rawat' => $rawat,
+            'id_pasien' => $id_pasien,
+            'pasien' => $pasien1,
+            'pasien2' => $pasien2,
+            '_jadwal_pemeriksaan' => 1,
+            'pem_umum' => $this->Pemeriksaan_model->getLastPemeriksaanUmum($id_pasien),
+            'pem_penunjang' => $this->Pemeriksaan_model->getLastPemeriksaanPenunjang($id_pasien),
+            'pem_khusus' => $this->Pemeriksaan_model->getLastPemeriksaanKhusus($id_pasien),
+        ];
+        // var_dump($data);die;
         $this->load->view('components/header', $data);
         $this->load->view('components/sidebar_dokter');
         $this->load->view('components/breadcrumbs', $data);
@@ -239,7 +242,6 @@ class Dokter extends CI_Controller
             'kelainan_gigi_geligi' => $geligi,
             'date' => date('Y-m-d'),
         ];
-        var_dump($data);die;
         $this->db->insert('pemeriksaan_klinis_umum',$data);
     }
 
@@ -252,7 +254,6 @@ class Dokter extends CI_Controller
             'keterangan' => $this->input->post('klinis-khusus'),
             'date' => date('Y-m-d')
         ];
-        var_dump($data);die;
         $this->db->insert('pemeriksaan_klinis_khusus',$data);
     }
 
@@ -261,27 +262,53 @@ class Dokter extends CI_Controller
         $data = [
             'id_pasien' => $this->input->post('id_pasien'),
             'id_booking' => $this->input->post('id_booking'),
-            'id_rekam_medis' => $this->input->post('id_booking'),
+            'id_rekam_medis' => $this->input->post('id_rm'),
             'gigi' => $this->input->post('elemen_gigi'),
             'radiologi' => implode(",",$this->input->post('radiologi')),
             'keterangan_radiologi' => $this->input->post('radiologi-desk'),
+            'laboratorium' => implode(' ',$this->input->post('lab')),
             'keterangan_laboratorium' => $this->input->post('lab-desk'),
-            'foto_radiologi' => '',
-            'foto_laboratorium' => ''
+            'foto_radiologi' => $this->_uploadImage('radiologi'),
+            'foto_laboratorium' => $this->_uploadImage('laboratorium'),
+            'date' => date('Y-m-d'),
         ];
+        $this->db->insert('pemeriksaan_penunjang',$data);
+    }
+
+    private function _uploadImage($type)
+    {
+        $config['upload_path']          = './uploads/foto_'.$type.'/';
+        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+        $config['file_name']            = $this->input->post('id_pasien').'_'.$type.'_';
+        $config['max_size']             = 10240; // 10MB
+
+        $this->upload->initialize($config);
+        if ($this->upload->do_upload($type.'-img')) {
+            return $this->upload->data("file_name");
+        }
+        return "default.jpg";
     }
 
     private function _addPilihLayanan()
     {
+        $data = [
+            'id_pasien' => $this->input->post('id_pasien'),
+            'id_rekam_medis' => $this->input->post('id_rm'),
+            'id_layanan' => $this->input->post('id_layanan'),
+            'jumlah' => $this->input->post('jumlah'),
+            'detail_layanan' => $this->input->post('detail_layanan'),
+            'id_diskon' => $this->input->post('id_diskon'),
+        ];
     }
 
     public function addPemeriksaan(){
-        // $this->_updateRekam();
-        // $this->_updatePasien();
-        // $this->_updateBooking();
-        // $this->_addPemeriksaanUmum();
-        // $this->_addPemeriksaanKhusus();
+        $this->_updateRekam();
+        $this->_updatePasien();
+        $this->_updateBooking();
+        $this->_addPemeriksaanUmum();
+        $this->_addPemeriksaanKhusus();
         $this->_addPemeriksaanPenunjang();
+        $this->_addPilihLayanan();
     }
 
     // ODONTOGRAM
