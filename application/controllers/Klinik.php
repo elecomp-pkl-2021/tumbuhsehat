@@ -700,7 +700,8 @@ class Klinik extends CI_Controller
         $data['subJudulHalaman'] = "Selamat datang di <b>Tumbuh Sehat</b>";
         $data['iconHalaman'] = "ik-home";
         $data['breadcrumbs'] = '
-            <li class="breadcrumb-item active"><i class="ik ik-home"></i></li>';
+        <li class="breadcrumb-item"><a href="' . base_url('home') . '"><i class="ik ik-home"></i></a></li>
+        <li class="breadcrumb-item active">Buat Akun Keluarga</li>';
 
         $this->form_validation->set_rules(
             'nama_depan',
@@ -742,6 +743,7 @@ class Klinik extends CI_Controller
                 'required' => '%s masih kosong!',
             )
         );
+
         $this->form_validation->set_rules(
             'email',
             'Email',

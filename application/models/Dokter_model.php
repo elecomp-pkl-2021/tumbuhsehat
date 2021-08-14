@@ -50,7 +50,7 @@ class Dokter_model extends CI_Model
 
     public function tambah_dokter($nama_foto)
     {
-        $nama_dokter = 'drg. ' . $this->input->post('nama_depan_u', true) . " " . $this->input->post('nama_belakang_u', true);
+        $nama_dokter = 'drg. '.$this->input->post('nama_depan_u', true)." ". $this->input->post('nama_belakang_u', true);
         $data = [
             "id_user"         => $this->input->post('id_user', true),
             "nama_dokter"     => $nama_dokter,
@@ -65,7 +65,7 @@ class Dokter_model extends CI_Model
 
     public function edit_dokter($nama_foto)
     {
-        $nama_dokter = 'drg. ' . $this->input->post('nama_depan_u', true) . " " . $this->input->post('nama_belakang_u', true);
+        $nama_dokter = 'drg. '.$this->input->post('nama_depan_u', true)." ". $this->input->post('nama_belakang_u', true);
         $data = [
             "id_user"         => $this->input->post('id_user', true),
             "nama_dokter"     => $nama_dokter,
@@ -218,25 +218,27 @@ class Dokter_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
-    public function getDaftarPasien($id_dokter){
+    public function getDaftarPasien($id_dokter)
+    {
         $konf = '1';
-		$this->db->select('a.id_booking ,d.nama_depan, d.nama_belakang, b.jam_rencana_mulai, b.jam_rencana_selesai, DATE_FORMAT(b.tanggal_rencana, "%d-%m-%Y") as tanggal_rencana, DATE_FORMAT(d.tanggal_lahir, "%d-%m-%Y") as tanggal_lahir, c.id_rekam_medis, a.status, d.id_pasien, e.nama_dokter');
-		$this->db->from('booking a');
-		$this->db->join('rencana b', 'a.id_booking=b.id_booking');
-		$this->db->join('rekam_medis c', 'a.id_booking=c.id_booking');
-		$this->db->join('pasien d', 'a.id_pasien=d.id_pasien');
-		$this->db->join('dokter e', ' a.id_dokter=e.id_dokter');
-		$this->db->where('a.konfirmasi', $konf);
-		$this->db->where('a.id_dokter', $id_dokter);
-		$this->db->order_by('d.id_pasien', 'DESC');
-		return $this->db->get()->result_array();
+        $this->db->select('a.id_booking ,d.nama_depan, d.nama_belakang, b.jam_rencana_mulai, b.jam_rencana_selesai, DATE_FORMAT(b.tanggal_rencana, "%d-%m-%Y") as tanggal_rencana, DATE_FORMAT(d.tanggal_lahir, "%d-%m-%Y") as tanggal_lahir, c.id_rekam_medis, a.status, d.id_pasien, e.nama_dokter');
+        $this->db->from('booking a');
+        $this->db->join('rencana b', 'a.id_booking=b.id_booking');
+        $this->db->join('rekam_medis c', 'a.id_booking=c.id_booking');
+        $this->db->join('pasien d', 'a.id_pasien=d.id_pasien');
+        $this->db->join('dokter e', ' a.id_dokter=e.id_dokter');
+        $this->db->where('a.konfirmasi', $konf);
+        $this->db->where('a.id_dokter', $id_dokter);
+        $this->db->order_by('d.id_pasien', 'DESC');
+        return $this->db->get()->result_array();
     }
 
-    function get_dokter_id($id_user){
-		$this->db->select('a.id_dokter');
-		$this->db->from('dokter a');
-		$this->db->join('login_session b', 'a.id_user=b.id_user');
-		$this->db->where('a.id_user', $id_user);
-		return $this->db->get()->row()->id_dokter;
-	}
+    function get_dokter_id($id_user)
+    {
+        $this->db->select('a.id_dokter');
+        $this->db->from('dokter a');
+        $this->db->join('login_session b', 'a.id_user=b.id_user');
+        $this->db->where('a.id_user', $id_user);
+        return $this->db->get()->row()->id_dokter;
+    }
 }

@@ -1,10 +1,4 @@
 <div class="row">
-    <div class="col">
-        <div class="card">
-        </div>
-    </div>
-</div>
-<div class="row">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
