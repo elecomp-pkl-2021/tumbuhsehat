@@ -11,7 +11,7 @@
                             <input type="text" class="form-control" id="kode_booking_id" placeholder="Masukkan Kode Booking">
                         </div>
                         <div class="col-sm-3">
-                            <button type="button" class="btn salmon stil1" style="background-color:#f40049; color:white" id="filter_all">Cari</button>
+                            <button type="button" class="btn btn-primary" id="filter_all">Cari</button>
                         </div>
                     </div>
                     <div class="row">
