@@ -55,7 +55,10 @@
                     'Data ' + nama + ' tidak dihapus!',
                     'success'
                 )
+<<<<<<< HEAD
 
+=======
+>>>>>>> f0660da14652ca6811e22f014919d9e748b4dd7c
             }
         })
 
