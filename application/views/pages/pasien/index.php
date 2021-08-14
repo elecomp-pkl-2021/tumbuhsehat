@@ -21,7 +21,7 @@
 							<td>Y2YxZDRhZTQ4</td>
 							<td>
 								<div class="table-actions">
-                                    <a href="<?= base_url('pasien/detail_informasi_pasien/24/NTRmMDczNDI4/ZDI5MTQ0ZWIw')?>"><button class="btn btn-danger">Lihat</button></a>
+                                    <a href="<?= base_url('pasien/detail_informasi_pasien/24/MTNiN2U4ZTdl/ODhmYjJiN2Rj')?>"><button class="btn btn-danger">Lihat</button></a>
 								</div>
 							</td>
 						</tr>
