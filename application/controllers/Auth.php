@@ -10,6 +10,7 @@ class Auth extends CI_Controller
         parent::__construct();
         $this->load->model('auth_model');
         $this->load->model('dokter_model');
+        $this->load->model('Klinik_model');
     }
 
 
@@ -75,7 +76,8 @@ class Auth extends CI_Controller
         }
     }
 
-    public function Register(){
+    public function Register()
+    {
 
         $data['title'] = "Register | Tumbuh Sehat";
         $this->form_validation->set_rules(
@@ -147,13 +149,43 @@ class Auth extends CI_Controller
             $this->load->view('components/header_auth', $data);
             $this->load->view('pages/auth/register', $data);
             $this->load->view('components/footer_auth');
-        } else{
+        } else {
             $this->prosesRegister();
         }
     }
 
-    private function prosesRegister(){
-        echo 'berhasil';
+    private function prosesRegister()
+    {
+        $data_login = array(
+            'nama_depan_u' => $this->input->post('nama_depan'),
+            'nama_belakang_u' => $this->input->post('nama_belakang'),
+            'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+            'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+            'alamat' => $this->input->post('alamat'),
+            'email' => $this->input->post('email'),
+            'no_hp' => $this->input->post('handphone'),
+            'password' => md5($this->input->post('password')),
+            'view_password' => $this->input->post('password'),
+            'level' => 'Pasien',
+        );
+
+        $this->Klinik_model->simpan($data_login);
+        $data = $this->Klinik_model->get_id_last();
+        $data_pasien = array(
+            'id_user' => $data->id_user,
+            'nama_depan' => $this->input->post('nama_depan'),
+            'nama_belakang' => $this->input->post('nama_belakang'),
+            'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+            'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+            'alamat' => $this->input->post('alamat'),
+            'email' => $this->input->post('email'),
+            'no_hp' => $this->input->post('handphone'),
+        );
+        $this->Klinik_model->insert_pasien($data_pasien);
+        $this->session->set_flashdata('notif', '<div class="alert alert-success alert-dismissible"> Data Mahasiswa berhasil ditambah.
+        </div>');
+
+        redirect(site_url('home'));
     }
 
     public function logout()
