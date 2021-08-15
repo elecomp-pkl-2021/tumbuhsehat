@@ -1,10 +1,4 @@
 <div class="row">
-    <div class="col">
-        <div class="card">
-        </div>
-    </div>
-</div>
-<div class="row">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
@@ -75,6 +69,17 @@
                                     <!-- <i class="ik ik-user"></i> -->
                                 <?php else : ?>
                                     <input type="number" class="form-control" placeholder="Masukkan No Hp" name="no_hp" value="<?= set_value('no_hp') ?>">
+                                    <!-- <i class="ik ik-user"></i> -->
+                                <?php endif ?>
+                                <!-- <input type="number" class="form-control" rows="3" name="no_hp" id="no_hp" required="required" autocomplete="off"> -->
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email</label>
+                                <?php if (form_error('email')) : ?>
+                                    <input type="email" class="form-control form-control-warning form-txt-warning" placeholder="<?= strip_tags(form_error('email')) ?>" name="email">
+                                    <!-- <i class="ik ik-user"></i> -->
+                                <?php else : ?>
+                                    <input type="email" class="form-control" placeholder="Masukkan Email" name="email" value="<?= set_value('email') ?>">
                                     <!-- <i class="ik ik-user"></i> -->
                                 <?php endif ?>
                                 <!-- <input type="number" class="form-control" rows="3" name="no_hp" id="no_hp" required="required" autocomplete="off"> -->
