@@ -26,6 +26,14 @@ class Pasien_model extends CI_Model
     {
         return $this->db->get_where('pasien', ['id_pasien' => $id])->row_array();
     }
+    function get_user($id)
+    {
+        $this->db->select('*');
+        $this->db->from('login_session');
+        $this->db->where('id_user', $id);
+        $this->db->group_by('id_user');
+        return $this->db->get();
+    }
 
     public function get_by_id_janji_akan_datang_2($id_booking)
     {

@@ -143,6 +143,3 @@ class Cabang extends CI_Controller {
 }
 
 /* End of file Cabang.php */
-
-
-?>
