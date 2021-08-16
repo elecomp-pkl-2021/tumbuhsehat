@@ -23,7 +23,7 @@ class Asuransi_provider extends CI_Controller {
             <li class="breadcrumb-item"><a href="'.base_url('home').'"><i class="ik ik-home"></i></a></li>
             <li class="breadcrumb-item active">Data Provider Asuransi</li>';
 
-        $data['provider'] = $this->asuransi_model->get_provider_asuransi();
+        $data['provider'] = $this->asuransi_model->get_provider_asuransi1();
         $this->load->view('components/header', $data);
         $this->load->view('components/sidebar_superadmin');
         $this->load->view('components/breadcrumbs', $data); 
