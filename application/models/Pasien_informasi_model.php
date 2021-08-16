@@ -193,6 +193,8 @@ class Pasien_informasi_model extends CI_Model {
         $this->db->from('booking a');
         $this->db->join('rencana d','a.id_booking=d.id_booking');
         $this->db->join('metode_pembayaran e','e.id_metode = d.id_metode');
+        $this->db->join('asuransi_provider f', 'd.id_provider = f.id_provider');
+        $this->db->join('asuransi_kategori g', 'd.id_kategori = g.id_kategori');
         $this->db->where('a.id_pasien', $id_pasien);
         $this->db->where('a.id_booking', $id_booking);
         $this->db->where('a.konfirmasi', 1);
