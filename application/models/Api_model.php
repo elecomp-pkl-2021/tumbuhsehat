@@ -52,6 +52,7 @@ class Api_model extends CI_Model
             return $response;
         }
     }
+    
     public function showCity2($province){
         $curl = curl_init();
         curl_setopt_array($curl,array(
