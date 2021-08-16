@@ -1,13 +1,14 @@
-<?php 
+<?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Asuransi_model extends CI_Model {
+class Asuransi_model extends CI_Model
+{
 
     /* CRUD Kategori Asuransi */
     function get_kategori_asuransi()
     {
-        return $this->db->get('asuransi_kategori')->result();
+        return $this->db->get('asuransi_kategori')->result_array();
     }
 
     public function get_kategori_asuransi_by_id($id)
@@ -39,11 +40,11 @@ class Asuransi_model extends CI_Model {
     }
     /* END of CRUD Kategori Asuransi */
 
-    
+
     /* CRUD Provider Asuransi */
     function get_provider_asuransi()
     {
-        return $this->db->get('asuransi_provider')->result();
+        return $this->db->get('asuransi_provider')->result_array();
     }
 
     public function get_provider_asuransi_by_id($id)
@@ -74,9 +75,6 @@ class Asuransi_model extends CI_Model {
         $this->db->delete('asuransi_provider');
     }
     /* END of CRUD Kategori Asuransi */
-
 }
 
 /* End of file Asuransi_model.php */
-
-?>
