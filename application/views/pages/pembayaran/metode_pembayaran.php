@@ -44,13 +44,11 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group box6">
-                                            <select class="form-control" name="provider" id="provider">
-                                                <option value="<?php echo $result->provider; ?>" disabled selected style="display: none;"><?php echo $result->provider; ?></option>
-                                                <option value="Provider Allianz" id="Provider Allianz">Provider Allianz</option>
-                                                <option value="Provider Astra-Admedika" id="Provider Astra-Admedika">Provider Astra-Admedika</option>
-                                                <option value="Provider Prudential" id="Provider Prudential">Provider Prudential</option>
-                                                <option value="Provider MAG" id="Provider MAG">Provider MAG</option>
-                                                <option value="Provider Cigna" id="Provider Cigna">Provider Cigna</option>
+                                            <select class="form-control" name="id_provider" id="id_provider" required>
+                                                <option value="<?php echo $asuransiid['id_provider']; ?>" id="<?php echo $asuransiid['id_provider']; ?>" style="text-align:right" disabled selected><?php echo $asuransiid['nama_provider']; ?>Pilih Provider</option>
+                                                <?php foreach ($asuransi as $metode) { ?>
+                                                    <option value="<?php echo $metode['id_provider']; ?>" id="<?php echo $metode['id_provider']; ?>" style="text-align:right"><?php echo $metode['nama_provider']; ?></option>
+                                                <?php } ?>
                                             </select>
                                         </div>
                                     </div>
@@ -59,12 +57,11 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group box6">
-                                            <select class="form-control" name="kasuransi" id="kasuransi">
-                                                <option value="<?php echo $result->kategori_asuransi; ?>" disabled selected style="display: none;"><?php echo $result->kategori_asuransi; ?></option>
-                                                <option value="Asuransi Jiwa" id="Asuransi Jiwa">Asuransi Jiwa</option>
-                                                <option value="Asuransi Kesehatan" id="Asuransi Kesehatan">Asuransi Kesehatan</option>
-                                                <option value="Asuransi Bisnis" id="Asuransi Bisnis">Asuransi Bisnis</option>
-                                                <option value="Asuransi Umum" id="Asuransi Umum">Asuransi Umum</option>
+                                            <select class="form-control" name="id_kategori" id="id_kategori" required>
+                                                <option value="<?php echo $kategorias['id_kategori']; ?>" id="<?php echo $kategorias['id_kategori']; ?>" style="text-align:right" disabled selected><?php echo $kategorias['nama_kategori']; ?>Pilih Kategori</option>
+                                                <?php foreach ($kategori_asuransi as $metode) { ?>
+                                                    <option value="<?php echo $metode['id_kategori']; ?>" id="<?php echo $metode['id_kategori']; ?>" style="text-align:right"><?php echo $metode['nama_kategori']; ?></option>
+                                                <?php } ?>
                                             </select>
                                         </div>
                                     </div>

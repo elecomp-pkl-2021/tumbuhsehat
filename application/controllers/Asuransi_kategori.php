@@ -23,7 +23,7 @@ class Asuransi_kategori extends CI_Controller {
             <li class="breadcrumb-item"><a href="'.base_url('home').'"><i class="ik ik-home"></i></a></li>
             <li class="breadcrumb-item active">Data Kategori Asuransi</li>';
 
-        $data['kategori'] = $this->asuransi_model->get_kategori_asuransi();
+        $data['kategori'] = $this->asuransi_model->get_kategori_asuransi1();
         $this->load->view('components/header', $data);
         $this->load->view('components/sidebar_superadmin');
         $this->load->view('components/breadcrumbs', $data); 

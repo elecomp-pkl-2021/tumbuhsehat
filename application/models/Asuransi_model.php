@@ -7,6 +7,12 @@ class Asuransi_model extends CI_Model {
     /* CRUD Kategori Asuransi */
     function get_kategori_asuransi()
     {
+        return $this->db->get('asuransi_kategori')->result_array();
+    }
+
+    // for index kategori-asuransi
+    function get_kategori_asuransi1()
+    {
         return $this->db->get('asuransi_kategori')->result();
     }
 
@@ -39,9 +45,15 @@ class Asuransi_model extends CI_Model {
     }
     /* END of CRUD Kategori Asuransi */
 
-    
+
     /* CRUD Provider Asuransi */
     function get_provider_asuransi()
+    {
+        return $this->db->get('asuransi_provider')->result_array();
+    }
+
+    // for index provider-asuransi
+    function get_provider_asuransi1()
     {
         return $this->db->get('asuransi_provider')->result();
     }
@@ -74,9 +86,6 @@ class Asuransi_model extends CI_Model {
         $this->db->delete('asuransi_provider');
     }
     /* END of CRUD Kategori Asuransi */
-
 }
 
 /* End of file Asuransi_model.php */
-
-?>

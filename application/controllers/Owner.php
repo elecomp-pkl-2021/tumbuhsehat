@@ -18,6 +18,7 @@ class Owner extends CI_Controller
         $this->load->model('Klinik_model');
         $this->load->model('Diskon_model');
         $this->load->model('Metode_model');
+        $this->load->model('Asuransi_model');
     }
 
     function show_ubah_janji_akan_datang($id_booking)
@@ -283,6 +284,13 @@ class Owner extends CI_Controller
         $data['metodebayar'] = $metode;
         $data['_pembayaran'] = 1;
         $data['total'] = $this->Klinik_model->get_total($id_rekam_medis);
+        $asuransi = $this->Asuransi_model->get_provider_asuransi();
+        $data['asuransi'] = $asuransi;
+        $provider = $this->Klinik_model->get_id_provider($id_booking);
+        $data['asuransiid'] = $this->Asuransi_model->get_provider_asuransi_by_id($provider['id_provider']);
+        $data['kategori_asuransi'] = $this->Asuransi_model->get_kategori_asuransi();
+        $kategorias = $this->Klinik_model->get_id_kategori($id_booking);
+        $data['kategorias'] = $this->Asuransi_model->get_kategori_asuransi_by_id($kategorias['id_kategori']);
         // print_r($this->db->last_query());
         $data['title'] = "Pembayaran | Tumbuh Sehat";
         $data['judulHalaman'] = "Pembayaran";
@@ -315,8 +323,8 @@ class Owner extends CI_Controller
 
         $data_rencana = array(
             'id_metode' => $this->input->post('jenis_pembayaran'),
-            'provider' => $this->input->post('provider'),
-            'kategori_asuransi' => $this->input->post('kasuransi'),
+            'id_provider' => $this->input->post('id_provider'),
+            'id_kategori' => $this->input->post('id_kategori'),
             'nomor_asuransi' => $this->input->post('no_asuransi'),
             'foto_asuransi' => $this->_uploadImage(),
         );
