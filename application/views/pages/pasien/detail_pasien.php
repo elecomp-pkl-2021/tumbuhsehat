@@ -494,12 +494,12 @@
 													<tr style="height:30px">
 														<td style="width:50%;" class="font-weight-bold">
 															Provider Asuransi</td>
-														<td><?= $info_bayar['provider']?></td>
+														<td><?= $info_bayar['nama_provider']?></td>
 													</tr>
 													<tr style="height:30px">
 														<td class="font-weight-bold">
 															Kategori Asuransi</td>
-														<td><?= $info_bayar['kategori_asuransi']?></td>
+														<td><?= $info_bayar['nama_kategori']?></td>
 													</tr>
 													<tr style="height:30px">
 														<td class="font-weight-bold">

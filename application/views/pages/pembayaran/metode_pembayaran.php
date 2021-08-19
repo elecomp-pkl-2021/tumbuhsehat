@@ -1,18 +1,18 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="panel-body">
-            <div class="col-md-12">
-                <font style="font-weight: bold; font-size: 15px;">Pembayaran <i class="fa fa-chevron-right" aria-hidden="true"></i> Proses Pembayaran</font><br><br>
-                <div class="box-rencana">
-                    <h3 class="mb-20 weight-500"><b>Rencana Pemeriksaan
-                            <?php foreach ($bayar->result() as $result) : ?>
-                                <?php echo $result->nama_depan; ?> <?php echo $result->nama_belakang; ?> </b>
-                    <?php endforeach; ?>
-                    </h3><br>
-                    <p><?php echo $result->nama_cabang; ?> &nbsp; | &nbsp; <?php echo $result->nama_dokter; ?></p>
-                </div>
+            <font style="font-weight: bold; font-size: 15px;">Pembayaran <i class="fa fa-chevron-right" aria-hidden="true"></i> Proses Pembayaran</font><br><br>
+            <div class="box-rencana">
+                <h3 class="mb-20 weight-500"><b>Rencana Pemeriksaan
+                        <?php foreach ($bayar->result() as $result) : ?>
+                            <?php echo $result->nama_depan; ?> <?php echo $result->nama_belakang; ?> </b>
+                <?php endforeach; ?>
+                </h3><br>
+                <p><?php echo $result->nama_cabang; ?> &nbsp; | &nbsp; <?php echo $result->nama_dokter; ?></p>
             </div>
-            <div class="card"><br>
+        </div>
+        <div class="card"><br>
+            <div class="card-body">
                 <div class="tab-content col-md-12">
                     <?php foreach ($bayar->result() as $result) : ?>
                         <div id="metode_pembayaran">
@@ -20,7 +20,7 @@
                                 <input type="hidden" name="id_booking" value="<?php echo $result->id_booking; ?>">
 
                                 <div class="col-md-12">
-                                    <h5 class="mb-20 weight-500" style="font-weight: bold">Metode pembayaran</h5><br>
+                                    <h5 class="mb-20 weight-500" style="font-weight: bold">Metode pembayaran</h5>
                                 </div>
                                 <div class="col-lg-2">
                                     Jenis Pembayaran
@@ -44,13 +44,11 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group box6">
-                                            <select class="form-control" name="provider" id="provider">
-                                                <option value="<?php echo $result->provider; ?>" disabled selected style="display: none;"><?php echo $result->provider; ?></option>
-                                                <option value="Provider Allianz" id="Provider Allianz">Provider Allianz</option>
-                                                <option value="Provider Astra-Admedika" id="Provider Astra-Admedika">Provider Astra-Admedika</option>
-                                                <option value="Provider Prudential" id="Provider Prudential">Provider Prudential</option>
-                                                <option value="Provider MAG" id="Provider MAG">Provider MAG</option>
-                                                <option value="Provider Cigna" id="Provider Cigna">Provider Cigna</option>
+                                            <select class="form-control" name="id_provider" id="id_provider" required>
+                                                <option value="<?php echo $asuransiid['id_provider']; ?>" id="<?php echo $asuransiid['id_provider']; ?>" style="text-align:right" disabled selected><?php echo $asuransiid['nama_provider']; ?>Pilih Provider</option>
+                                                <?php foreach ($asuransi as $metode) { ?>
+                                                    <option value="<?php echo $metode['id_provider']; ?>" id="<?php echo $metode['id_provider']; ?>" style="text-align:right"><?php echo $metode['nama_provider']; ?></option>
+                                                <?php } ?>
                                             </select>
                                         </div>
                                     </div>
@@ -59,12 +57,11 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group box6">
-                                            <select class="form-control" name="kasuransi" id="kasuransi">
-                                                <option value="<?php echo $result->kategori_asuransi; ?>" disabled selected style="display: none;"><?php echo $result->kategori_asuransi; ?></option>
-                                                <option value="Asuransi Jiwa" id="Asuransi Jiwa">Asuransi Jiwa</option>
-                                                <option value="Asuransi Kesehatan" id="Asuransi Kesehatan">Asuransi Kesehatan</option>
-                                                <option value="Asuransi Bisnis" id="Asuransi Bisnis">Asuransi Bisnis</option>
-                                                <option value="Asuransi Umum" id="Asuransi Umum">Asuransi Umum</option>
+                                            <select class="form-control" name="id_kategori" id="id_kategori" required>
+                                                <option value="<?php echo $kategorias['id_kategori']; ?>" id="<?php echo $kategorias['id_kategori']; ?>" style="text-align:right" disabled selected><?php echo $kategorias['nama_kategori']; ?>Pilih Kategori</option>
+                                                <?php foreach ($kategori_asuransi as $metode) { ?>
+                                                    <option value="<?php echo $metode['id_kategori']; ?>" id="<?php echo $metode['id_kategori']; ?>" style="text-align:right"><?php echo $metode['nama_kategori']; ?></option>
+                                                <?php } ?>
                                             </select>
                                         </div>
                                     </div>
@@ -97,10 +94,10 @@
                             </div>
                             <div class="col-lg-8">
                                 <div class="form-group">
-                                    <textarea name="diagnosa" class="form-control" style="resize:none;width:600px;height:100px;" rows="10" required readonly><?php echo $result->diagnosis; ?></textarea>
+                                    <textarea name="diagnosa" class="form-control" style="resize:none;width:max;height:100px;" rows="10" required readonly><?php echo $result->diagnosis; ?></textarea>
                                 </div>
                             </div>
-                            <div class="col-lg-10">
+                            <div class="card-body">
                                 <table id="all_data_json" class="table">
                                     <thead>
                                         <tr>
@@ -130,7 +127,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-lg-10" style="background: #ccc; color: #000; padding: 7px 0 6px 10px;">
+                            <div class="card-body" style="background: #ccc; color: #000; padding: 7px 0 6px 10px;">
                                 <b>TOTAL : <p id="txttot" style="float: right; color: #000; margin: 0 20px 0 0;">Rp. <?= $subtotalnya ?></p></b>
                             </div>
                             <div class="col-lg-12"></div>
@@ -149,7 +146,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-12"></div>
-                            <div class="col-lg-10" style="background: #f40049; color: #fff; padding: 7px 0 6px 10px;">
+                            <div class="card-body" style="background: #f40049; color: #fff; padding: 7px 0 6px 10px;">
                                 <b style="padding: 5px 0 5px 0;"> GRAND TOTAL :
                                     <p style="float: right; color: #fff; margin-bottom: 0;">Rp. <input type="text" value="<?= $total->grandtotal ?>" name="grandtotal" id="grandtotal" style="float:right; color:#fff; margin-left: 3px;  width: 65px; border: 0px; background: #f40049;"></p>
                                 </b>
@@ -158,9 +155,9 @@
 
 
                             <div class="col-lg-12">
-                                <a href="<?= base_url() ?>/pembayaran" type="button" class="btn btn-primary" style="float: left;margin-top: 3%; margin-bottom:3%;  color:white">Kembali</a>
+                                <a href="<?= base_url() ?>/pembayaran" type="button" class="btn btn-primary" style="float: left;margin-top: 3%; margin-bottom:1%;  color:white">Kembali</a>
 
-                                <button type="submit" href="#proses_bayar" class="btn btn-primary" style="float: right;margin-top: 3%;  margin-bottom:3%; color:white">Proses</button>
+                                <button type="submit" href="#proses_bayar" class="btn btn-primary" style="float: right;margin-top: 3%;  margin-bottom:1%; color:white">Proses</button>
                             </div>
 
                         </div>

@@ -1,6 +1,10 @@
 <?php
 class Klinik_model extends CI_Model
 {
+    public $table = 'login_session';
+    public $id = 'id_user';
+    public $order = 'DESC';
+
     function get_pasien()
     {
         $query = $this->db->get('pasien');
@@ -151,6 +155,24 @@ class Klinik_model extends CI_Model
         } else {
             return false;
         }
+    }
+    public function simpan($data)
+    {
+
+        $query = $this->db->insert("login_session", $data);
+
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function get_id_last()
+    {
+        $this->db->select($this->id);
+        $this->db->order_by($this->id, $this->order);
+        $this->db->limit(1, 0);
+        return $this->db->get($this->table)->row();
     }
     function insert_login($data)
     {
@@ -530,5 +552,13 @@ class Klinik_model extends CI_Model
     {
         $this->db->where("id_rekam_medis", $id);
         $this->db->update("pilih_layanan", $data);
+    }
+    public function get_id_provider($id)
+    {
+        return $this->db->get_where('rencana', ['id_booking' => $id])->row_array();
+    }
+    public function get_id_kategori($id)
+    {
+        return $this->db->get_where('rencana', ['id_booking' => $id])->row_array();
     }
 }
