@@ -36,11 +36,17 @@ class Pembayaran extends CI_Controller
         $this->load->view('components/footer');
     }
 
+    private function _getIdDiskon($nilai_diskon){
+        return $this->db->select('id_diskon')->get_where('diskon',['nilai_diskon' => $nilai_diskon])->row_array()['id_diskon'];
+    }   
+
     public function hitungTotalBayar($harga, $qty, $diskon = null)
     {
         $total_harga = $harga * $qty;
+        $nilai_diskon = 0;
         if ($diskon != null) {
-            $bayar = $total_harga - ($total_harga * ($diskon / 100));
+            $nilai_diskon = $total_harga * ($diskon / 100);
+            $bayar = $total_harga - $nilai_diskon;
         } else {
             $bayar = $total_harga;
         }
@@ -48,8 +54,10 @@ class Pembayaran extends CI_Controller
             'harga_satuan_rp' => rupiah($harga),
             'total_harga_rp' => rupiah($total_harga),
             'bayar_rp' => rupiah($bayar),
+            'diskon' => rupiah($nilai_diskon),
             'total_harga' => $total_harga,
             'bayar' => $bayar,
+            'id_diskon' => $this->_getIdDiskon($diskon)
         ];
         echo json_encode($data);
     }

@@ -1,3 +1,4 @@
+<?php $this->load->helper('global');?>
 <div class="bs-stepper" id="stepper">
     <div class="card">
         <div class="bs-stepper-header" role="tablist">
@@ -211,6 +212,7 @@
                 <div class="card">
                     <div class="mx-4">
                         <h4 class="mt-4">Kondisi Kesehatan Umum</h4>
+ 
                         <div class="line my-3"></div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -266,7 +268,7 @@
                         <div class="line my-3"></div>
                         <div class="form-group">
                             <label for="anamnesa">Deskripsi anamnesa</label>
-                            <textarea class="form-control" name="anamnesa" id="anamnesa" cols="20" rows="5"></textarea>
+                            <textarea class="form-control" name="anamnesa" id="anamnesa" cols="20" rows="5"><?= $pasien['keluhan_utama'];?></textarea>
                         </div>
                     </div>
                 </div>
@@ -290,7 +292,26 @@
                 <!-- EKSTRA ORAL -->
                 <div class="card">
                     <div class="mx-4">
-                        <h4 class="mt-4">Pemeriksaan Klinis Umum</h4>
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="mt-4">Pemeriksaan Klinis Umum</h4>
+                                <footer class="blockquote-footer">Tanggal Terakhir Pemeriksaan :<cite title="Source Title"><?= longdate_indo($pem_umum['date']);?></cite></footer>
+                            </div>
+                            <div class="col mt-4">
+                                <div class="form-group d-flex justify-content-end">
+                                    <i class="ik ik-search mx-2 mt-1" style="font-size: 25px;"></i>
+                                    <select class="select2bs4" name="filter-klinis-umum" id="filter-klinis-umum" style="width: 50%;">
+                                        <option value=""><?= "Filter Tanggal Pemeriksaan Umum" ?></option>
+                                        <?php foreach($tgl_pemeriksaan_umum as $umum):?>
+                                            <option value="<?= $umum['date'] ?>">
+                                                <?= date_indo($umum['date']);  ?>
+                                            </option>
+                                        <?php endforeach;?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                       
                         <div class="line my-3"></div>
                         <div class="row">
                             <div class="col">
@@ -315,11 +336,11 @@
                                         </legend>
                                         <div class="col-sm-10">
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="bibir1" name="bibir" class="custom-control-input" onclick="disableInput('#bibir-lain')" value="Normal"  <?= $pem_umum['bibir'] == 'Normal' ? 'checked' : '';?>>
+                                                <input type="radio" id="bibir1" name="bibir" class="custom-control-input" onchange="disableInput('#bibir-lain')" value="Normal"  <?= $pem_umum['bibir'] == 'Normal' ? 'checked' : '';?>>
                                                 <label class="custom-control-label" for="bibir1">Normal</label>
                                             </div>
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="bibir2" name="bibir" class="custom-control-input" onclick="enableInput('#bibir-lain')" value="" <?= $pem_umum['bibir'] != 'Normal' ? 'checked' : '';?>>
+                                                <input type="radio" id="bibir2" name="bibir" class="custom-control-input" onchange="enableInput('#bibir-lain')" value="" <?= $pem_umum['bibir'] != 'Normal' ? 'checked' : '';?>>
                                                 <label class="custom-control-label" for="bibir2">Lainnya</label>
                                                 <input class="form-control ml-3" type="text" name="bibir-lain" id="bibir-lain" placeholder="Jenis Bibir" autocomplete="off" <?= $pem_umum['bibir'] != 'Normal' ? 'value="'.$pem_umum['bibir'].'"' : 'disabled';?> >
                                             </div>
@@ -363,8 +384,8 @@
                                             <span class="mx-2"><b>3. </b></span>
                                         </div>
                                         <div class="col-sm-9 mt-1">
-                                            <select class="form-control" name="subman-kanan-ket">
-                                                <option>Pilih Keterangan</option>
+                                            <select class="form-control" name="subman-kanan-ket" id="subman-kanan-ket">
+                                                <option value="">Pilih Keterangan</option>
                                                 <option value="Lunak" <?= $pem_umum['subkanan_kondisi'] == 'Lunak' ? 'selected' : '';?>>
                                                     Lunak
                                                 </option>
@@ -414,8 +435,8 @@
                                             <span class="mx-2"><b>3. </b></span>
                                         </div>
                                         <div class="col-sm-9 mt-1">
-                                            <select class="form-control" name="subman-kiri-ket">
-                                                <option>Pilih Keterangan</option>
+                                            <select class="form-control" name="subman-kiri-ket" id="subman-kiri-ket">
+                                                <option value="">Pilih Keterangan</option>
                                                 <option value="Lunak" <?= $pem_umum['subkiri_kondisi'] == 'Lunak' ? 'selected' : '';?>>
                                                     Lunak
                                                 </option>
@@ -433,7 +454,7 @@
                                             <b>Lainnya :</b>
                                         </legend>
                                         <div class="col-sm-10">
-                                            <input type="text" name="getah-bening-lain" id="" class="form-control" placeholder="keterangan getah bening lain" autocomplete="off" value="<?= $pem_umum['lainnya'];?>">
+                                            <input type="text" name="getah-bening-lain" id="getah-lain" class="form-control" placeholder="keterangan getah bening lain" autocomplete="off" value="<?= $pem_umum['lainnya'];?>">
                                         </div>
                                     </fieldset>
                                 </div>
@@ -444,9 +465,11 @@
                 <!-- INTRA ORAL -->
                 <div class="card">
                     <div class="mx-4">
-                        <h4 class="mt-4">Pemeriksaan Intra Oral</h4>
+                        <h4 class="mt-4">Pemeriksaan Klinis Umum</h4>
+                        <footer class="blockquote-footer">Tanggal Terakhir Pemeriksaan :<cite title="Source Title"><?= longdate_indo($pem_umum['date']);?></cite></footer>
                         <div class="line my-3"></div>
-                        <div class="row">
+                        <h5>Pemeriksaan Intra Oral :</h5>
+                        <div class="row ml-4 mb-1">
                             <div class="col">
                                 <!-- STAIN -->
                                 <fieldset class="form-group row">
@@ -458,7 +481,7 @@
                                             <label class="custom-control-label" for="stain">Ada</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="stain2" name="stain" class="custom-control-input" value="Normal" <?= $pem_umum['stain'] == 'Normal' ? 'checked' : '';?>>
+                                            <input type="radio" id="stain2" name="stain" class="custom-control-input" value="Tidak Ada" <?= $pem_umum['stain'] == 'Tidak Ada' ? 'checked' : '';?>>
                                             <label class="custom-control-label" for="stain2">Normal</label>
                                         </div>
                                     </div>
@@ -667,12 +690,31 @@
                 <!-- KLINIA KHUSUS -->
                 <div class="card">
                     <div class="mx-4">
-                        <h4 class="mt-4">Pemeriksaan Klinis Khusus</h4>
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="mt-4">Pemeriksaan Klinis Khusus</h4>
+                                <footer class="blockquote-footer">Tanggal Terakhir Pemeriksaan :<cite title="Source Title"><?= longdate_indo($pem_khusus['date']);?></cite></footer>
+                            </div>
+                            <div class="col mt-4">
+                                <div class="form-group d-flex justify-content-end">
+                                    <i class="ik ik-search mx-2 mt-1" style="font-size: 25px;"></i>
+                                    <select class="select2bs4" name="filter-klinis-khusus" id="filter-klinis-khusus" style="width: 50%;">
+                                        <option><?= "Filter Tanggal Pemeriksaan Khusus" ?></option>
+                                        <?php foreach($tgl_pemeriksaan_khusus as $khusus):?>
+                                            <option value="<?= $khusus['date'] ?>">
+                                                <?= date_indo($khusus['date']);  ?>
+                                            </option>
+                                        <?php endforeach;?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="line my-3"></div>
                         <div class="form-group">
                             <h5>Deskripsi Klinis :</h5>
                             <div id="klinis-khusus" class="ml-4">
-                                <textarea class="form-control" name="klinis-khusus" rows="3" placeholder="46 Only, vitalitas(+), palpasi(-), perkusi(+)"><?= $pem_khusus['keterangan'];?></textarea>
+                                <textarea class="form-control" id="desk-klinis" name="klinis-khusus" rows="3" placeholder="46 Only, vitalitas(+), palpasi(-), perkusi(+)"><?= $pem_khusus['keterangan'];?></textarea>
                             </div>
                         </div>
                     </div>
@@ -683,7 +725,28 @@
                     <div class="col mx-2">
                         <div class="card">
                             <div class="mx-4">
-                                <h4 class="mt-4">Pemeriksaan Penunjang</h4>
+                                <div class="row">
+                                    <div class="col">
+                                        <h4 class="mt-4">Pemeriksaan Penunjang</h4>
+                                        <footer class="blockquote-footer">Tanggal Terakhir Pemeriksaan :<cite title="Source Title"><?= longdate_indo($pem_penunjang['date']);?></cite></footer>
+                                    </div>
+                                    <div class="col">
+                                        <div class="col mt-4">
+                                            <div class="form-group d-flex justify-content-end">
+                                                <i class="ik ik-search mx-2 mt-1" style="font-size: 25px;"></i>
+                                                <select class="select2bs4" name="filter-klinis-penunjang" id="filter-klinis-penunjang" style="width: 80%;">
+                                                    <option><?= "Filter Tanggal Pemeriksaan Penunjang" ?></option>
+                                                    <?php foreach($tgl_pemeriksaan_penunjang as $penunjang):?>
+                                                        <option value="<?= $penunjang['date'] ?>">
+                                                            <?= date_indo($penunjang['date']);  ?>
+                                                        </option>
+                                                    <?php endforeach;?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                                 <div class="line my-3"></div>
                                 <div class="form-group">
                                     <!-- RADIOLOGI -->
@@ -717,12 +780,12 @@
                                         <div class="form-check form-check-inline">
                                             <div class="row justify-content-between">
                                                 <div class="col">
-                                                    <input class="form-check-input" type="checkbox" name="radiologi[]" id="Dental Regio" value="Dental Regio"
+                                                    <input class="form-check-input" type="checkbox" name="radiologi[]" id="Dental-Regio" value="Dental Regio"
                                                         <?php for ($i=0; $i < count($arr_rad); $i++) { 
                                                             echo $arr_rad[$i] == 'Dental Regio' ? 'checked' : '';
                                                         };?>
                                                     >
-                                            <label class="form-check-label py-1" for="Dental Regio">Dental Regio</label>
+                                            <label class="form-check-label py-1" for="Dental-Regio">Dental Regio</label>
                                                 </div>
                                                 <div class="col">
                                                     <input type="text" name="radiologi-46" id="" class="form-control mx-3" placeholder="46">
@@ -734,7 +797,7 @@
                                             <label for="">
                                                 <b>Deskripsi Radiologi</b>
                                             </label>
-                                            <textarea class="form-control" name="radiologi-desk" rows="3" col="10" placeholder="Tampak gambaran radiopak ada oklusal gigi 46 hingga dentin dalam. Tampak gambaran radiolusensi berbatas diffuse pada apical seluas kurang lebih 4 mm."><?= $pem_penunjang['keterangan_radiologi'];?></textarea>
+                                            <textarea class="form-control" id="desk-radiologi" name="radiologi-desk" rows="3" col="10" placeholder="Tampak gambaran radiopak ada oklusal gigi 46 hingga dentin dalam. Tampak gambaran radiolusensi berbatas diffuse pada apical seluas kurang lebih 4 mm."><?= $pem_penunjang['keterangan_radiologi'];?></textarea>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col">
@@ -744,12 +807,12 @@
                                                             <b>Foto Radiologi Terakhir</b>
                                                         </label>
                                                         <?php $img_r = $pem_penunjang['foto_radiologi'] != null ? $pem_penunjang['foto_radiologi'] : 'default.jpg';?>
-                                                        <a href="<?= base_url('/uploads/foto_radiologi/'.$img_r); ?>" class="btn btn-primary ml-3 <?= $img_r == 'default.jpg' ? 'd-none' : '';?>" target="_blank"> 
+                                                        <a href="<?= base_url('/uploads/foto_radiologi/'.$img_r); ?>" class="btn btn-primary ml-3 <?= $img_r == 'default.jpg' ? 'd-none' : '';?>" target="_blank" id="btn-img-radiologi"> 
                                                             Download Foto
                                                         </a>
                                                     </div>
                                                 </div>
-                                                <img src="<?= base_url('/uploads/foto_radiologi/'.$img_r); ?>" class="rounded img-fluid" alt="Foto radiologi terupdate" style="height: 200px;">
+                                                <img src="<?= base_url('/uploads/foto_radiologi/'.$img_r); ?>" class="rounded img-fluid" id="img-radiologi" alt="Foto radiologi terupdate" style="height: 200px;">
                                             </div>
                                             <div class="col">
                                                 <label for="">
@@ -769,7 +832,7 @@
                     <div class="col">
                         <div class="card">
                             <div class="mx-4">
-                                <h4 class="mt-4">Laboratorium</h4>
+                                <div class="" style="padding-top: 80px;"></div>
                                 <div class="line my-3"></div>
                                 <div class="form-group">
                                     <h5>Pemeriksaan Lab :</h5>
@@ -787,7 +850,7 @@
                                             <label for="">
                                                 <b>Deskripsi Laboratorium</b>
                                             </label>
-                                            <textarea class="form-control" name="lab-desk" rows="3" col="10" placeholder="Deskripsi Keterangan Laboratorium"><?= $pem_penunjang['keterangan_laboratorium'];?></textarea>
+                                            <textarea class="form-control" name="lab-desk" id="desk-lab" rows="3" col="10" placeholder="Deskripsi Keterangan Laboratorium"><?= $pem_penunjang['keterangan_laboratorium'];?></textarea>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col">
@@ -797,10 +860,10 @@
                                                             <b>Foto Laboratorium Terakhir</b>
                                                         </label>
                                                         <?php $img_l = $pem_penunjang['foto_laboratorium'] != null ? $pem_penunjang['foto_laboratorium'] : 'default.jpg';?>
-                                                        <a href="<?= base_url('/uploads/foto_laboratorium/'.$img_l); ?>" class="btn btn-primary ml-3 <?= $img_l == 'default.jpg' ? 'd-none' : '';?>" target="_blank"> Download Foto</a>
+                                                        <a href="<?= base_url('/uploads/foto_laboratorium/'.$img_l); ?>" class="btn btn-primary ml-3 <?= $img_l == 'default.jpg' ? 'd-none' : '';?>" target="_blank" id="btn-img-laboratorium"> Download Foto</a>
                                                     </div>
                                                 </div>
-                                                <img src="<?= base_url('/uploads/foto_laboratorium/'.$img_l); ?>" class="rounded img-fluid" alt="Foto laboratorium terupdate" style="height: 200px;">
+                                                <img src="<?= base_url('/uploads/foto_laboratorium/'.$img_l); ?>" class="rounded img-fluid" id="img-laboratorium" alt="Foto laboratorium terupdate" style="height: 200px;">
                                             </div>
                                             <div class="col">
                                                 <label for="">
@@ -859,12 +922,15 @@
                                     <select class="select2bs4" name="tindakan" id="tindakan" style="width: 100%;">
                                         <option><?= "Pilih Tindakan" ?></option>
                                         <?php foreach ($layanan as $l) : ?>
-                                            <option value="<?= $l['harga']; ?>"><?= $l['layanan']; ?></option>
+                                            <option value="<?= $l['harga']; ?>" data-id="<?= $l['id_layanan'];?>">
+                                                <?= $l['layanan']; ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
+                                    <input type="hidden" name="id-layanan" id="id-layanan">
                                 </div>
                                 <div class="col">
-                                    <input type="text" name="" id="" class="form-control">
+                                    <input type="text" name="detail-layanan" id="" class="form-control" autocomplete="off">
                                 </div>
                                 <div class="col">
                                     <input type="text" name="jml-gigi" id="jml-gigi" class="form-control" placeholder="Jumlah Gigi">
@@ -890,13 +956,13 @@
                                     <select class="select2bs4" name="diskon" id="diskon" style="width: 100%;">
                                         <option><?= "Pilih Discount" ?></option>
                                         <?php foreach ($diskon as $d) : ?>
-                                            <option value="<?= $d['id_diskon']; ?>"><?= $d['nama_diskon']; ?></option>
+                                            <option value="<?= $d['nilai_diskon']; ?>"><?= $d['nama_diskon']; ?> </option>
                                         <?php endforeach; ?>
                                     </select>
                                     <input type="hidden" name="id-diskon" id="id-diskon">
                                 </div>
                                 <div class="col-3"></div>
-                                <div class="col-2"><b class="nilai-diskon">0</b></div>
+                                <div class="col-2"><b>-</b><b class="nilai-diskon">0</b></div>
                             </div>
                             <div class="row bg-danger py-3 mt-2">
                                 <div class="col-2"><b>Grand Total</b></div>
@@ -925,201 +991,5 @@
         </div>
     </form>
 </div>
-<!-- STEPPER -->
-<script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
-<script>
-    (function() {
-        'use strict'
-        window.stepper = new Stepper(document.querySelector('#stepper'),{
-            animation : true,
-            linear : false
-        })
-    })()
-</script>
-
-<!-- DROPIFY -->
-<script src="<?= base_url() ?>assets/plugins/dropify/dist/js/dropify.min.js"></script>
-<script>
-    $(document).ready(function() {
-        // Basic
-        $('.dropify').dropify({
-            messages: {
-                default: 'Upload foto radiologi (click or drag and drop)',
-            }
-        });
-        $('.dropify-lab').dropify({
-            messages: {
-                default: 'Upload foto laboratorium (click or drag and drop)',
-            }
-        });
-    });
-</script>
-
-<!-- DOM -->
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-    var tmp_lahir_pasien = "<?= $pasien['tempat_lahir']; ?>";
-    var id_provinsi = "<?= $pasien['province_id']; ?>";
-    var id_city = "<?= $pasien['city_id']; ?>";
-    var id_provinsi_input = "<?= $pasien['province_id']; ?>";
-    console.log(`id provinsi = ${id_provinsi}`);
-    $(document).ready(function() {
-        loadCity('#tmp-lahir', 'ApiRajaOngkir/get_api_kota/', tmp_lahir_pasien);
-        loadProvinsi('#provinsi', id_provinsi);
-        loadCityByProvince('#kota', id_provinsi_input, id_city);
-        $('#provinsi').on('change', function() {
-            if ($('#kota').val() != '') {
-                loadCityByProvince('#kota', $('#provinsi').val(), id_city);
-            }
-            $('#pn').val($('#provinsi option:selected').text());
-        });
-        $('#kota').on('change', function() {
-            $('#kn').val($('#kota option:selected').text());
-        });
-
-        // HITUNG HARGA PEMBAYARAN
-        let harga;
-        let id_diskon = null;
-        let diskon= null;
-        let qty;
-        $('#tindakan').on('change', function() {
-            harga = $('#tindakan').val();
-            hitungHargaBayar(harga, qty, diskon);
-        });
-        $('#jml-gigi').change(function() {
-            qty = $('#jml-gigi').val();
-            hitungHargaBayar(harga, qty, diskon);
-        });
-        $('#diskon').on('change', function() {
-            id_diskon = $('#diskon').val();
-            hitungHargaBayar(harga, qty, diskon);
-        });
-    });
-
-    function setIdDiskon(data){
-        $('#id-diskon').val = data;
-    }
-
-    function hitungHargaBayar(harga, qty, diskon) {
-        $.ajax({
-            url: '<?= base_url("Pembayaran/hitungTotalBayar") ?>' + '/' + harga + '/' + qty + '/' + diskon,
-            dataType: 'json',
-            method: 'post',
-            success: function(response) {
-                console.log(response);
-                $('.satuan').text(response.harga_satuan_rp);
-                $('.subtotal').text(response.total_harga_rp);
-                $('input.subtotal').val(response.total_harga);
-                $('.grandtotal').text(response.bayar_rp);
-                $('input.grandtotal').val(response.bayar);
-                $('.btn-hitung-bayar').prop('disabled', false);
-            }
-        });
-    }
-
-    // RAJA ONGKIR API LOAD ALAMAT
-    function loadCity(id, url, tag) {
-        $.ajax({
-            url: '<?php echo base_url(); ?>' + url,
-            dataType: 'json',
-            success: function(response) {
-                $(id).html('');
-                city = '';
-                city = ' <option> --Pilih Kota-- </option>';
-                city = city + '';
-                $(id).append(city);
-                $.each(response['rajaongkir']['results'],
-                    function(i, n) {
-                        if (tag == n['type'] + " " + n['city_name']) {
-                            city = ' <option value="' + n['type'] + " " + n['city_name'] +
-                                '" selected> ' + n['type'] + " " + n['city_name'] + '</option>';
-                        } else {
-                            city = '<option value="' + n['type'] + " " + n['city_name'] + '">' + n[
-                                    'type'] +
-                                " " + n['city_name'] + '</option>';
-                        }
-                        city = city + '';
-                        $(id).append(city);
-                    });
-            },
-            error: function() {
-                $(id).html('ERROR');
-            }
-        });
-    }
-
-    function loadProvinsi(id, id_provinsi) {
-        $.ajax({
-            url: '<?php echo base_url("ApiRajaOngkir/get_api_provinsi/"); ?>',
-            dataType: 'json',
-            success: function(response) {
-                $(id).html('');
-                province = '';
-                province = '<option value=""> -- Pilih Provinsi-- </option>';
-                province = province + '';
-                $(id).append(province);
-
-                $.each(response['rajaongkir']['results'], function(i, n) {
-                    if (id_provinsi == n['province_id']) {
-                        province = '<option value="' + n['province_id'] + '" selected>' + n[
-                            'province'] + '</option>';
-                    } else {
-                        province = '<option value="' + n['province_id'] + '">' + n['province'] +
-                            '</option>';
-                    }
-                    province = province + '';
-                    $(id).append(province);
-                    //$('#nama_provinsi').val(n['province']);
-                });
-            },
-            error: function() {
-                alert('ERROR ! Check your internet connection');
-                //$(id).html('ERROR');
-            }
-        });
-    }
-
-    function loadCityByProvince(id, id_provinsi_input, idcity) {
-        $.ajax({
-            url: '<?php echo base_url("ApiRajaOngkir/get_api_kota_byProvinsi/"); ?>' +
-                '/' + id_provinsi_input,
-            dataType: 'json',
-            data: {
-                province: id_provinsi_input
-            },
-            success: function(response) {
-                $(id).html('');
-                city = '';
-                city = '<option> -- Pilih Kota-- </option>';
-                city = city + '';
-                $(id).append(city);
-                $.each(response['rajaongkir']['results'], function(i, n) {
-                    if (idcity == n['city_id']) {
-                        city = '<option value="' + n['city_id'] + '" selected>' + n['type'] + " " +
-                            n[
-                                'city_name'] + '</option>';
-                    } else {
-                        city = '<option value="' + n['city_id'] + '">' + n['type'] + " " + n[
-                            'city_name'] + '</option>';
-                    }
-                    city = city + '';
-                    $(id).append(city);
-                });
-            },
-            error: function() {
-                $(id).html('ERROR');
-            }
-        });
-    }
-
-    function enableInput(idInputText) {
-        $(idInputText).prop('disabled', false);
-        $(idInputText).removeAttr('required');
-    }
-
-    function disableInput(idInputText) {
-        $(idInputText).prop('disabled', true);
-        $(idInputText).prop('required', true);
-        $(idInputText).val('');
-    }
-</script>
+<?php $this->load->view('/pages/home/dokter/pemeriksaan-script');?>
+<?php $this->load->view('/pages/home/dokter/filter-tanggal-pemeriksaan-script');?>

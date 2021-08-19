@@ -32,6 +32,42 @@ class Pemeriksaan_model extends CI_Model
         return $query->row();
     }
 
+    public function getTanggalPemeriksaanUmum($id_pasien){
+        return $this->db->select('date')
+                        ->get_where('pemeriksaan_klinis_umum', ['id_pasien'=> $id_pasien,'date !=' => null])
+                        ->result_array();
+    }
+    
+    public function getTanggalPemeriksaanKhusus($id_pasien){
+        return $this->db->select('date')
+                        ->get_where('pemeriksaan_klinis_khusus', ['id_pasien'=> $id_pasien,'date !=' => null])
+                        ->result_array();
+    }
+    
+    public function getTanggalPemeriksaanPenunjang($id_pasien){
+        return $this->db->select('date')
+                        ->get_where('pemeriksaan_penunjang', ['id_pasien'=> $id_pasien,'date !=' => null])
+                        ->result_array();
+    }
+
+    public function getPemeriksaanUmumByDate($id_pasien, $date){
+        return $this->db->limit(1)
+                        ->order_by('id_pemeriksaan_umum', 'DESC')
+                        ->get_where('pemeriksaan_klinis_umum', ['id_pasien'=> $id_pasien,'date' => $date])->row_array();
+    }
+    
+    public function getPemeriksaanPenunjangByDate($id_pasien, $date){
+        return $this->db->limit(1)
+                        ->order_by('id_pemeriksaan_penunjang', 'DESC')
+                        ->get_where('pemeriksaan_penunjang', ['id_pasien'=> $id_pasien,'date' => $date])->row_array();
+    }
+    
+    public function getPemeriksaanKhususByDate($id_pasien, $date){
+        return $this->db->limit(1)
+                        ->order_by('id_pemeriksaan_khusus', 'DESC')
+                        ->get_where('pemeriksaan_klinis_khusus', ['id_pasien'=> $id_pasien,'date' => $date])->row_array();
+    }
+
 }
 
 /* End of file Pemeriksaan_model.php */

@@ -98,6 +98,9 @@ class Dokter extends CI_Controller
             'pem_umum' => $this->Pemeriksaan_model->getLastPemeriksaanUmum($id_pasien),
             'pem_penunjang' => $this->Pemeriksaan_model->getLastPemeriksaanPenunjang($id_pasien),
             'pem_khusus' => $this->Pemeriksaan_model->getLastPemeriksaanKhusus($id_pasien),
+            'tgl_pemeriksaan_umum' => $this->Pemeriksaan_model->getTanggalPemeriksaanUmum($id_pasien),
+            'tgl_pemeriksaan_khusus' => $this->Pemeriksaan_model->getTanggalPemeriksaanKhusus($id_pasien),
+            'tgl_pemeriksaan_penunjang' => $this->Pemeriksaan_model->getTanggalPemeriksaanPenunjang($id_pasien),
         ];
         // var_dump($data);die;
         $this->load->view('components/header', $data);
@@ -105,6 +108,21 @@ class Dokter extends CI_Controller
         $this->load->view('components/breadcrumbs', $data);
         $this->load->view('pages/home/dokter/pemeriksaan', $data);
         $this->load->view('components/footer');
+    }
+
+    public function ajaxFilterPemeriksaanUmumByDate($id_pasien,$date){
+        $data = $this->Pemeriksaan_model->getPemeriksaanUmumByDate($id_pasien,$date);
+        echo json_encode($data);
+    }
+    
+    public function ajaxFilterPemeriksaanPenunjangByDate($id_pasien,$date){
+        $data = $this->Pemeriksaan_model->getPemeriksaanPenunjangByDate($id_pasien,$date);
+        echo json_encode($data);
+    }
+    
+    public function ajaxFilterPemeriksaanKhususByDate($id_pasien,$date){
+        $data = $this->Pemeriksaan_model->getPemeriksaanKhususByDate($id_pasien,$date);
+        echo json_encode($data);
     }
 
     public function ajax_check_id()
@@ -294,11 +312,13 @@ class Dokter extends CI_Controller
         $data = [
             'id_pasien' => $this->input->post('id_pasien'),
             'id_rekam_medis' => $this->input->post('id_rm'),
-            'id_layanan' => $this->input->post('id_layanan'),
-            'jumlah' => $this->input->post('jumlah'),
-            'detail_layanan' => $this->input->post('detail_layanan'),
-            'id_diskon' => $this->input->post('id_diskon'),
+            'id_layanan' => $this->input->post('id-layanan'),
+            'jumlah' => $this->input->post('jml-gigi'),
+            'detail_layanan' => $this->input->post('detail-layanan'),
+            'id_diskon' => $this->input->post('id-diskon'),
         ];
+        var_dump($data);die;
+        $this->db->insert("pilih_layanan", $data);
     }
 
     public function addPemeriksaan(){
@@ -630,7 +650,7 @@ class Dokter extends CI_Controller
             'id_layanan' => $this->input->post('id_layanan'),
             'jumlah' => $this->input->post('jumlah'),
             'detail_layanan' => $this->input->post('detail_layanan'),
-            'id_diskon' => $this->input->post('id_diskon'),
+            'id_diskon' => $this->input->post('id-diskon'),
         );
 
         $this->Pemeriksaan_model->update_rekam($this->input->post('id_rekam_medis'), $data_rekam);
