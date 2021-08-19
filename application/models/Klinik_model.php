@@ -553,4 +553,12 @@ class Klinik_model extends CI_Model
         $this->db->where("id_rekam_medis", $id);
         $this->db->update("pilih_layanan", $data);
     }
+    public function get_id_provider($id)
+    {
+        return $this->db->get_where('rencana', ['id_booking' => $id])->row_array();
+    }
+    public function get_id_kategori($id)
+    {
+        return $this->db->get_where('rencana', ['id_booking' => $id])->row_array();
+    }
 }

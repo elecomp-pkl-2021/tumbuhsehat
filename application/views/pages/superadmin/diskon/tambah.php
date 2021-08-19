@@ -47,7 +47,7 @@
 				</div>
 				<div class="card-footer">
 					<button class="btn btn-primary mr-2" type="submit">Tambah</button>
-					<a href="<?= base_url('cabang/')?>" class="btn btn-light">Batal</a>
+					<a href="<?= base_url('diskon/')?>" class="btn btn-light">Batal</a>
 				</div>
 			</form>
 		</div>
