@@ -74,7 +74,7 @@ class Dokter extends CI_Controller
             'layanan' => $this->Layanan_model->getLayananAktif(),
             'diskon' => $this->Layanan_model->getDiskonAktif()
         ];
-        
+
         $idk_psn = $this->session->userdata('id_kpesan');
         if (!empty($idk_psn)) {
             $id_kpesan = $this->session->userdata('id_kpesan');

@@ -5752,7 +5752,7 @@ var odontogram_after = function () {
 		if (arrId4Sisi.indexOf(data[i].id) > -1) {
 			//   console.log('arrId4Sisi', arrId4Sisi);
 			var svg =
-				'<g id="' +
+				'<g id="after' +
 				data[i].id +
 				'" class="' +
 				data[i].id +
@@ -6944,7 +6944,7 @@ var odontogram_after = function () {
 			"</text>" + "</g>";
 		} else {
 			var svg =
-				' <g id="' +
+				' <g id="after' +
 				data[i].id +
 				'" class="' +
 				data[i].id +
