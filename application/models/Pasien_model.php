@@ -221,7 +221,7 @@ class Pasien_model extends CI_Model
 
     function get_temp($idSvg, $idPemeriksaan)
     {
-        $query = $this->db->query("SELECT ket_pemeriksaan, idSvg FROM temp WHERE idSvg = '$idSvg' AND idPemeriksaan = '$idPemeriksaan'");
-        return $query->row();
+        $query = $this->db->query("SELECT * FROM temp WHERE idSvg = '$idSvg' AND idPemeriksaan = '$idPemeriksaan'");
+        return $query->result_array();
     }
 }
