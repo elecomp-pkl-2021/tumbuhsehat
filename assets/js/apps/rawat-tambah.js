@@ -10332,17 +10332,14 @@ function load_odontogram() {
 
 function save_temp() {
 	console.log("Testing");
-	id_booking = document.getElementById("id_bookingnya").value;
-	id_pasien = document.getElementById("id_pasiennya").value;
-	id_rekam_medis = document.getElementById("id_rekam_medisnya").value;
+	id_booking = document.getElementById("id_booking").value;
+	id_pasien = document.getElementById("id_pasien").value;
+	id_rekam_medis = document.getElementById("id_rm").value;
 	url = base_url + "Dokter/create_odontogram_periksa";
 	$.ajax({
 		type: "POST",
-
 		url: url,
-
 		cache: false,
-
 		data: {
 			id_booking: id_booking,
 			id_pasien: id_pasien,
