@@ -39,7 +39,7 @@ class Dokter extends CI_Controller
         $this->load->view('components/breadcrumbs', $data);
         $this->load->view('pages/home/dokter/index', $data);
         $this->load->view('components/footer');
-        $this->load->view('pages/home/dokter/dokter-script', $data);
+        $this->load->view('pages/home/dokter/script/dokter-script', $data);
     }
 
     public function getDaftarPasienByIdDokter()
