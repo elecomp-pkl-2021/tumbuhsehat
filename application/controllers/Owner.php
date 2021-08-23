@@ -154,6 +154,7 @@ class Owner extends CI_Controller
         echo json_encode($this->Klinik_model->get_konfirmasi_janji($nama, $tgl_lahir, $rekam_medis, $id_dokter, $tanggal_rencana, $jam_rencana_mulai)->result());
         // $this->Klinik_model->get_konfirmasi_janji()->result();
         // print_r($this->db->last_query());
+
     }
     public function konfirmasi()
     {

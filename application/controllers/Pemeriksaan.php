@@ -53,6 +53,8 @@ class Pemeriksaan extends CI_Controller
             'list_pembayaran' => $list_pembayaran,
         ];
 
+        // var_dump($data);die;
+
         $this->load->view('components/header', $data);
         if ($this->session->userdata('level') == "Owner") {
             $this->load->view('components/sidebar_owner');
@@ -107,7 +109,8 @@ class Pemeriksaan extends CI_Controller
 
     function addJadwal($id_booking){
         if (!$this->input->post('wkt-pemeriksaan',true)) {
-            echo "Gagal";
+            echo "Gagal! Waktu Pemeriksaan Belum di set";
+            return;
         }
         $wkt = explode("-",$this->input->post('wkt-pemeriksaan',true));
         $wkt_start = $wkt[0];
@@ -122,9 +125,10 @@ class Pemeriksaan extends CI_Controller
             'tanggal_keluhan' => $this->input->post('tgl_keluhan',true),
             'keluhan' => $this->input->post('keluhan',true),
             'id_metode' => $this->input->post('jns-pembayaran',true),
+            'id_provider' => 0,
+            'id_kategori' => 0,
         ];
         $this->db->insert('rencana',$data);
-
     }
 
     function addBooking($id_booking){
@@ -173,7 +177,7 @@ class Pemeriksaan extends CI_Controller
     function addOrangDekat($id_booking){
         $id_org_dekat = $this->input->post('org_dekat');
         if($id_org_dekat != ""){
-            #jika orang dekat dari lis keluarga
+            #jika orang dekat dari list keluarga
             # 1.Ambil data pasien berdasar id yang diinput.
             $query = $this->db->get_where('pasien',['id_pasien' => $id_org_dekat])->row_array();
             $data = [
@@ -205,7 +209,7 @@ class Pemeriksaan extends CI_Controller
 
     function addOrangDekatBaru($id_booking){
         # 1. Add pasien baru ke akun keluarga
-        $this->addPasien();
+        $this->_addData();
         # 2. Ambil data pasien berdasar id
         $id = $this->db->select_max('id_pasien')->get('pasien')->row_array()['id_pasien'];
         $query = $this->db->get_where('pasien', ['id_pasien' => $id])->row_array();
@@ -233,7 +237,7 @@ class Pemeriksaan extends CI_Controller
         $this->db->insert('info_orang_terdekat',$data);
     }
 
-    function addPasien(){
+    private function _addData(){
         $data = [
             'id_user' => $this->input->post('id_keluarga'),
             'hubungan' => $this->input->post('hubungan-od',true),
@@ -250,7 +254,7 @@ class Pemeriksaan extends CI_Controller
             'alamat' => $this->input->post('jalan-od',true),
             'city_id' => $this->input->post('kota-od',true),
             'province_id' => $this->input->post('provinsi-od',true),
-            'kode_pos' => $this->input->post('kode-pos-od',true),
+            'kode_pos' => $this->input->post('kodepos-od',true),
             'provinsi' => $this->input->post('provinsi-nama-od',true),
             'kota_kab' => $this->input->post('kota-nama-od',true),
             'email' => $this->input->post('email-od',true),
@@ -293,8 +297,8 @@ class Pemeriksaan extends CI_Controller
     function addJadwalPemeriksaan(){
         $id_booking = base64_encode(substr(md5(rand()), 0, 9));
         
-        $this->addJadwalValidation();
         $this->cekJadwalDokter();
+        $this->addJadwalValidation();
         $this->addJadwal($id_booking);
         $this->addBooking($id_booking);
         $this->updateDataDiri();

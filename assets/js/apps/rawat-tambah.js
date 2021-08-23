@@ -10332,17 +10332,14 @@ function load_odontogram() {
 
 function save_temp() {
 	console.log("Testing");
-	id_booking = document.getElementById("id_bookingnya").value;
-	id_pasien = document.getElementById("id_pasiennya").value;
-	id_rekam_medis = document.getElementById("id_rekam_medisnya").value;
+	id_booking = document.getElementById("id_booking").value;
+	id_pasien = document.getElementById("id_pasien").value;
+	id_rekam_medis = document.getElementById("id_rm").value;
 	url = base_url + "Dokter/create_odontogram_periksa";
 	$.ajax({
 		type: "POST",
-
 		url: url,
-
 		cache: false,
-
 		data: {
 			id_booking: id_booking,
 			id_pasien: id_pasien,
@@ -16051,13 +16048,35 @@ function save_temp() {
 			for (var i = 0; i < data.length; i++) {
 				$.ajax({
 					type: "GET",
-					url: link + `dokter/getTemp/dental${data[i].title}/${id_pemeriksaan}`,
+					url: link + `Dokter/getTemp/dental${data[i].title}/${id_pemeriksaan}`,
 					dataType: "json",
 					success: (hasil) => {
-						console.log(hasil.ket_pemeriksaan + "Hanya testing untuk after");
-						console.log("keteranganafter" + hasil.idSvg);
-						document.getElementById("keteranganafter" + hasil.idSvg).innerHTML =
-							hasil.ket_pemeriksaan;
+						// console.log(hasil.ket_pemeriksaan + "Hanya testing untuk after");
+						// console.log("keteranganafter" + hasil.idSvg);
+						// document.getElementById("keteranganafter" + hasil.idSvg).innerHTML =
+						// 	hasil.ket_pemeriksaan;
+						console.log("berhasil2");
+
+						if (hasil.length > 0) {
+							var ysekarang = 37;
+							for (var i = 0; i < hasil.length; i++) {
+								console.log(hasil[i].ket_pemeriksaan);
+								console.log(hasil[i].idSvg);
+								var svgNS = "http://www.w3.org/2000/svg";
+								var newText = document.createElementNS(svgNS, "text");
+								newText.setAttributeNS(null, "x", "6");
+								newText.setAttributeNS(null, "y", ysekarang.toString());
+								newText.setAttributeNS(null, "font-size", "6pt");
+								var textNode = document.createTextNode(
+									hasil[i].ket_pemeriksaan
+								);
+								newText.appendChild(textNode);
+								document
+									.getElementById("after" + hasil[i].idSvg)
+									.appendChild(newText);
+								ysekarang += 6;
+							}
+						}
 					},
 				});
 			}
