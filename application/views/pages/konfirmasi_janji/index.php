@@ -167,7 +167,6 @@
         </div>
 
         <script>
-            var link = '<?php echo base_url() ?>';
 
             function runningFormatter(value, row, index) {
                 return index + 1;
@@ -254,6 +253,7 @@
                 var cari_dokter = $("#cari_dokter").val();
                 var cari_tgl = $("#cari_tgl").val();
                 var cari_jam = $("#cari_jam").val();
+                var kode_booking = $("#kode_booking_id").val();
 
                 $('#all_data_json').bootstrapTable('refresh', {
                     url: '<?php echo base_url() ?>Owner/get_konfirmasi_janji/' + (cari_nama != "" ? cari_nama : '') + (cari_tgl_lahir != "" ? '/' + cari_tgl_lahir : '') + (cari_id_booking != "" ? '/' + cari_id_booking : '') + (cari_dokter != "" ? '/' + cari_dokter : '') + (cari_tgl != "" ? '/' + cari_tgl : '') + (cari_jam != "" ? '/' + cari_jam : '')
