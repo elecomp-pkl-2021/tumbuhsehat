@@ -16048,13 +16048,15 @@ function save_temp() {
 			for (var i = 0; i < data.length; i++) {
 				$.ajax({
 					type: "GET",
-					url: link + `dokter/getTemp/dental${data[i].title}/${id_pemeriksaan}`,
+					url: link + `Dokter/getTemp/dental${data[i].title}/${id_pemeriksaan}`,
 					dataType: "json",
 					success: (hasil) => {
 						// console.log(hasil.ket_pemeriksaan + "Hanya testing untuk after");
 						// console.log("keteranganafter" + hasil.idSvg);
 						// document.getElementById("keteranganafter" + hasil.idSvg).innerHTML =
 						// 	hasil.ket_pemeriksaan;
+						console.log("berhasil2");
+
 						if (hasil.length > 0) {
 							var ysekarang = 37;
 							for (var i = 0; i < hasil.length; i++) {

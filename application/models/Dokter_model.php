@@ -226,6 +226,7 @@ class Dokter_model extends CI_Model
         $this->db->join('rekam_medis c', 'a.id_booking=c.id_booking');
         $this->db->join('pasien d', 'a.id_pasien=d.id_pasien');
         $this->db->join('dokter e', ' a.id_dokter=e.id_dokter');
+        $this->db->where('a.status !=', 2);
         $this->db->where('a.konfirmasi', 1);
         $this->db->or_where('a.konfirmasi', 0);
         $this->db->where('a.id_dokter', $id_dokter);

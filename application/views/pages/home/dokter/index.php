@@ -50,7 +50,7 @@
                                     <td><?= $d['tanggal_lahir']; ?></td>
                                     <td><?= $d['id_booking']; ?></td>
                                     <td><?= $d['id_rekam_medis']; ?></td>
-                                    <td><?= $d['status'] == 1 ? '<span class="badge badge-primary">Terdaftar</span>' : '<span class="badge badge-secondary">Belum Terdaftar</span>'; ?>
+                                    <td><?= $d['status'] == 1 ? '<span class="badge badge-primary">Terdaftar</span>' : '<span class="badge badge-warning">Belum Terdaftar</span>'; ?>
                                     </td>
                                     <td>
                                         <div class="table-actions text-center">

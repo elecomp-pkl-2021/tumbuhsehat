@@ -222,7 +222,7 @@
 <script>
     var base_url = '<?php echo base_url() ?>';
 </script>
-<script src="<?php echo base_url(); ?>assets/js/apps/rawat-tambah-after.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/apps/rawat-tambah-after.js" ></script>
 
 <script type="text/javascript">
     var link2 = "<?php echo base_url() ?>";
@@ -231,8 +231,6 @@
     var date = "<?php echo date('Y-m-d') ?>";
     var odontogramDataUtama = '<?php echo @$rawat['odontogram'];; ?>';
     $(document).ready(function() {
-
         app_rawat_tambah_after.init();
-
     });
 </script>

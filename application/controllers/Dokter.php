@@ -124,8 +124,6 @@ class Dokter extends CI_Controller
             'grandtotal' => $this->input->post('grandtotal')
         );
 
-        // var_dump($data);
-
         $this->db->update('rekam_medis', $data, ['id_rekam_medis' => $this->input->post('id_rm')]);
     }
 
@@ -169,11 +167,6 @@ class Dokter extends CI_Controller
         // var_dump($data);
 
         $this->db->update('booking', $data, ['id_booking' => $this->input->post('id_booking')]);
-    }
-
-    private function _updateOdontogram()
-    {
-        // ini buat update odontogram
     }
 
     private function _addPemeriksaanUmum()
@@ -292,10 +285,16 @@ class Dokter extends CI_Controller
         $this->_addPemeriksaanKhusus();
         $this->_addPemeriksaanPenunjang();
         $this->_addPilihLayanan();
-        die;
+
+        $idPasien = $this->input->post('id_pasien');
+        $idBooking = $this->input->post('id_booking');
+        $idRM = $this->input->post('id_rm');
+
+        $this->session->set_tempdata('flash', 'Data Pemeriksaan Berhasil Ditambahkan', 4);
+        redirect("Pasien/detail_informasi_pasien/$idPasien/$idBooking/$idRM");
     }
 
-        public function ajaxFilterPemeriksaanUmumByDate($id_pasien,$date){
+    public function ajaxFilterPemeriksaanUmumByDate($id_pasien,$date){
         $data = $this->Pemeriksaan_model->getPemeriksaanUmumByDate($id_pasien,$date);
         echo json_encode($data);
     }
@@ -369,323 +368,5 @@ class Dokter extends CI_Controller
     {
         $data = $this->Pasien_model->get_temp($idSvg, $idPemeriksaan);
         echo json_encode($data);
-    }
-
-    public function create_action_periksa()
-    {
-        $id_pemeriksaan_penunjang = $this->input->post('id_pemeriksaan_penunjang');
-        $id_pasien = $this->input->post('id_pasien');
-        $id_booking = $this->input->post('id_booking');
-        $id_rekam_medis = $this->input->post('id_rekam_medis');
-        $gigi = $this->input->post('gigi');
-        $keterangan_radiologi = $this->input->post('keterangan_radiologi');
-        $laboratorium = $this->input->post('laboratorium');
-        $keterangan_laboratorium = $this->input->post('keterangan_laboratorium');
-        $foto_radiologi = $this->input->post('foto_radiologi');
-        $foto_laboratorium = $this->input->post('foto_laboratorium');
-        $odontogram = $this->input->post('odontogram');
-
-        $config['upload_path']          = './assets/foto';
-        $config['allowed_types']        = 'jpg|png|jpeg|gif';
-        $config['max_size']             = 15000000;
-        $config['max_width']            = 1024000;
-        $config['max_height']           = 7680000;
-        $this->load->library('upload', $config);
-        $this->upload->do_upload('foto_radiologi');
-        $file1 = $this->upload->data();
-        $foto_radiologi = $file1['file_name'];
-        $this->upload->do_upload('foto_laboratorium');
-        $file2 = $this->upload->data();
-        $foto_laboratorium = $file2['file_name'];
-
-        $data_pemeriksaan_penunjang = array(
-            'id_pemeriksaan_penunjang' => $id_pemeriksaan_penunjang,
-            'id_pasien' => $id_pasien,
-            'id_booking' => $id_booking,
-            'id_rekam_medis' => $id_rekam_medis,
-            'gigi' => $gigi,
-            'keterangan_radiologi' => $keterangan_radiologi,
-            'keterangan_laboratorium' => $keterangan_laboratorium,
-            'foto_radiologi' => $foto_radiologi,
-            'foto_laboratorium' => $foto_laboratorium
-        );
-
-        $panoramik = $this->input->post('panoramik');
-        $sefalometri = $this->input->post('sefalometri');
-        $transcranial = $this->input->post('transcranial');
-        $dental_regio = $this->input->post('dental_regio');
-
-        $laboratorium1 = $this->input->post('laboratorium1');
-        $laboratorium2 = $this->input->post('laboratorium2');
-
-        if ($laboratorium1 != NULL) {
-            $data_pemeriksaan_penunjang['laboratorium'] = $laboratorium1;
-        } elseif ($laboratorium2 != NULL) {
-            $data_pemeriksaan_penunjang['laboratorium'] = $laboratorium2;
-        }
-
-        if ($panoramik != NULL) {
-            $data_pemeriksaan_penunjang['radiologi'] = $panoramik;
-        }
-        if ($sefalometri != NULL) {
-            $data_pemeriksaan_penunjang['radiologi'] = $sefalometri;
-        }
-        if ($transcranial != NULL) {
-            $data_pemeriksaan_penunjang['radiologi'] = $transcranial;
-        }
-        if ($dental_regio != NULL) {
-            $data_pemeriksaan_penunjang['radiologi'] = $dental_regio;
-        }
-        /*========================== 2 */
-        if ($panoramik != NULL) {
-            if ($sefalometri != NULL) {
-                $data_pemeriksaan_penunjang['radiologi'] = $panoramik . "," . $sefalometri;
-            }
-        }
-        if ($panoramik != NULL) {
-            if ($transcranial != NULL) {
-                $data_pemeriksaan_penunjang['radiologi'] = $panoramik . "," . $transcranial;
-            }
-        }
-        if ($panoramik != NULL) {
-            if ($dental_regio != NULL) {
-                $data_pemeriksaan_penunjang['radiologi'] = $panoramik . "," . $dental_regio;
-            }
-        }
-        if ($sefalometri != NULL) {
-            if ($transcranial != NULL) {
-                $data_pemeriksaan_penunjang['radiologi'] = $sefalometri . "," . $transcranial;
-            }
-        }
-        if ($sefalometri != NULL) {
-            if ($dental_regio != NULL) {
-                $data_pemeriksaan_penunjang['radiologi'] = $sefalometri . "," . $dental_regio;
-            }
-        }
-        if ($transcranial != NULL) {
-            if ($dental_regio != NULL) {
-                $data_pemeriksaan_penunjang['radiologi'] = $transcranial . "," . $dental_regio;
-            }
-        }
-        /*=============================== 3 */
-        if ($panoramik != NULL) {
-            if ($sefalometri != NULL) {
-                if ($transcranial != NULL) {
-                    $data_pemeriksaan_penunjang['radiologi'] = $panoramik . "," . $sefalometri . "," . $transcranial;
-                }
-            }
-        }
-        if ($panoramik != NULL) {
-            if ($sefalometri != NULL) {
-                if ($dental_regio != NULL) {
-                    $data_pemeriksaan_penunjang['radiologi'] = $panoramik . "," . $sefalometri . "," . $dental_regio;
-                }
-            }
-        }
-        if ($panoramik != NULL) {
-            if ($transcranial != NULL) {
-                if ($dental_regio != NULL) {
-                    $data_pemeriksaan_penunjang['radiologi'] = $panoramik . "," . $transcranial . "," . $dental_regio;
-                }
-            }
-        }
-        if ($sefalometri != NULL) {
-            if ($transcranial != NULL) {
-                if ($dental_regio != NULL) {
-                    $data_pemeriksaan_penunjang['radiologi'] = $sefalometri . "," . $transcranial . "," . $dental_regio;
-                }
-            }
-        }
-        /*============================= 4 panom*/
-        if ($panoramik != NULL) {
-            if ($sefalometri != NULL) {
-                if ($transcranial != NULL) {
-                    if ($dental_regio != NULL) {
-                        $data_pemeriksaan_penunjang['radiologi'] = $panoramik . "," . $sefalometri . "," . $transcranial . "," . $dental_regio;
-                    }
-                }
-            }
-        }
-
-        date_default_timezone_set("Asia/Jakarta");
-        $jam = date("H:i:s");
-        $status = '2';
-        $data_rekam = array(
-            'jam_selesai_periksa' => $jam,
-            'status' => $status,
-            'elemen_gigi' => $this->input->post('elemen_gigi'),
-            'keluhan_utama' => $this->input->post('keluhan_utama'),
-            'diagnosis' => $this->input->post('diagnosis'),
-            'keadaan_umum' => $this->input->post('keadaan_umum'),
-            'subtotal' => $this->input->post('subtotal'),
-            'grandtotal' => $this->input->post('grandtotal')
-        );
-
-        $data_booking = array(
-            'status' => $status,
-        );
-
-        $data_pasien = array(
-            'nama_depan' => $this->input->post('nama_depan'),
-            'nama_belakang' => $this->input->post('nama_belakang'),
-            'tempat_lahir' => $this->input->post('tempat_lahir'),
-            'tanggal_lahir' => $this->input->post('tanggal_lahir'),
-            'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-            'status_nikah' => $this->input->post('status_nikah'),
-            'pekerjaan' => $this->input->post('pekerjaan'),
-            'pendidikan' => $this->input->post('pendidikan'),
-            'jenis_id' => $this->input->post('jenis_id'),
-            'no_id' => $this->input->post('no_id'),
-            'alamat' => $this->input->post('alamat'),
-            'kota_kab' => $this->input->post('kota_kab'),
-            'provinsi' => $this->input->post('provinsi'),
-            'kode_pos' => $this->input->post('kode_pos'),
-            'email' => $this->input->post('email'),
-            'no_hp' => $this->input->post('no_hp'),
-            'gol_darah' => $this->input->post('gol_darah'),
-            'alergi' => $this->input->post('alergi'),
-            'riwayat_penyakit' => $this->input->post('riwayat_penyakit'),
-        );
-
-        $data_pemeriksaan_umum = array(
-            'id_pemeriksaan_umum' => $this->input->post('id_pemeriksaan_umum'),
-            'id_pasien' => $this->input->post('id_pasien'),
-            'id_booking' => $this->input->post('id_booking'),
-            'id_rekam_medis' => $this->input->post('id_rekam_medis'),
-            'wajah' => $this->input->post('wajah'),
-            'subkanan_kondisi' => $this->input->post('subkanan_kondisi'),
-            'subkiri_kondisi' => $this->input->post('subkiri_kondisi'),
-            'lainnya' => $this->input->post('lainnya'),
-            'stain' => $this->input->post('stain'),
-            'kalkulus' => $this->input->post('kalkulus'),
-
-
-        );
-
-        $data_pemeriksaan_odontogram = array(
-            'id_pasien' => $this->input->post('id_pasien'),
-            'id_booking' => $this->input->post('id_booking'),
-            'id_rekam_medis' => $this->input->post('id_rekam_medis'),
-            'odontogram' => $this->input->post('odontogram'),
-            'tgl_pemeriksaan' => date('Y-m-d')
-        );
-
-
-        $bibir1 = $this->input->post('bibir1');
-        $bibir2 = $this->input->post('bibir2');
-        $submandibula_kanan1 = $this->input->post('submandibula_kanan1');
-        $submandibula_kanan2 = $this->input->post('submandibula_kanan2');
-        $submandibula_kiri1 = $this->input->post('submandibula_kiri1');
-        $submandibula_kiri2 = $this->input->post('submandibula_kiri2');
-        $gingiva1 = $this->input->post('gingiva1');
-        $gingiva2 = $this->input->post('gingiva2');
-        $debris1 = $this->input->post('debris1');
-        $debris2 = $this->input->post('debris2');
-        $mukosa1 =  $this->input->post('mukosa1');
-        $mukosa2 =  $this->input->post('mukosa2');
-        $palatum1 = $this->input->post('palatum1');
-        $palatum2 = $this->input->post('palatum2');
-        $lidah1 = $this->input->post('lidah1');
-        $lidah2 = $this->input->post('lidah2');
-        $dasar_mulut1 = $this->input->post('dasar_mulut1');
-        $dasar_mulut2 = $this->input->post('dasar_mulut2');
-
-        if ($bibir1 != NULL) {
-            $data_pemeriksaan_umum['bibir'] = $bibir1;
-        } elseif ($bibir2 != NULL) {
-            $data_pemeriksaan_umum['bibir'] = $bibir2;
-        }
-        if ($submandibula_kanan1 != NULL) {
-            $data_pemeriksaan_umum['submandibula_kanan'] = $submandibula_kanan1;
-            if ($submandibula_kanan2 != NULL) {
-                $data_pemeriksaan_umum['submandibula_kanan'] = $submandibula_kanan1 . "," . $submandibula_kanan2;
-            }
-        } elseif ($submandibula_kanan2 != NULL) {
-            $data_pemeriksaan_umum['submandibula_kanan'] = $submandibula_kanan2;
-            if ($submandibula_kanan1 != NULL) {
-                $data_pemeriksaan_umum['submandibula_kanan'] = $submandibula_kanan2 . "," . $submandibula_kanan1;
-            }
-        }
-        if ($submandibula_kiri1 != NULL) {
-            $data_pemeriksaan_umum['submandibula_kiri'] = $submandibula_kiri1;
-            if ($submandibula_kiri2 != NULL) {
-                $data_pemeriksaan_umum['submandibula_kiri'] = $submandibula_kiri1 . "," . $submandibula_kiri2;
-            }
-        } elseif ($submandibula_kiri2 != NULL) {
-            $data_pemeriksaan_umum['submandibula_kiri'] = $submandibula_kiri2;
-            if ($submandibula_kiri1 != NULL) {
-                $data_pemeriksaan_umum['submandibula_kiri'] = $submandibula_kiri2 . "," . $submandibula_kiri1;
-            }
-        }
-        if ($gingiva1 != NULL) {
-            $data_pemeriksaan_umum['gingiva'] = $gingiva1;
-        } elseif ($gingiva2 != NULL) {
-            $data_pemeriksaan_umum['gingiva'] = $gingiva2;
-        }
-        if ($debris1 != NULL) {
-            $data_pemeriksaan_umum['debris'] = $debris1;
-        } elseif ($debris2 != NULL) {
-            $data_pemeriksaan_umum['debris'] = $debris2;
-        }
-        if ($mukosa1 != NULL) {
-            $data_pemeriksaan_umum['mukosa'] = $mukosa1;
-        } elseif ($mukosa2 != NULL) {
-            $data_pemeriksaan_umum['mukosa'] = $mukosa2;
-        }
-        if ($palatum1 != NULL) {
-            $data_pemeriksaan_umum['palatum'] = $palatum1;
-        } elseif ($palatum2 != NULL) {
-            $data_pemeriksaan_umum['palatum'] = $palatum2;
-        }
-        if ($lidah1 != NULL) {
-            $data_pemeriksaan_umum['lidah'] = $lidah1;
-        } elseif ($lidah2 != NULL) {
-            $data_pemeriksaan_umum['lidah'] = $lidah2;
-        }
-        if ($dasar_mulut1 != NULL) {
-            $data_pemeriksaan_umum['dasar_mulut'] = $dasar_mulut1;
-        } elseif ($dasar_mulut2 != NULL) {
-            $data_pemeriksaan_umum['dasar_mulut'] = $dasar_mulut2;
-        }
-
-        $data_pemeriksaan_umum['date'] = date('Y-m-d');
-
-        $data_pemeriksaan_khusus = array(
-            'id_pemeriksaan_khusus' => $this->input->post('id_pemeriksaan_khusus'),
-            'id_pasien' => $this->input->post('id_pasien'),
-            'id_booking' => $this->input->post('id_booking'),
-            'id_rekam_medis' => $this->input->post('id_rekam_medis'),
-            'keterangan' => $this->input->post('keterangan_khusus'),
-            'date' => date('Y-m-d')
-
-        );
-
-        $data_pilih_layanan = array(
-            'id_pil_layanan' => $this->input->post('id_pil_layanan'),
-            'id_pasien' => $this->input->post('id_pasien'),
-            'id_rekam_medis' => $this->input->post('id_rekam_medis'),
-            'id_layanan' => $this->input->post('id_layanan'),
-            'jumlah' => $this->input->post('jumlah'),
-            'detail_layanan' => $this->input->post('detail_layanan'),
-            'id_diskon' => $this->input->post('id-diskon'),
-        );
-
-        $this->Pemeriksaan_model->update_rekam($this->input->post('id_rekam_medis'), $data_rekam);
-        $this->Pemeriksaan_model->update_booking($id_booking, $data_booking);
-        $this->Pemeriksaan_model->insert_pemeriksaan_umum($data_pemeriksaan_umum);
-        $this->Pemeriksaan_model->insert_pemeriksaan_khusus($data_pemeriksaan_khusus);
-        $this->Pemeriksaan_model->insert_pemeriksaan_penunjang($data_pemeriksaan_penunjang);
-        $this->Pemeriksaan_model->insert_pilih_layanan($data_pilih_layanan);
-        $this->Pemeriksaan_model->update_pasien($this->input->post('id_pasien'), $data_pasien);
-        $this->Pemeriksaan_model->update_pemeriksaan_odontogram($data_pemeriksaan_odontogram, $this->input->post('id_booking'));
-        //print_r($this->db->last_query());
-
-        echo json_encode(array('status' => TRUE));
-
-        // $this->session->set_flashdata('notif', '<div class="alert alert-success alert-dismissible"> Data Mahasiswa berhasil ditambah.
-        //     </div>');
-
-        // //redirect
-        // redirect(site_url('doctor'));
     }
 }

@@ -39,7 +39,7 @@
             </div>
             <div class="line"></div>
             <div class="step" data-target="#odontogram-after-part">
-                <button type="button" class="step-trigger" role="tab" aria-controls="odontogram-after-part" id="odontogram-after-part-trigger" disabled>
+                <button type="button" class="step-trigger" role="tab" aria-controls="odontogram-after-part" id="odontogram-after-part-trigger" >
                     <span class="bs-stepper-circle">6</span>
                     <span class="bs-stepper-label">Odontogram (after)</span>
                 </button>
@@ -47,9 +47,9 @@
         </div>
     </div>
     <form action="<?= base_url('Dokter/addPemeriksaan');?>" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="id_rm" value="<?= $pasien['id_rekam_medis']; ?>">
-        <input type="hidden" name="id_pasien" value="<?= $pasien['id_pasien']; ?>">
-        <input type="hidden" name="id_booking" value="<?= $pasien['id_booking']; ?>">
+        <input type="hidden" name="id_rm" id="id_rm" value="<?= $pasien['id_rekam_medis']; ?>">
+        <input type="hidden" name="id_pasien" id="id_pasien" value="<?= $pasien['id_pasien']; ?>">
+        <input type="hidden" name="id_booking" id="id_booking" value="<?= $pasien['id_booking']; ?>">
         <input type="hidden" name="id_user" value="<?= $pasien['id_user']; ?>">
         <div class="bs-stepper-content">
             <!-- ANAMNESA PART -->
@@ -113,11 +113,12 @@
                     </div>
                 </div>
                 <button type="button" class="btn btn-secondary" onclick="stepper.previous()">Back</button>
-                <button type="submit" class="btn btn-primary" onclick="">Submit</button>
+                <button type="submit" class="btn btn-primary" onclick="save_temp()">Submit</button>
             </div>
         </div>
     </form>
 </div>
+
 <?php $this->load->view('/pages/home/dokter/script/stepper-script');?>
 <?php $this->load->view('/pages/home/dokter/script/pemeriksaan-script');?>
 <?php $this->load->view('/pages/home/dokter/script/filter-tanggal-pemeriksaan-script');?>
