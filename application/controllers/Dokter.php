@@ -66,6 +66,15 @@ class Dokter extends CI_Controller
     {
         $pasien1 = $this->Pasien_model->get_medis_pasien($id_rekam_medis, $id_pasien)->row_array();
         $pasien2 = $this->Pasien_model->get_medis_pasien($id_rekam_medis, $id_pasien);
+        $data = [
+            'title' => 'Pemeriksaan Pasien | Tumbuh Sehat',
+            'judulHalaman' => 'Data Pemeriksaan',
+            'subJudulHalaman' => 'Pemeriksaan Pasien <b>' . $pasien1['nama_depan'] . ' ' . $pasien1['nama_belakang'] . '</b>',
+            'iconHalaman' => 'ik-calendar',
+            'breadcrumbs' => '<li class="breadcrumb-item active"><i class="ik ik-home"></i></li> <li class="breadcrumb-item active">Jadwal Pemeriksaan</i></li>',
+            'layanan' => $this->Layanan_model->getLayananAktif(),
+            'diskon' => $this->Layanan_model->getDiskonAktif()
+        ];
         $tgl_awal = date('Y-m-d');
         $rawat = $this->Pasien_model->get_one_rawat_by_id_medis($id_pasien, $tgl_awal, $id_rekam_medis);
 
@@ -76,7 +85,7 @@ class Dokter extends CI_Controller
             $id_kpesan = $this->randomString();
             $data['id_kpesan'] = $id_kpesan;
         }
-        
+
         $data_rawat = json_decode(json_encode(@$rawat[0]), true);
         if ($data_rawat && is_array($data_rawat)) {
             $rawat = array_merge(@$data_rawat, array("detail_rawat" => array()));
@@ -93,6 +102,7 @@ class Dokter extends CI_Controller
             'rawat' => $rawat,
             'id_pasien' => $id_pasien,
             'pasien' => $pasien1,
+            'id_kpesan' => $id_kpesan,
             'pasien2' => $pasien2,
             '_jadwal_pemeriksaan' => 1,
             'pem_umum' => $this->Pemeriksaan_model->getLastPemeriksaanUmum($id_pasien),
@@ -180,8 +190,8 @@ class Dokter extends CI_Controller
         $dsr_mulut = $this->input->post('dsr-mulut') != "" ? $this->input->post('dsr-mulut') : $this->input->post('dsr-mulut-lain');
         $geligi = $this->input->post('geligi') != "" ? $this->input->post('geligi') : $this->input->post('geligi-lain');
 
-        $submandibula_kanan = $this->input->post('subman-kanan-raba').','.$this->input->post('subman-kanan-sakit');
-        $submandibula_kiri = $this->input->post('subman-kiri-raba').','.$this->input->post('subman-kiri-sakit');
+        $submandibula_kanan = $this->input->post('subman-kanan-raba') . ',' . $this->input->post('subman-kanan-sakit');
+        $submandibula_kiri = $this->input->post('subman-kiri-raba') . ',' . $this->input->post('subman-kiri-sakit');
 
         $data = [
             'id_pasien' => $this->input->post('id_pasien'),
@@ -208,7 +218,7 @@ class Dokter extends CI_Controller
         ];
         var_dump($data);
 
-        $this->db->insert('pemeriksaan_klinis_umum',$data);
+        $this->db->insert('pemeriksaan_klinis_umum', $data);
     }
 
     private function _addPemeriksaanKhusus()
@@ -222,7 +232,7 @@ class Dokter extends CI_Controller
         ];
         var_dump($data);
 
-        $this->db->insert('pemeriksaan_klinis_khusus',$data);
+        $this->db->insert('pemeriksaan_klinis_khusus', $data);
     }
 
     private function _addPemeriksaanPenunjang()
@@ -232,9 +242,9 @@ class Dokter extends CI_Controller
             'id_booking' => $this->input->post('id_booking'),
             'id_rekam_medis' => $this->input->post('id_rm'),
             'gigi' => $this->input->post('elemen_gigi'),
-            'radiologi' => implode(",",$this->input->post('radiologi')),
+            'radiologi' => implode(",", $this->input->post('radiologi')),
             'keterangan_radiologi' => $this->input->post('radiologi-desk'),
-            'laboratorium' => implode(' ',$this->input->post('lab')),
+            'laboratorium' => implode(' ', $this->input->post('lab')),
             'keterangan_laboratorium' => $this->input->post('lab-desk'),
             'foto_radiologi' => $this->_uploadImage('radiologi'),
             'foto_laboratorium' => $this->_uploadImage('laboratorium'),
@@ -242,19 +252,19 @@ class Dokter extends CI_Controller
         ];
         var_dump($data);
 
-        $this->db->insert('pemeriksaan_penunjang',$data);
+        $this->db->insert('pemeriksaan_penunjang', $data);
     }
 
     private function _uploadImage($type)
     {
-        $config['upload_path']          = './uploads/foto_'.$type.'/';
+        $config['upload_path']          = './uploads/foto_' . $type . '/';
         $config['allowed_types']        = 'gif|jpg|png|jpeg';
-        $config['file_name']            = $this->input->post('id_pasien').'_'.$type.'_';
+        $config['file_name']            = $this->input->post('id_pasien') . '_' . $type . '_';
         $config['max_size']             = 10240; // 10MB
         $oldImg = $this->input->post("old-foto-$type");
         $this->upload->initialize($config);
-        if ($this->upload->do_upload($type.'-img')) {
-            if($oldImg != 'default.jpg'){
+        if ($this->upload->do_upload($type . '-img')) {
+            if ($oldImg != 'default.jpg') {
                 unlink(FCPATH . "/uploads/foto_$type/$oldImg");
             }
             return $this->upload->data("file_name");
@@ -277,7 +287,8 @@ class Dokter extends CI_Controller
         $this->db->insert("pilih_layanan", $data);
     }
 
-    public function addPemeriksaan(){
+    public function addPemeriksaan()
+    {
         $this->_updateRekam();
         $this->_updatePasien();
         $this->_updateBooking();
@@ -294,18 +305,21 @@ class Dokter extends CI_Controller
         redirect("Pasien/detail_informasi_pasien/$idPasien/$idBooking/$idRM");
     }
 
-    public function ajaxFilterPemeriksaanUmumByDate($id_pasien,$date){
-        $data = $this->Pemeriksaan_model->getPemeriksaanUmumByDate($id_pasien,$date);
+    public function ajaxFilterPemeriksaanUmumByDate($id_pasien, $date)
+    {
+        $data = $this->Pemeriksaan_model->getPemeriksaanUmumByDate($id_pasien, $date);
         echo json_encode($data);
     }
-    
-    public function ajaxFilterPemeriksaanPenunjangByDate($id_pasien,$date){
-        $data = $this->Pemeriksaan_model->getPemeriksaanPenunjangByDate($id_pasien,$date);
+
+    public function ajaxFilterPemeriksaanPenunjangByDate($id_pasien, $date)
+    {
+        $data = $this->Pemeriksaan_model->getPemeriksaanPenunjangByDate($id_pasien, $date);
         echo json_encode($data);
     }
-    
-    public function ajaxFilterPemeriksaanKhususByDate($id_pasien,$date){
-        $data = $this->Pemeriksaan_model->getPemeriksaanKhususByDate($id_pasien,$date);
+
+    public function ajaxFilterPemeriksaanKhususByDate($id_pasien, $date)
+    {
+        $data = $this->Pemeriksaan_model->getPemeriksaanKhususByDate($id_pasien, $date);
         echo json_encode($data);
     }
 

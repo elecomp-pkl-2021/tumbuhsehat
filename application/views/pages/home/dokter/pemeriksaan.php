@@ -1,4 +1,4 @@
-<?php $this->load->helper('global');?>
+<?php $this->load->helper('global'); ?>
 <div class="bs-stepper" id="stepper">
     <div class="card">
         <div class="bs-stepper-header" role="tablist">
@@ -39,14 +39,14 @@
             </div>
             <div class="line"></div>
             <div class="step" data-target="#odontogram-after-part">
-                <button type="button" class="step-trigger" role="tab" aria-controls="odontogram-after-part" id="odontogram-after-part-trigger" >
+                <button type="button" class="step-trigger" role="tab" aria-controls="odontogram-after-part" id="odontogram-after-part-trigger">
                     <span class="bs-stepper-circle">6</span>
                     <span class="bs-stepper-label">Odontogram (after)</span>
                 </button>
             </div>
         </div>
     </div>
-    <form action="<?= base_url('Dokter/addPemeriksaan');?>" method="POST" enctype="multipart/form-data">
+    <form action="<?= base_url('Dokter/addPemeriksaan'); ?>" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="id_rm" id="id_rm" value="<?= $pasien['id_rekam_medis']; ?>">
         <input type="hidden" name="id_pasien" id="id_pasien" value="<?= $pasien['id_pasien']; ?>">
         <input type="hidden" name="id_booking" id="id_booking" value="<?= $pasien['id_booking']; ?>">
@@ -54,7 +54,7 @@
         <div class="bs-stepper-content">
             <!-- ANAMNESA PART -->
             <div id="anamnesa-part" class="content" role=" tabpanel" aria-labelledby="anamnesa-part-trigger" style="margin: 0 -1%;">
-                <?php $this->load->view('/pages/home/dokter/stepper/anamnesa');?>
+                <?php $this->load->view('/pages/home/dokter/stepper/anamnesa'); ?>
             </div>
 
             <!-- ODONTOGRAM BEFORE PART -->
@@ -72,12 +72,12 @@
 
             <!-- KLINIS PART -->
             <div id="klinis-part" class="content" role="tabpanel" aria-labelledby="klinis-part-trigger" style="margin: 0 -1%;">
-                <?php if($pem_umum != null && $pem_khusus != null && $pem_penunjang != null):?>
-                    <?php $this->load->view('/pages/home/dokter/stepper/pemeriksaan/pemeriksaan-lama');?>
-                <?php else:?>
-                        <?php $this->load->view('/pages/home/dokter/stepper/pemeriksaan/pemeriksaan-baru');?>
-                <?php endif;?>
-                
+                <?php if ($pem_umum != null && $pem_khusus != null && $pem_penunjang != null) : ?>
+                    <?php $this->load->view('/pages/home/dokter/stepper/pemeriksaan/pemeriksaan-lama'); ?>
+                <?php else : ?>
+                    <?php $this->load->view('/pages/home/dokter/stepper/pemeriksaan/pemeriksaan-baru'); ?>
+                <?php endif; ?>
+
                 <button type="button" class="btn btn-secondary" onclick="stepper.previous()">Back</button>
                 <button type="button" class="btn btn-primary" onclick="stepper.next()">Next</button>
             </div>
@@ -100,7 +100,7 @@
 
             <!-- PERAWATAN PART -->
             <div id="perawatan-part" class="content" role="tabpanel" aria-labelledby="perawatan-part-trigger" style="margin: 0 -1%;">
-                <?php $this->load->view('/pages/home/dokter/stepper/perawatan');?>
+                <?php $this->load->view('/pages/home/dokter/stepper/perawatan'); ?>
             </div>
 
             <!-- ODONTOGRAM AFTER PART (LAST) -->
@@ -119,6 +119,6 @@
     </form>
 </div>
 
-<?php $this->load->view('/pages/home/dokter/script/stepper-script');?>
-<?php $this->load->view('/pages/home/dokter/script/pemeriksaan-script');?>
-<?php $this->load->view('/pages/home/dokter/script/filter-tanggal-pemeriksaan-script');?>
+<?php $this->load->view('/pages/home/dokter/script/stepper-script'); ?>
+<?php $this->load->view('/pages/home/dokter/script/pemeriksaan-script'); ?>
+<?php $this->load->view('/pages/home/dokter/script/filter-tanggal-pemeriksaan-script'); ?>
