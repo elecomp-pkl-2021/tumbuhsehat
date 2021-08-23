@@ -222,7 +222,7 @@
 <script>
     var base_url = '<?php echo base_url() ?>';
 </script>
-<script src="<?php echo base_url(); ?>assets/js/apps/rawat-tambah-after.js" ></script>
+<script src="<?php echo base_url(); ?>assets/js/apps/rawat-tambah-after.js"></script>
 
 <script type="text/javascript">
     var link2 = "<?php echo base_url() ?>";

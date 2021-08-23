@@ -102,6 +102,7 @@ class Dokter extends CI_Controller
             'rawat' => $rawat,
             'id_pasien' => $id_pasien,
             'pasien' => $pasien1,
+            'id_kpesan' => $id_kpesan,
             'pasien2' => $pasien2,
             '_jadwal_pemeriksaan' => 1,
             'pem_umum' => $this->Pemeriksaan_model->getLastPemeriksaanUmum($id_pasien),
