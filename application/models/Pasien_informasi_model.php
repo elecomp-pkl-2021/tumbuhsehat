@@ -233,6 +233,123 @@ class Pasien_informasi_model extends CI_Model {
 		return $query->result();
 	}
 
+    function get_informasi_pasien($id_dokter){
+        $konf = '1';
+        $this->db->select('d.nama_depan, d.nama_belakang,DATE_FORMAT(d.tanggal_lahir, "%d-%m-%Y") as tanggal_lahir, c.id_rekam_medis, DATE_FORMAT(b.tanggal_rencana, "%d-%m-%Y") as tanggal_rencana,c.id_pasien, c.id_booking');
+        $this->db->from('booking a');
+        $this->db->join('rencana b','a.id_booking=b.id_booking');
+        $this->db->join('rekam_medis c','a.id_booking=c.id_booking');
+        $this->db->join('pasien d','a.id_pasien=d.id_pasien');
+        $this->db->join('dokter e',' a.id_dokter=e.id_dokter');
+        $this->db->where('a.konfirmasi', $konf);
+        $this->db->where('a.id_dokter', $id_dokter);
+        $this->db->where_not_in('a.status', 3);
+        $this->db->where_not_in('a.status', 2);
+        $this->db->group_by('a.id_booking');
+        $this->db->order_by('b.tanggal_rencana', 'desc');
+        return $this->db->get();
+    }
+
+    function get_informasi_pasien_all(){
+        $konf = '1';
+        $this->db->select('*');
+        $this->db->from('booking a');
+        $this->db->join('rencana b','a.id_booking=b.id_booking');
+        $this->db->join('rekam_medis c','a.id_booking=c.id_booking');
+        $this->db->join('pasien d','a.id_pasien=d.id_pasien');
+        $this->db->join('dokter e',' a.id_dokter=e.id_dokter');
+        $this->db->where('a.konfirmasi', $konf);
+        $this->db->where_not_in('a.status', 3);
+        $this->db->where_not_in('a.status', 2);
+        $this->db->group_by('a.id_booking');
+        $this->db->order_by('b.tanggal_rencana', 'desc');
+        return $this->db->get();
+    }
+
+    function get_informasi_all(){
+        $konf = '1';
+        $this->db->select('d.nama_depan, d.nama_belakang,DATE_FORMAT(d.tanggal_lahir, "%d-%m-%Y") as tanggal_lahir, c.id_rekam_medis, DATE_FORMAT(b.tanggal_rencana, "%d-%m-%Y") as tanggal_rencana,c.id_pasien, c.id_booking');
+        $this->db->from('booking a');
+        $this->db->join('rencana b','a.id_booking=b.id_booking');
+        $this->db->join('rekam_medis c','a.id_booking=c.id_booking');
+        $this->db->join('pasien d','a.id_pasien=d.id_pasien');
+        $this->db->join('dokter e',' a.id_dokter=e.id_dokter');
+        $this->db->where('a.konfirmasi', $konf);
+        $this->db->where_not_in('a.status', 3);
+        $this->db->where_not_in('a.status', 2);
+        $this->db->group_by('a.id_booking');
+        $this->db->order_by('b.tanggal_rencana', 'desc');
+        return $this->db->get();
+    }
+
+    function get_informasi_pasien_all3($nama, $tgl_lahir, $rekam_medis){
+
+        if($nama!='0'){
+			$this->db->like('d.nama_depan', $nama);
+		}
+
+		if($tgl_lahir!='0'){
+			$this->db->like('d.tanggal_lahir', $tgl_lahir);
+		}
+
+		if($rekam_medis!='0'){
+			$this->db->like('c.id_rekam_medis', $rekam_medis);
+		}
+
+        $konf = '1';
+        $this->db->select('d.nama_depan, d.nama_belakang,DATE_FORMAT(d.tanggal_lahir, "%d-%m-%Y") as tanggal_lahir, c.id_rekam_medis, DATE_FORMAT(b.tanggal_rencana, "%d-%m-%Y") as tanggal_rencana,c.id_pasien, c.id_booking');
+        $this->db->from('booking a');
+        $this->db->join('rencana b','a.id_booking=b.id_booking');
+        $this->db->join('rekam_medis c','a.id_booking=c.id_booking');
+        $this->db->join('pasien d','a.id_pasien=d.id_pasien');
+        $this->db->join('dokter e',' a.id_dokter=e.id_dokter');
+        $this->db->where('a.konfirmasi', $konf);
+        $this->db->where_not_in('a.status', 3);
+        $this->db->where_not_in('a.status', 2);
+        $this->db->group_by('a.id_booking');
+        $this->db->order_by('b.tanggal_rencana', 'desc');
+        return $this->db->get();
+    }
+
+    function get_dokter($id_user){
+		$this->db->select('a.id_dokter');
+		$this->db->from('dokter a');
+		$this->db->join('login_session b', 'a.id_user=b.id_user');
+		$this->db->where('a.id_user', $id_user);
+		return $this->db->get()->row();
+	}
+
+    function get_informasi_pasien2($nama, $tgl_lahir, $rekam_medis,$id_dokter){
+
+        if($nama!='0'){
+			$this->db->like('d.nama_depan', $nama);
+		}
+
+		if($tgl_lahir!='0'){
+			$this->db->like('d.tanggal_lahir', $tgl_lahir);
+		}
+
+		if($rekam_medis!='0'){
+			$this->db->like('c.id_rekam_medis', $rekam_medis);
+		}
+
+        $konf = '1';
+        $this->db->select('d.nama_depan, d.nama_belakang,DATE_FORMAT(d.tanggal_lahir, "%d-%m-%Y") as tanggal_lahir, c.id_rekam_medis, DATE_FORMAT(b.tanggal_rencana, "%d-%m-%Y") as tanggal_rencana,c.id_pasien, c.id_booking');
+        $this->db->from('booking a');
+        $this->db->join('rencana b','a.id_booking=b.id_booking');
+        $this->db->join('rekam_medis c','a.id_booking=c.id_booking');
+        $this->db->join('pasien d','a.id_pasien=d.id_pasien');
+        $this->db->join('dokter e',' a.id_dokter=e.id_dokter');
+        $this->db->where('a.konfirmasi', $konf);
+        $this->db->where('a.id_dokter', $id_dokter);
+        $this->db->where_not_in('a.status', 3);
+        $this->db->where_not_in('a.status', 2);
+        $this->db->group_by('a.id_booking');
+        $this->db->order_by('b.tanggal_rencana', 'desc');
+        return $this->db->get();
+    }
+
+
 }
 
 /* End of file Pasien_informasi_model.php */
