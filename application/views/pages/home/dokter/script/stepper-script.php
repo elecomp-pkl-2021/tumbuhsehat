@@ -18,6 +18,8 @@
     $('.a-p').on('change', () => {
         if (kondKesehatan.is(':checked') && anamnesa.val() !== "" ) {
             $('#btn-anamnesa').prop('disabled',false);
+        }else{
+            $('#btn-anamnesa').prop('disabled',true);
         }
     })
     
