@@ -54,6 +54,7 @@ class Pasien extends CI_Controller
             'Tanggal Lahir',
             'required',
             array(
+              
                 'required' => '%s masih kosong!',
             )
         );
