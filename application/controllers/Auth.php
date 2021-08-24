@@ -83,17 +83,19 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules(
             'nama_depan',
             'Nama Depan',
-            'required',
+            'trim|required|alpha',
             array(
                 'required' => '%s masih kosong!',
+                'alpha' => '%s inputan harus berisi huruf'
             )
         );
         $this->form_validation->set_rules(
             'nama_belakang',
             'Nama Belakang',
-            'required',
+            'trim|required|alpha',
             array(
                 'required' => '%s masih kosong!',
+                'alpha' => '%s inputan harus berisi huruf'
             )
         );
         $this->form_validation->set_rules(
@@ -132,7 +134,7 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules(
             'handphone',
             'Handphone',
-            'required',
+            'trim|required|min_length[8]|max_length[12]',
             array(
                 'required' => '%s masih kosong!',
             )

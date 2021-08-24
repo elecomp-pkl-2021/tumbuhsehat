@@ -1,4 +1,14 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-----------DEADPICKER----------->
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" type="text/css" media="all">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#tanggal_lahir").datepicker({
+			maxDate: -1
+		});
+	});
+</script>
 <script>
     window.jQuery || document.write('<script src="<?= base_url('assets')?>/src/js/vendor/jquery-3.3.1.min.js"><\/script>')
 </script>
