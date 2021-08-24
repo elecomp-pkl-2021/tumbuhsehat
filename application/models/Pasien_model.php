@@ -147,4 +147,12 @@ class Pasien_model extends CI_Model
 		$query = $this->db->get();
 		return $query->row();
 	}
+
+    function get_dokter_filter()
+    {
+        $this->db->select('*');
+        $this->db->from('dokter');
+        $query = $this->db->get();
+        return $query;
+    }
 }

@@ -27,7 +27,7 @@
 
             <div class="nav-lavel">Laporan</div>
             <div class="nav-item">
-                <a href="<?= base_url('#') ?>"><i class="ik ik-book"></i><span>Laporan Harian</span></a>
+                <a href="<?= base_url('laporan/harian') ?>"><i class="ik ik-book"></i><span>Laporan Harian</span></a>
             </div>
         </nav>
     </div>

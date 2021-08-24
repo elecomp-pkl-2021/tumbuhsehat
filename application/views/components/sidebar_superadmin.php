@@ -51,10 +51,10 @@
 
 			<div class="nav-lavel">Laporan</div>
 			<div class="nav-item">
-				<a href="<?= base_url('home')?>"><i class="ik ik-book"></i><span>Laporan Pemeriksaan</span></a>
+				<a href="<?= base_url('laporan/pemeriksaan')?>"><i class="ik ik-book"></i><span>Laporan Pemeriksaan</span></a>
 			</div>
 			<div class="nav-item">
-				<a href="<?= base_url('home')?>"><i class="ik ik-book"></i><span>Laporan Harian</span></a>
+				<a href="<?= base_url('laporan/harian')?>"><i class="ik ik-book"></i><span>Laporan Harian</span></a>
 			</div>
 		</nav>
 	</div>
