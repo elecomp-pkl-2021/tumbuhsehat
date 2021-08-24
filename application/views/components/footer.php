@@ -9,6 +9,16 @@
 				House.</a></span>
 	</div>
 </footer>
+<!-----------DEADPICKER----------->
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" type="text/css" media="all">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#tanggal_lahir").datepicker({
+			maxDate: -1
+		});
+	});
+</script>
 
 <script src="<?= base_url() ?>assets/plugins/popper.js/dist/umd/popper.min.js"></script>
 <script src="<?= base_url() ?>assets/plugins/bootstrap/dist/js/bootstrap.min.js"></script>

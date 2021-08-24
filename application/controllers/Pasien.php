@@ -43,9 +43,10 @@ class Pasien extends CI_Controller
         $this->form_validation->set_rules(
             'nama_depan',
             'Nama Depan',
-            'required',
+            'trim|required|alpha',
             array(
                 'required' => '%s masih kosong!',
+                'alpha' => '%s inputan harus berisi huruf'
             )
         );
         $this->form_validation->set_rules(
@@ -59,9 +60,10 @@ class Pasien extends CI_Controller
         $this->form_validation->set_rules(
             'nama_belakang',
             'Nama Belakang',
-            'required',
+            'trim|required|alpha',
             array(
                 'required' => '%s masih kosong!',
+                'alpha' => '%s inputan harus berisi huruf'
             )
         );
         $this->form_validation->set_rules(
@@ -83,9 +85,9 @@ class Pasien extends CI_Controller
         $this->form_validation->set_rules(
             'no_hp',
             'No Hp',
-            'required',
+            'trim|required|min_length[8]|max_length[12]',
             array(
-                'required' => '%s masih kosong!',
+                'required' => '%s masih kosong!'
             )
         );
         $this->form_validation->set_rules(
@@ -104,7 +106,13 @@ class Pasien extends CI_Controller
             $this->load->view('pages/home/resepsionis/tambahPasien', $data);
             $this->load->view('components/footer');
         } else {
-            $this->add_profil_pasien();
+            $insert = $this->add_profil_pasien();
+            if ($insert) {
+                $this->session->set_flashdata('gagal', 'Data Gagal Ditambah!');
+            } else {
+                $this->session->set_flashdata('berhasil', 'Data Berhasil Ditambah!');
+            }
+            redirect('pasien/tambahPasienBaruWithId/' . $id_user);
         }
     }
     public function add_profil_pasien()
@@ -119,13 +127,7 @@ class Pasien extends CI_Controller
             'no_hp' => $this->input->post('no_hp'),
             'hubungan' => $this->input->post('hubungan'),
         );
-        $insert_data = $this->Klinik_model->insert_pasien($data_pasien);
-        if ($insert_data) {
-            $this->session->set_flashdata('gagal', 'ditambahkan!');
-        } else {
-            $this->session->set_flashdata('berhasil', 'ditambahkan!');
-        }
-        redirect(site_url('home'));
+        $this->Klinik_model->insert_pasien($data_pasien);
     }
 
     public function index()
