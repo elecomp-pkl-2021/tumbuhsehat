@@ -31,6 +31,19 @@
 						Pembayaran</span></a>
 			</nav>
 
+			<div class="nav-item has-sub 
+				<?= $this->uri->segment(1) == 'kategori-asuransi' || $this->uri->segment(1) == 'provider-asuransi' ? 'active open' : '' ?>">
+				<a href="javascript:void(0)"><i class="ik ik-shield"></i><span>Data Asuransi</span></a>
+				<div class="submenu-content">
+					<a href="<?= base_url('provider-asuransi')?>" class="menu-item <?= $this->uri->segment(1) == 'provider-asuransi' ? 'active' : '' ?>">Provider Asurasi</a>
+					<a href="<?= base_url('kategori-asuransi')?>" class="menu-item <?= $this->uri->segment(1) == 'kategori-asuransi' ? 'active' : '' ?>">Kategori Asurasi</a>
+				</div>
+			</div>
+
+			<nav class="nav-item <?= $this->uri->segment(1) == 'diskon' ? 'active' : '' ?>">
+				<a href="<?= base_url('diskon')?>"><i class="ik ik-tag"></i><span>Data Diskon</span></a>
+			</nav>
+
 			<div class="nav-lavel">Janji Pasien</div>
 			<div class="nav-item <?= $this->uri->segment(1) == 'konfirmasi_janji' ? 'active' : '' ?>">
 				<a href="<?= base_url('konfirmasi_janji')?>"><i class="ik ik-calendar"></i><span>Konfirmasi Janji</span></a>
@@ -46,7 +59,7 @@
 
 			<div class="nav-lavel">Keuangan</div>
 			<div class="nav-item">
-				<a href="<?= base_url('home')?>"><i class="ik ik-credit-card"></i><span>Pembayaran</span></a>
+				<a href="<?= base_url('pembayaran') ?>"><i class="ik ik-credit-card"></i><span>Pembayaran</span></a>
 			</div>
 
 			<div class="nav-lavel">Laporan</div>

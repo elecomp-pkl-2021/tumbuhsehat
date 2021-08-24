@@ -10,7 +10,7 @@
 						<div class="col-lg-8 col-md-8">
 							<label for="">Cari Kode Booking</label>
 							<div class="input-group-prepend">
-								<input class="form-control col-lg-4" type="text" placeholder="Nama Pasien" id="kode_booking_id">
+								<input class="form-control col-lg-4" type="text" placeholder="Kode Booking" id="kode_booking_id">
 								<button class="ml-2 col-md-2 btn btn-primary" id="filter_all">Cari</button>
 							</div>
 						</div>
@@ -392,8 +392,6 @@
 							"" ? cari_tgl : '0') + '/' + (cari_jam != "" ? cari_jam : '0') + '/' + (kode_booking != "" ?
 							kode_booking : '0')
 				});
-
-				alert(cari_nama);
 			}
 
 			function cari_data2() {

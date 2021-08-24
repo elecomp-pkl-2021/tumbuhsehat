@@ -37,7 +37,7 @@ class Cabang extends CI_Controller {
         $data['title'] = "Tambah Data Cabang Klinik | Tumbuh Sehat";
         $data['judulHalaman'] = "Tambah Data Cabang Klinik";
         $data['subJudulHalaman'] = "Tambah data cabang klinik baru";
-        $data['iconHalaman'] = "ik-credit-card";
+        $data['iconHalaman'] = "ik-map-pin";
         $data['breadcrumbs'] = '
             <li class="breadcrumb-item"><a href="'.base_url('home').'"><i class="ik ik-home"></i></a></li>
             <li class="breadcrumb-item"><a href="'.base_url('metode-pembayaran').'">Data Cabang Klinik</a></li>
@@ -85,7 +85,7 @@ class Cabang extends CI_Controller {
         $data['title'] = "Edit Data Cabang Klinik | Tumbuh Sehat";
         $data['judulHalaman'] = "Edit Data Cabang Klinik";
         $data['subJudulHalaman'] = "Edit data cabang klinik dengan data yang baru";
-        $data['iconHalaman'] = "ik-credit-card";
+        $data['iconHalaman'] = "ik-map-pin";
         $data['breadcrumbs'] = '
             <li class="breadcrumb-item"><a href="'.base_url('home').'"><i class="ik ik-home"></i></a></li>
             <li class="breadcrumb-item"><a href="'.base_url('metode-pembayaran').'">Data Cabang Klinik</a></li>
@@ -143,6 +143,3 @@ class Cabang extends CI_Controller {
 }
 
 /* End of file Cabang.php */
-
-
-?>

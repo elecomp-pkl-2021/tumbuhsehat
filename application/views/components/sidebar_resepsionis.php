@@ -22,7 +22,7 @@
 
             <div class="nav-lavel">Keuangan</div>
             <div class="nav-item">
-                <a href="<?= base_url('#') ?>"><i class="ik ik-credit-card"></i><span>Pembayaran</span></a>
+                <a href="<?= base_url('pembayaran') ?>"><i class="ik ik-credit-card"></i><span>Pembayaran</span></a>
             </div>
 
             <div class="nav-lavel">Laporan</div>

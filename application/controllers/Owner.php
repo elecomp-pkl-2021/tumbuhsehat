@@ -16,6 +16,9 @@ class Owner extends CI_Controller
         $this->load->model('Dokter_model');
         $this->load->model('Jadwaldokter_model');
         $this->load->model('Klinik_model');
+        $this->load->model('Diskon_model');
+        $this->load->model('Metode_model');
+        $this->load->model('Asuransi_model');
     }
 
     function show_ubah_janji_akan_datang($id_booking)
@@ -151,6 +154,7 @@ class Owner extends CI_Controller
         echo json_encode($this->Klinik_model->get_konfirmasi_janji($nama, $tgl_lahir, $rekam_medis, $id_dokter, $tanggal_rencana, $jam_rencana_mulai)->result());
         // $this->Klinik_model->get_konfirmasi_janji()->result();
         // print_r($this->db->last_query());
+
     }
     public function konfirmasi()
     {
@@ -172,7 +176,7 @@ class Owner extends CI_Controller
         $this->Klinik_model->add_rekam_medis($data_rekam_medis);
         $this->Klinik_model->update_booking($this->input->post('id_booking'), $data_booking);
 
-        redirect(site_url('owner/konfirmasi_janji'));
+        redirect(site_url('konfirmasi_janji/index'));
     }
 
     public function konfirmasi_tolak()
@@ -187,12 +191,210 @@ class Owner extends CI_Controller
 
         $this->Klinik_model->update_booking($this->input->post('id_booking'), $data_booking);
 
-        redirect(site_url('owner/konfirmasi_janji'));
+        redirect(site_url('konfirmasi_janji/index'));
     }
     public function ajax_get_terima($id_pasien)
     {
         $data = $this->Klinik_model->ajax_get_terima($id_pasien);
         //print_r($this->db->last_query());
         echo json_encode($data);
+    }
+
+    public function get_data_pembayaran()
+    {
+        echo json_encode($this->Klinik_model->get_data_pembayaran()->result());
+    }
+    public function get_data_pembayaran2($nama2 = "", $tgl_lahir2 = "", $rekam_medis2 = "", $id_dokter2 = "", $tanggal_rencana2 = "", $jam_rencana_mulai2 = "", $kode_booking2 = "")
+    {
+
+        $nama3 =  $this->uri->segment(3);
+        if ($nama3 == '0') {
+            $nama = "0";
+        } else {
+            $nama =  $this->uri->segment(3);
+        }
+
+        $tgl_lahir3 = $this->uri->segment(4);
+        if ($tgl_lahir3 == '0') {
+            $tgl_lahir = "0";
+        } else {
+            $tgl_lahir = $this->uri->segment(4);
+        }
+
+        $rekam_medis3 = $this->uri->segment(5);
+        if ($rekam_medis3 == '0') {
+            $rekam_medis = "0";
+        } else {
+            $rekam_medis = $this->uri->segment(5);
+        }
+
+        $id_dokter3 = $this->uri->segment(6);
+        if ($id_dokter3 == '0') {
+            $id_dokter = "0";
+        } else {
+            $id_dokter = $this->uri->segment(6);
+        }
+
+        $tanggal_rencana3 = $this->uri->segment(7);
+        if ($tanggal_rencana3 == '0') {
+            $tanggal_rencana = "0";
+        } else {
+            $tanggal_rencana = $this->uri->segment(7);
+        }
+
+        $jam_rencana_mulai3 = $this->uri->segment(8);
+        if ($jam_rencana_mulai3 == '0') {
+            $jam_rencana_mulai = "0";
+        } else {
+            $jam_rencana_mulai = $this->uri->segment(8);
+        }
+
+        $kode_booking3 = $this->uri->segment(9);
+        // echo 'kode_booking'.$kode_booking3;
+        if ($kode_booking3 == '0') {
+            $kode_booking = "0";
+            //   echo "iku";
+        } else {
+            $kode_booking = $this->uri->segment(9);
+            // echo "iki";
+        }
+        echo json_encode($this->Klinik_model->get_data_pembayaran2($nama, $tgl_lahir, $rekam_medis, $id_dokter, $tanggal_rencana, $jam_rencana_mulai, $kode_booking)->result());
+        // $this->Klinik_model->get_register_janji($nama, $tgl_lahir, $rekam_medis, $id_dokter, $tanggal_rencana, $jam_rencana_mulai,$kode_booking)->result();
+        // print_r($this->db->last_query());
+    }
+
+    public function metode_bayar($id_booking, $id_rekam_medis)
+    {
+        $id_booking = $this->uri->segment(3);
+        $data = array(
+            'title' => 'Metode Pembayaran',
+            'pembayaran' => $this->Klinik_model->edit_pembayaran($id_booking),
+        );
+        $bayar = $this->Klinik_model->get_proses_bayar($id_booking);
+        // print_r($this->db->last_query());
+        $data['bayar'] = $bayar;
+        $layanan = $this->Klinik_model->get_layanan($id_booking);
+        //print_r($this->db->last_query());
+        $data['layanan'] = $layanan;
+        $diskon = $this->Diskon_model->diskon_active();
+        $data['diskon'] = $diskon;
+        $diskon = $this->Diskon_model->diskon_pil_active($id_rekam_medis);
+        $data['diskon_pil'] = $diskon;
+        $data['diskonnya'] = $this->Diskon_model->getDiskonByRekamMedis($id_rekam_medis);
+        $metode = $this->Metode_model->get_all();
+        $data['metodebayar'] = $metode;
+        $data['_pembayaran'] = 1;
+        $data['total'] = $this->Klinik_model->get_total($id_rekam_medis);
+        $asuransi = $this->Asuransi_model->get_provider_asuransi();
+        $data['asuransi'] = $asuransi;
+        $provider = $this->Klinik_model->get_id_provider($id_booking);
+        $data['asuransiid'] = $this->Asuransi_model->get_provider_asuransi_by_id($provider['id_provider']);
+        $data['kategori_asuransi'] = $this->Asuransi_model->get_kategori_asuransi();
+        $kategorias = $this->Klinik_model->get_id_kategori($id_booking);
+        $data['kategorias'] = $this->Asuransi_model->get_kategori_asuransi_by_id($kategorias['id_kategori']);
+        // print_r($this->db->last_query());
+        $data['title'] = "Pembayaran | Tumbuh Sehat";
+        $data['judulHalaman'] = "Pembayaran";
+        $data['subJudulHalaman'] = "Daftar Pembayaran";
+        $data['iconHalaman'] = "ik-credit-card";
+        $data['breadcrumbs'] = '
+            <li class="breadcrumb-item"><a href="home"><i class="ik ik-home"></i></a></li>
+            <li class="breadcrumb-item active">Pembayaran</li>';
+        // print_r($data['diskonnya']);
+        $this->load->view('components/header', $data);
+        $this->load->view('components/sidebar_resepsionis');
+        $this->load->view('components/breadcrumbs', $data);
+        $this->load->view('pages/Pembayaran/metode_pembayaran', $data);
+        $this->load->view('components/footer');
+    }
+    public function update_bayar()
+    {
+        $status_r = '3';
+        $id = $this->input->post('id_rekam_medis');
+        $grand = $this->grandtotal($id);
+        $data_bayar = array(
+            'diagnosis'   => $this->input->post('diagnosa'),
+            'grandtotal'  => $this->input->post('grandtotal'),
+            'status'      => $status_r,
+        );
+        $status_b = '3';
+        $data_booking = array(
+            'status' => $status_b,
+        );
+
+        $data_rencana = array(
+            'id_metode' => $this->input->post('jenis_pembayaran'),
+            'id_provider' => $this->input->post('id_provider'),
+            'id_kategori' => $this->input->post('id_kategori'),
+            'nomor_asuransi' => $this->input->post('no_asuransi'),
+            'foto_asuransi' => $this->_uploadImage(),
+        );
+
+        $data_pilih = array(
+            'id_diskon' => $this->input->post('id_diskon')
+        );
+        $this->Klinik_model->update_booking($this->input->post('id_booking'), $data_booking);
+        $this->Klinik_model->update_rekam_medis($this->input->post('id_booking'), $data_bayar);
+        $this->Klinik_model->update_rencana_bayar($this->input->post('id_booking'), $data_rencana);
+        $this->Klinik_model->update_pilih_layanan($this->input->post('id_rekam_medis'), $data_pilih);
+        redirect(site_url('pembayaran/index'));
+    }
+
+    public function grandtotal($id_rekam_medis)
+    {
+
+        $id3 = $_GET['diskon'];
+
+        $this->db->select('*');
+        $this->db->from('booking a');
+        $this->db->join('rekam_medis b', 'a.id_booking=b.id_booking');
+        $this->db->join('pilih_layanan c', 'b.id_rekam_medis=c.id_rekam_medis');
+        $this->db->join('layanan d', 'c.id_layanan=d.id_layanan');
+        $this->db->where('b.id_rekam_medis', $id_rekam_medis);
+        $data = $this->db->get('')->result();
+
+        $this->db->select('*');
+        $this->db->from('diskon');
+        $this->db->where('id_diskon', $id3);
+        $disk = $this->db->get('')->result();
+
+        foreach ($data as $key) :
+            foreach ($disk as $value) :
+                if ($id3 != 0) {
+                    $subtotal = $key->subtotal;
+                    $diskon = $value->nilai_diskon;
+                    $grand = $subtotal * ($diskon / 100);
+                    $total = $subtotal - $grand;
+                    echo '' . $total;
+                } elseif ($id3 == 0) {
+                    $total = $key->subtotal;
+                    echo '' . $total;
+                } else {
+                    $total = $key->subtotal;
+                    echo '' . $total;
+                }
+
+            endforeach;
+        endforeach;
+    }
+
+    private function _uploadImage()
+    {
+        $config['upload_path']          = './images/asuransi/';
+        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+        $config['file_name']            = $this->input->post('id_booking');
+        $config['overwrite']            = true;
+        $config['max_size']             = 4096; // 1MB
+        $config['encrypt_name']         = true;
+        // $config['max_width']            = 1024;
+        // $config['max_height']           = 768;
+
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+
+        if ($this->upload->do_upload('foto_asuransi')) {
+            return $this->upload->data("file_name");
+        }
+        return $this->upload->display_errors();
     }
 }

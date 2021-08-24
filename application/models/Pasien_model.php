@@ -26,6 +26,14 @@ class Pasien_model extends CI_Model
     {
         return $this->db->get_where('pasien', ['id_pasien' => $id])->row_array();
     }
+    function get_user($id)
+    {
+        $this->db->select('*');
+        $this->db->from('login_session');
+        $this->db->where('id_user', $id);
+        $this->db->group_by('id_user');
+        return $this->db->get();
+    }
 
     public function get_by_id_janji_akan_datang_2($id_booking)
     {
@@ -71,24 +79,25 @@ class Pasien_model extends CI_Model
         return $this->db->get();
     }
 
-    function get_by_id_ubah_terlambat($id){
+    function get_by_id_ubah_terlambat($id)
+    {
         $status = '0';
-		$konf = '1';
-		$this->db->select('*');
-		$this->db->from('booking a');
-		$this->db->join('rencana b', 'a.id_booking=b.id_booking');
-		$this->db->join('pasien c', 'a.id_pasien=c.id_pasien');
-		$this->db->join('dokter d', ' a.id_dokter=d.id_dokter');
-		$this->db->join('rekam_medis e', 'a.id_booking=e.id_booking');
-		$this->db->join('cabang g', 'a.id_cabang=g.id_cabang');
-		$this->db->where('curdate() > b.tanggal_rencana');
-		$this->db->where('e.status', $status);
-		$this->db->where('a.status', $status);
-		$this->db->where('a.konfirmasi', $konf);
+        $konf = '1';
+        $this->db->select('*');
+        $this->db->from('booking a');
+        $this->db->join('rencana b', 'a.id_booking=b.id_booking');
+        $this->db->join('pasien c', 'a.id_pasien=c.id_pasien');
+        $this->db->join('dokter d', ' a.id_dokter=d.id_dokter');
+        $this->db->join('rekam_medis e', 'a.id_booking=e.id_booking');
+        $this->db->join('cabang g', 'a.id_cabang=g.id_cabang');
+        $this->db->where('curdate() > b.tanggal_rencana');
+        $this->db->where('e.status', $status);
+        $this->db->where('a.status', $status);
+        $this->db->where('a.konfirmasi', $konf);
         $this->db->where('a.id_booking', $id);
-		$this->db->group_by('a.id_booking');
-		$query = $this->db->get();
-		return $query->row();
+        $this->db->group_by('a.id_booking');
+        $query = $this->db->get();
+        return $query->row();
     }
 
     function kuota_booking($id_dokter, $day)
@@ -134,15 +143,16 @@ class Pasien_model extends CI_Model
         $query = $this->db->get();
         return $query;
     }
-    
-    public function get_by_id_ubah($id) {
-		$this->db->select('*');
-		$this->db->from('booking a');
-		$this->db->join('rencana b', 'a.id_booking=b.id_booking');
-		$this->db->join('pasien c', 'a.id_pasien=c.id_pasien');
-		$this->db->join('dokter d', ' a.id_dokter=d.id_dokter');
-		$this->db->join('rekam_medis e', 'a.id_booking=e.id_booking');
-		$this->db->join('cabang g', 'a.id_cabang=g.id_cabang');
+
+    public function get_by_id_ubah($id)
+    {
+        $this->db->select('*');
+        $this->db->from('booking a');
+        $this->db->join('rencana b', 'a.id_booking=b.id_booking');
+        $this->db->join('pasien c', 'a.id_pasien=c.id_pasien');
+        $this->db->join('dokter d', ' a.id_dokter=d.id_dokter');
+        $this->db->join('rekam_medis e', 'a.id_booking=e.id_booking');
+        $this->db->join('cabang g', 'a.id_cabang=g.id_cabang');
         $this->db->where('a.id_booking', $id);
 		$query = $this->db->get();
 		return $query->row();
@@ -154,5 +164,74 @@ class Pasien_model extends CI_Model
         $this->db->from('dokter');
         $query = $this->db->get();
         return $query;
+        $query = $this->db->get();
+        return $query->row();
+    }
+
+    function get_medis_pasien($id_rekam_medis, $id_pasien)
+    {
+        $this->db->select('*');
+        $this->db->from('booking a');
+        $this->db->join('pasien b', 'a.id_pasien=b.id_pasien');
+        $this->db->join('rekam_medis c', 'a.id_booking=c.id_booking', 'a.id_booking=c.id_booking');
+        $this->db->join('rencana d', 'a.id_booking=d.id_booking');
+        $this->db->where('c.id_rekam_medis', $id_rekam_medis);
+        $this->db->where('a.id_pasien', $id_pasien);
+        return $this->db->get();
+        // return $this->db->get_where('pasien', array('id_pasien' => $id));
+    }
+
+    function get_one_rawat_by_id_medis($id, $tgl_awal, $id_rekam_medis)
+    {
+        $qry = "
+				SELECT t.* FROM pemeriksaan_odontogram t  WHERE t.id_pasien = '$id' AND t.tgl_pemeriksaan = '$tgl_awal' AND t.id_rekam_medis='$id_rekam_medis';
+				";
+
+        $data = $this->db->query($qry);
+
+        if ($data->num_rows() > 0) return $data->result();
+        else return false;
+    }
+
+    public function get_check_id()
+    {
+        $this->db->select('id_rekam_medis, id_pasien, tgl_pemeriksaan');
+        $this->db->from('pemeriksaan_odontogram');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function add_svg($data)
+    {
+        $this->db->insert('temp', $data);
+        return $this->db->insert_id();
+    }
+
+    public function get_by_id_svg($id, $idpemeriksaan, $session_id)
+    {
+        $this->db->from('temp');
+        $this->db->where('idSvg', $id);
+        $this->db->where('idPemeriksaan', $idpemeriksaan);
+        $this->db->where('session_id', $session_id);
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    function insert_pemeriksaan_odontogram($data)
+    {
+
+        $query = $this->db->insert("pemeriksaan_odontogram", $data);
+
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function get_temp($idSvg, $idPemeriksaan)
+    {
+        $query = $this->db->query("SELECT * FROM temp WHERE idSvg = '$idSvg' AND idPemeriksaan = '$idPemeriksaan'");
+        return $query->result_array();
     }
 }

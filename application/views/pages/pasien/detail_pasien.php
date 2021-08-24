@@ -2,8 +2,9 @@
     $awal  = strtotime($info['tanggal_lahir']); 
     $akhir = time(); 
     $diff  = $akhir - $awal;
+	$id_pasien = $info_umum['id_pasien'];
 ?>
-
+<div class="flash-data" data-flashdata="<?= $this->session->tempdata('flash');?>"></div>
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
@@ -278,9 +279,13 @@
 									<div class="col-md-12">
 										<div class="row">
 											<div class="col">
-												<p class="font-weight-bold">Pemeriksaan Klinis Umum <span
-														class="ml-4 font-weight-normal">(Terakhir Update
-														<?= $info_klinis['tanggal_periksa']?>)</span></p>
+												<p class="font-weight-bold">Pemeriksaan Klinis Umum 
+													<span class="ml-4 font-weight-normal"> 
+														<?php if($info_klinis != null ) : ?>	
+															(Terakhir Update <?= $info_klinis['tanggal_periksa']?>)
+														<?php endif?>
+													</span>
+												</p>
 											</div>
 											<div class="col-3">
 												<input class="form-control" type="date"
@@ -292,7 +297,11 @@
 												<hr>
 											</div>
 										</div>
-										<input id="id_pasien" value="<?= $info_klinis['id_pasien']?>" hidden>
+										<?php if($info_klinis != null ) : ?>	
+											<input id="id_pasien" value="<?= $info_klinis['id_pasien']?>" hidden>
+											<?php else: ?>
+											<input id="id_pasien" value="0" hidden>
+										<?php endif?>
 										<div class="row" id="tampilan_pemeriksaan_klinis_umum"></div>
 									</div>
 								</div>
@@ -300,9 +309,13 @@
 									<div class="col-md-12">
 										<div class="row">
 											<div class="col">
-												<p class="font-weight-bold">Pemeriksaan Klinis Khusus <span
-														class="ml-4 font-weight-normal">(Terakhir Update
-														<?= $info_klinis['tanggal_periksa']?>)</span></p>
+												<p class="font-weight-bold">Pemeriksaan Klinis Khusus 
+													<span class="ml-4 font-weight-normal">
+														<?php if($info_klinis != null ) : ?>	
+															(Terakhir Update <?= $info_klinis['tanggal_periksa']?>)
+														<?php endif?>
+													</span>
+												</p>
 											</div>
 											<div class="col-3">
 												<input class="form-control" type="date"
@@ -324,9 +337,13 @@
 									<div class="col-md-12">
 										<div class="row">
 											<div class="col">
-												<p class="font-weight-bold">Radiologi <span
-														class="ml-4 font-weight-normal">(Terakhir Update
-														<?= $info_penunjang['tanggal_periksa']?>)</span></p>
+												<p class="font-weight-bold">Radiologi 
+													<span class="ml-4 font-weight-normal">
+														<?php if($info_klinis != null ) : ?>	
+															(Terakhir Update <?= $info_penunjang['tanggal_periksa']?>)
+														<?php endif?>
+													</span>
+												</p>
 											</div>
 											<div class="col-3">
 												<input class="form-control" type="date"
@@ -347,9 +364,13 @@
 									<div class="col-md-12">
 										<div class="row">
 											<div class="col">
-												<p class="font-weight-bold">Laboratorium<span
-														class="ml-4 font-weight-normal">(Terakhir Update
-														<?= $info_penunjang['tanggal_periksa']?>)</span></p>
+												<p class="font-weight-bold">Laboratorium
+													<span class="ml-4 font-weight-normal">
+														<?php if($info_klinis != null ) : ?>	
+															(Terakhir Update <?= $info_penunjang['tanggal_periksa']?>)
+														<?php endif?>
+													</span>
+												</p>
 											</div>
 											<div class="col-3">
 												<input class="form-control" type="date"
@@ -426,25 +447,26 @@
 							</div>
 							<div class="tab-pane fade p-3" id="nav-odontogram" role="tabpanel"
 								aria-labelledby="nav-odontogram-tab">
-								<div class="row mt-3">
-									<div class="col">
-										<p class="font-weight-bold">Odontogram<span
-												class="ml-4 font-weight-normal">(Terakhir Update
-												2021-04-14)</span></p>
+								<?php foreach ($info_odontogram->result() as $info) : ?>
+									<?php $tgl_latest_odontogram = $info->tanggal_periksa;?>
+									<div class="row mt-3">
+										<div class="col">
+											<p class="font-weight-bold">Informasi Odontogram 
+												<span class="font-weight-normal ml-2">(Terakhir update <?= $info->tanggal_periksa?>)</span> 
+											</p>
+										</div>
+										<div class="col-3">
+											<input class="form-control" type="date" id="filter_o">
+										</div>
 									</div>
-									<div class="col-3">
-										<input class="form-control" type="date">
+									<div class="row">
+										<div class="col">
+											<hr>
+										</div>
 									</div>
-								</div>
-								<div class="row">
-									<div class="col">
-										<hr>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col">
-										lelelel
-									</div>
+								<?php endforeach;  ?>
+								<div class="row d-flex justify-content-center mt-2" id="kota">
+
 								</div>
 							</div>
 							<div class="tab-pane fade p-3" id="nav-pembayaran" role="tabpanel"
@@ -472,12 +494,12 @@
 													<tr style="height:30px">
 														<td style="width:50%;" class="font-weight-bold">
 															Provider Asuransi</td>
-														<td><?= $info_bayar['provider']?></td>
+														<td><?= $info_bayar['nama_provider']?></td>
 													</tr>
 													<tr style="height:30px">
 														<td class="font-weight-bold">
 															Kategori Asuransi</td>
-														<td><?= $info_bayar['kategori_asuransi']?></td>
+														<td><?= $info_bayar['nama_kategori']?></td>
 													</tr>
 													<tr style="height:30px">
 														<td class="font-weight-bold">
@@ -505,7 +527,13 @@
 </div>
 
 <script>
+	var tgl_latest_odontogram = '<?= $tgl_latest_odontogram?>'
+	var tgl_pemeriksaan = tgl_latest_odontogram;
+	var id_pasien = <?php echo @$id_pasien ?>;
+
 	$(document).ready(function () {
+		load_odontogram_init();
+
 		pemeriksaan_klinis_umum();
 		$('#filter_tanggal_pemeriksaan_klinis_umum').change(function () {
 			pemeriksaan_klinis_umum();
@@ -524,6 +552,11 @@
 		pemeriksaan_penunjang_laboratorium();
 		$('#filter_tanggal_pemeriksaan_penunjang_laboratorium').change(function () {
 			pemeriksaan_penunjang_laboratorium();
+		});
+		
+		
+		$('#filter_o').change(function () {
+			load_odontogram();
 		});
 
 	});
@@ -599,7 +632,7 @@
 
 	function download_foto_laboratorium() {
 		let foto = $('#foto_laboratorium_download').val();
-		window.location.href = "<?php echo base_url().'Doctor/download_lab/'?>" + foto;
+		window.location.href = "<?php echo base_url().'pasien_informasi/download_foto_laboratorium/'?>" + foto;
 	}
 
 	function runningFormatter(value, row, index) {
@@ -625,15 +658,49 @@
 		`;
 	}
 
+	function load_odontogram() {
+		let tgl_awal = $('#filter_o').val();
+		tgl_pemeriksaan = $('#filter_o').val();
+		let id_pasien3 = '<?php echo $info_umum['id_pasien'] ?>';
+		$.get("<?php echo base_url() ?>pasien_informasi/create_load", {
+			tgl_awal: tgl_awal,
+			id_pasien3: id_pasien3
+		}, function (data) {
+			$('#kota').html(data);
+		});
+	}
+
+	function load_odontogram_init() {
+		var tgl_latest_odontogram = '<?= $tgl_latest_odontogram?>'		
+		let tgl_awal = tgl_latest_odontogram;
+		let id_pasien3 = '<?php echo $info->id_pasien ?>';
+
+		$.get("<?php echo base_url() ?>pasien_informasi/create_load", {tgl_awal:tgl_awal, id_pasien3:id_pasien3}, function(data){
+			$('#kota').html(data);
+		});
+	}
+
 	$("#filter_all").click(function () {
 		var tgl = $("#filter_t").val();
 		var dokter = $("#filter_p").val();
 		var id_pasien2 = '<?php echo $info_umum['id_pasien']?>';
 		console.log(dokter);
 		$('#table_summary').bootstrapTable('refresh', {
-			url: '<?php echo base_url() ?>pasien_informasi/get_summary_rekam_medis/' + (id_pasien2 != "" ?
-				id_pasien2 : '') + (dokter != "" ? '/' + dokter : '') + (tgl != "" ? '/' + tgl : '')
+			url: '<?php echo base_url() ?>pasien_informasi/get_summary_rekam_medis/' + (id_pasien2 != "" ? id_pasien2 : '') + (dokter != "" ? '/' + dokter : '') + (tgl != "" ? '/' + tgl : '')
 		});
 	});
 
+</script>
+<script src="<?= base_url('assets')?>/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+<script>
+    const flashData = $('.flash-data').data('flashdata');
+	console.log(`flash data = ${flashData}`);
+    if (flashData) {
+        Swal.fire(
+            'Sukses',
+            flashData,
+            'success'
+        )
+    }
+	
 </script>
