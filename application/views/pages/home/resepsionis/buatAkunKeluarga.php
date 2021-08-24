@@ -5,6 +5,17 @@
                 <h3>Buat Janji Pemeriksaan</h3>
             </div>
             <div class="card-body">
+                <?php if ($this->session->flashdata('berhasil') != null) : ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Akun Keluarga Berhasil Ditambahkan!</strong> <br><?= $this->session->flashdata('berhasil') ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="ik ik-x"></i></button>
+                    </div>
+                <?php elseif ($this->session->flashdata('gagal') != null) : ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Gagal Menambahkan Akun Keluarga!</strong> <?= $this->session->flashdata('gagal') ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="ik ik-x"></i></button>
+                    </div>
+                <?php endif ?>
                 <form action="<?= base_url('klinik/buatAkunKeluarga') ?>" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-6">
@@ -20,14 +31,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputUsername1">Tanggal Lahir</label>
-                                <?php if (form_error('tanggal_lahir')) : ?>
-                                    <input type="date" class="form-control form-control-warning form-txt-warning" placeholder="<?= strip_tags(form_error('tanggal_lahir')) ?>" name="tanggal_lahir">
-                                    <!-- <i class="ik ik-user"></i> -->
-                                <?php else : ?>
-                                    <input type="date" class="form-control" placeholder="Masukkan Tanggal Lahir" name="tanggal_lahir" value="<?= set_value('tanggal_lahir') ?>">
-                                    <!-- <i class="ik ik-user"></i> -->
-                                <?php endif ?>
-                                <!-- <input type="date" class="form-control" rows="3" name="tanggal_lahir" id="tanggal_lahir" required="required" autocomplete="off"> -->
+                                <input type="text" class="form-control" rows="3" name="tanggal_lahir" id="tanggal_lahir" required="required" placeholder="Masukkan Tanggal Lahir" autocomplete="off">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -90,6 +94,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary mr-2" id="btn_save">Buat akun Keluarga</button>
+                                <a href="<?= base_url('home') ?>" class="btn btn-light">Batal</a>
                             </div>
                         </div>
                     </div>
