@@ -304,7 +304,7 @@ class Klinik_model extends CI_Model
         $status_b = '2';
         //    echo 
         if ($nama != '0') {
-            $this->db->like('CONCAT(c.nama_depan, " ", c.nama_belakang)', $nama);
+            $this->db->like('CONCAT(c.nama_depan, " ", c.nama_belakang)',str_replace('%20', ' ', $nama));
         }
 
         if ($tgl_lahir != '0') {
@@ -316,7 +316,7 @@ class Klinik_model extends CI_Model
         }
 
         if ($id_dokter != '0') {
-            $this->db->like('d.nama_dokter', $id_dokter);
+            $this->db->like('d.nama_dokter',str_replace('%20', ' ', $id_dokter));
         }
 
         if ($tanggal_rencana != '0') {
