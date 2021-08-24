@@ -154,6 +154,16 @@ class Pasien_model extends CI_Model
         $this->db->join('rekam_medis e', 'a.id_booking=e.id_booking');
         $this->db->join('cabang g', 'a.id_cabang=g.id_cabang');
         $this->db->where('a.id_booking', $id);
+		$query = $this->db->get();
+		return $query->row();
+	}
+
+    function get_dokter_filter()
+    {
+        $this->db->select('*');
+        $this->db->from('dokter');
+        $query = $this->db->get();
+        return $query;
         $query = $this->db->get();
         return $query->row();
     }
@@ -221,7 +231,7 @@ class Pasien_model extends CI_Model
 
     function get_temp($idSvg, $idPemeriksaan)
     {
-        $query = $this->db->query("SELECT ket_pemeriksaan, idSvg FROM temp WHERE idSvg = '$idSvg' AND idPemeriksaan = '$idPemeriksaan'");
-        return $query->row();
+        $query = $this->db->query("SELECT * FROM temp WHERE idSvg = '$idSvg' AND idPemeriksaan = '$idPemeriksaan'");
+        return $query->result_array();
     }
 }

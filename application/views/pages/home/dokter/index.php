@@ -50,15 +50,17 @@
                                     <td><?= $d['tanggal_lahir']; ?></td>
                                     <td><?= $d['id_booking']; ?></td>
                                     <td><?= $d['id_rekam_medis']; ?></td>
-                                    <td><?= $d['status'] == 1 ? '<span class="badge badge-primary"> Sudah Terdaftar</span>' : '<span class="badge badge-secondary"> Belum Terdaftar</span>'; ?>
+                                    <td><?= $d['status'] == 1 ? '<span class="badge badge-primary">Terdaftar</span>' : '<span class="badge badge-warning">Belum Terdaftar</span>'; ?>
                                     </td>
                                     <td>
                                         <div class="table-actions text-center">
+                                            <?php if($d['status'] == 1):?>
                                             <a href="<?= base_url('dokter/pemeriksaan/' . $d['id_pasien'] . '/' . $d['id_rekam_medis']) ?>">
                                                 <button class="btn btn-danger">
                                                     Mulai Pemeriksaan
                                                 </button>
                                             </a>
+                                            <?php endif;?>
                                         </div>
                                     </td>
                                 </tr>

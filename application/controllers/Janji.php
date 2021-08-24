@@ -32,7 +32,15 @@ class Janji extends CI_Controller
             <li class="breadcrumb-item active">Daftar / Ubah Janji</li>';
 
         $this->load->view('components/header', $data);
-        $this->load->view('components/sidebar_resepsionis');
+        if ($this->session->userdata('level') == "Owner") {
+            $this->load->view('components/sidebar_owner');
+        } elseif ($this->session->userdata('level') == "Klinik") {
+            $this->load->view('components/sidebar_resepsionis');
+        } elseif ($this->session->userdata('level') == "Superadmin") {
+            $this->load->view('components/sidebar_superadmin');
+        } else{
+            $this->load->view('components/sidebar_dokter');
+        }
         $this->load->view('components/breadcrumbs', $data);
         $this->load->view('pages/daftar_ubah_janji/index');
         $this->load->view('components/footer');
@@ -41,7 +49,6 @@ class Janji extends CI_Controller
 
     public function get_register_janji($nama2 = "", $tgl_lahir2 = "", $rekam_medis2 = "", $id_dokter2 = "", $tanggal_rencana2 = "", $jam_rencana_mulai2 = "", $kode_booking2 = "")
     {
-
         $nama3 =  $this->uri->segment(3);
         if ($nama3 == '0') {
             $nama = "0";
@@ -95,28 +102,21 @@ class Janji extends CI_Controller
 
 
         echo json_encode($this->Klinik_model->get_register_janji($nama, $tgl_lahir, $rekam_medis, $id_dokter, $tanggal_rencana, $jam_rencana_mulai, $kode_booking)->result());
-        // $this->Klinik_model->get_register_janji($nama, $tgl_lahir, $rekam_medis, $id_dokter, $tanggal_rencana, $jam_rencana_mulai,$kode_booking)->result();
-        // print_r($this->db->last_query());
     }
 
     public function get_register_janji2()
     {
         echo json_encode($this->Klinik_model->get_register_janji2()->result());
-        // $this->Klinik_model->get_register_janji2()->result();
-        // print_r($this->db->last_query());
     }
 
     public function get_register_ubah_terlambat()
     {
         echo json_encode($this->Klinik_model->get_register_ubah_terlambat()->result());
-        // $this->Klinik_model->get_konfirmasi_janji()->result();
-        // print_r($this->db->last_query());
     }
 
     public function ajax_get_daftar($id_booking)
     {
-        $data = $this->Klinik_model->ajax_get_daftar($id_booking);
-        //  print_r($this->db->last_query());
+        $data = $this->Klinik_model->ajax_get_daftar($id_booking);        
         echo json_encode($data);
     }
 
@@ -130,12 +130,6 @@ class Janji extends CI_Controller
     {
         $this->cart->destroy();
 
-
-        /* $id_rekam_medis = $this->Rekam_medis_model->get_id_last();
-
-          foreach ($id_rekam_medis as $a) {
-          $idr = $a['id_rekam_medis'];
-          } */
         $layanan = $this->layanan_model->get_all();
         $row      = $this->model_booking->get_by_id($id);
         $row2     = $this->admin->get_by_id($row->id_user);
@@ -240,7 +234,6 @@ class Janji extends CI_Controller
             'id_rekam_medis' => $this->input->post('id_rekam_medis'),
         );
         $this->Klinik_model->update_stat_book($this->input->post('id_booking'), $data_book);
-        // print_r($this->db->last_query());
         $this->Klinik_model->add_antrian($data_antrian);
         redirect(site_url('janji'));
     }
@@ -368,7 +361,6 @@ class Janji extends CI_Controller
     public function get_jadwal($id)
     {
         $data = $this->Booking_model->get_jadwal($id);
-        //print_r($this->db->last_query());
         echo json_encode($data);
     }
 

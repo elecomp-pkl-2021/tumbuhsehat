@@ -1,13 +1,5 @@
 <!-- STEPPER -->
 <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    stepper = new Stepper(document.querySelector('#stepper'), {
-        linear: true,
-        animation: true
-    })
-})
-</script>
 <!-- DATEPICKER -->
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css"
     type="text/css" media="all">
@@ -25,13 +17,10 @@ $(document).ready(function() {
     loadProvinsi('#provinsi', id_provinsi);
     loadCityByProvince('#kota', id_provinsi_input, id_city);
     $('#provinsi').on('change', function() {
-        if ($('#kota').val() != '') {
+        if ($('#kota').val() !=
+            '') {
             loadCityByProvince('#kota', $('#provinsi').val(), id_city);
         }
-        $('#pn').val($('#provinsi option:selected').text());
-    });
-    $('#kota').on('change', function() {
-        $('#kn').val($('#kota option:selected').text());
     });
     // FOR ORANG DEKAT PASIEN
     $('#btn-stepper-od').addClass('d-none');
@@ -40,7 +29,6 @@ $(document).ready(function() {
 
 
     // ALLOW ONLY NUMBERS INPUT
-    $('#jns-id').on('change')
     setInputFilter(document.getElementById("no-id"),
         function(value) {
             return /^\d*\.?\d*$/.test(value);
@@ -48,14 +36,39 @@ $(document).ready(function() {
     setInputFilter(document.getElementById("no-hp"), function(value) {
         return /^\d*\d*$/.test(value);
     });
-    setInputFilter(document.getElementById("no-id-od"),
-        function(value) {
-            return /^\d*\.?\d*$/.test(value);
-        });
-    setInputFilter(document.getElementById("no-hp-od"), function(value) {
+    setInputFilter(document.getElementById("kodepos"), function(value) {
         return /^\d*\d*$/.test(value);
     });
+    setInputFilter(document.getElementById("kodepos-od"), function(value) {
+        return /^\d*\d*$/.test(value);
+    });
+    
+    // ALLOW ONLY ALPHABET INPUT
+    setInputFilter(document.getElementById("input-nama-depan-od"), function(value) {
+        return /^[a-z ]+$/i.test(value);
+    });
+    setInputFilter(document.getElementById("input-nama-depan"), function(value) {
+        return /^[a-z ]+$/i.test(value);
+    });
+    setInputFilter(document.getElementById("input-nama-belakang-od"), function(value) {
+        return /^[a-z ]+$/i.test(value);
+    });
+    setInputFilter(document.getElementById("input-nama-belakang"), function(value) {
+        return /^[a-z ]+$/i.test(value);
+    });
 
+    // ADD VALUE FOR NAMA PROVINSI AND NAMA KOTA INPUT
+    $('#provinsi').on('change', function() {
+        if ($('#kota').val() != '') {
+            $('#provinsi-nama').val($('#provinsi option:selected').text());
+        }
+    });
+    $('#kota').on('change', function() {
+        if ($('#provinsi').val() !=
+            '') {
+            $('#kota-nama').val($('#kota option:selected').text());
+        }
+    }); 
 });
 
 const tambahOrangDekat = () => {
@@ -66,13 +79,17 @@ const tambahOrangDekat = () => {
     loadProvinsi('#provinsi-od', '');
     loadCityByProvince('#kota-od', $('#provinsi-od').val(), '');
     $('#provinsi-od').on('change', function() {
-        if ($('#kota-od').val() != '') {
+        if ($('#kota-od').val() !=
+            '') {
             loadCityByProvince('#kota-od', $('#provinsi-od').val(), id_city);
+            $('#provinsi-nama-od').val($('#provinsi-od option:selected').text());
         }
-        $('#pn-od').val($('#provinsi-od option:selected').text());
     });
     $('#kota-od').on('change', function() {
-        $('#kn-od').val($('#kota-od option:selected').text());
+        if ($('#provinsi-od').val() !=
+            '') {
+            $('#kota-nama-od').val($('#kota-od option:selected').text());
+        }
     });
 }
 
@@ -96,6 +113,13 @@ const showBtnDO = () => {
     $('#btn-stepper-od').removeClass('d-none');
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    stepper = new Stepper(document.querySelector('#stepper'), {
+        linear: true,
+        animation: true
+    })
+})
+
 // datepicker
 var dateToday = new Date();
 var day = null;
@@ -111,10 +135,12 @@ var dates = $("#tgl_pemeriksaan").datepicker({
                 $.datepicker._defaults.dateFormat,
                 selectedDate, instance.settings);
         dates.not(this).datepicker("option", option, date);
-        var day = String(date).split(' ');
+        day = String(date).split(' ');
         const id = $(this).data('id');
         $.ajax({
-            url: '<?= base_url('/Pemeriksaan/json_get_jam_praktik_dokter'); ?>/' + id + '/' + day[0],
+            url: '<?= base_url('/Pemeriksaan/json_get_jam_praktik_dokter'); ?>/' +
+                id + '/' +
+                day[0],
             data: {
                 id: id
             },
@@ -124,12 +150,12 @@ var dates = $("#tgl_pemeriksaan").datepicker({
                 if (data.length > 0) {
                     $('#waktu-pemeriksaan').empty();
                     $('#message').empty();
+                    $('#day').val(day[0]);
                     $.each(data, function(key, entry) {
                         $('#waktu-pemeriksaan').append(
                             $( // prettier-ignore
-                                `<input type='hidden' name='day' value='${day[0]}'>
-                                <label class="card-input">
-                                    <input name="wkt-pemeriksaan" class="radio" type="radio" id="input-waktu" value="${entry.jam_mulai} - ${entry.jam_tutup}">
+                                `<label class="card-input">
+                                    <input name="wkt-pemeriksaan" class="radio" type="radio" id="input-waktu" value="${entry.jam_mulai}-${entry.jam_tutup}">
                                     <span class="plan-details">
                                         <span class="plan-type">${entry.jam_mulai} - ${entry.jam_tutup}</span>
                                         <span class="mt-2 font-weight-bold">${entry.ket}</span>
@@ -194,6 +220,7 @@ function loadProvinsi(id, id_provinsi) {
                 if (id_provinsi == n['province_id']) {
                     province = '<option value="' + n['province_id'] + '" selected>' + n[
                         'province'] + '</option>';
+                    $('#provinsi-nama').val(`${n['province']}`);
                 } else {
                     province = '<option value="' + n['province_id'] + '">' + n['province'] +
                         '</option>';
@@ -226,11 +253,10 @@ function loadCityByProvince(id, id_provinsi_input, idcity) {
             $(id).append(city);
             $.each(response['rajaongkir']['results'], function(i, n) {
                 if (idcity == n['city_id']) {
-                    city = '<option value="' + n['city_id'] + '" selected>' + n['type'] + " " + n[
-                        'city_name'] + '</option>';
+                    city = '<option value="' + n['city_id'] + '" selected>' + n['type'] + " " + n['city_name'] + '</option>';
+                    $('#kota-nama').val(`${n['type']} ${n['city_name']}`);
                 } else {
-                    city = '<option value="' + n['city_id'] + '">' + n['type'] + " " + n[
-                        'city_name'] + '</option>';
+                    city = '<option value="' + n['city_id'] + '">' + n['type'] + " " + n['city_name'] + '</option>';
                 }
                 city = city + '';
                 $(id).append(city);
