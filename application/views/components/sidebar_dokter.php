@@ -15,7 +15,7 @@
 
             <div class="nav-lavel">Laporan</div>
             <div class="nav-item">
-                <a href="pages/table-bootstrap.html"><i class="ik ik-book"></i><span>Laporan Pemeriksaan</span></a>
+                <a href="<?=base_url('laporan/pemeriksaan')?>"><i class="ik ik-book"></i><span>Laporan Pemeriksaan</span></a>
             </div>
         </nav>
     </div>

@@ -10,8 +10,8 @@
 						<div class="col-lg-8 col-md-8">
 							<label for="">Cari Kode Booking</label>
 							<div class="input-group-prepend">
-								<input class="form-control col-lg-4" type="text" placeholder="Nama Pasien" id="kode_booking_id">
-								<button class="ml-2 col-md-2 btn btn-danger" id="filter_all">Cari</button>
+								<input class="form-control col-lg-4" type="text" placeholder="Kode Booking" id="kode_booking_id">
+								<button class="ml-2 col-md-2 btn btn-primary" id="filter_all">Cari</button>
 							</div>
 						</div>
 					</div>
@@ -170,7 +170,16 @@
 										<input type="date" class="form-control" name="tanggal_rencana_date" id="tanggal_rencana_date" required>
 									</div>
 								</div>
-								<br><br>
+								<br>
+								<div class="row">
+									<label class="col-lg-2 col-sm-2 control-label">Jam Periksa</label>
+									<div class="col-lg-4">
+										<button class="btn salmon" style="background-color:#F40049; color:white">
+											<p style="color:white;" id="jam_mulai_selesai"></p>
+										</button>
+									</div>
+								</div>
+								<br>
 								<div class="row">
 									<label class="col-lg-2 col-sm-2">Waktu</label>
 									<div class="col-lg-10" id="jam_rencana"></div>
@@ -383,8 +392,6 @@
 							"" ? cari_tgl : '0') + '/' + (cari_jam != "" ? cari_jam : '0') + '/' + (kode_booking != "" ?
 							kode_booking : '0')
 				});
-
-				alert(cari_nama);
 			}
 
 			function cari_data2() {
@@ -421,7 +428,7 @@
 						$('#nama_belakang').html(data.nama_belakang);
 						$('#tanggal_rencana').val(data.tanggal_rencana);
 						$('#tanggal_rencana_date').val(data.tanggal_rencana);
-
+						$('#jam_mulai_selesai').html(data.jam_rencana_mulai+'-'+data.jam_rencana_selesai);
 						$('#id_rcn').val(data.id_rcn);
 						$('#id_booking').val(data.id_booking);
 						$('#id_dokter').val(data.id_dokter);
