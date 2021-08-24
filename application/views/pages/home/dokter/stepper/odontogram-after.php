@@ -231,8 +231,6 @@
     var date = "<?php echo date('Y-m-d') ?>";
     var odontogramDataUtama = '<?php echo @$rawat['odontogram'];; ?>';
     $(document).ready(function() {
-
         app_rawat_tambah_after.init();
-
     });
 </script>

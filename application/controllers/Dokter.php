@@ -15,6 +15,7 @@ class Dokter extends CI_Controller
         $this->load->model('Klinik_model');
         $this->load->model('Pasien_model');
         $this->load->model('Layanan_model');
+        $this->load->model('Pemeriksaan_model');
     }
 
     public function index()
@@ -32,13 +33,13 @@ class Dokter extends CI_Controller
             'cabang' => $this->Cabang_model->get_cabang(),
             'daftarPasien' =>  $this->Dokter_model->getDaftarPasien($id_dokter)
         ];
-
+        // var_dump($data);die;
         $this->load->view('components/header', $data);
         $this->load->view('components/sidebar_dokter');
         $this->load->view('components/breadcrumbs', $data);
         $this->load->view('pages/home/dokter/index', $data);
         $this->load->view('components/footer');
-        $this->load->view('pages/home/dokter/dokter-script', $data);
+        $this->load->view('pages/home/dokter/script/dokter-script', $data);
     }
 
     public function getDaftarPasienByIdDokter()
@@ -74,7 +75,9 @@ class Dokter extends CI_Controller
             'layanan' => $this->Layanan_model->getLayananAktif(),
             'diskon' => $this->Layanan_model->getDiskonAktif()
         ];
-        
+        $tgl_awal = date('Y-m-d');
+        $rawat = $this->Pasien_model->get_one_rawat_by_id_medis($id_pasien, $tgl_awal, $id_rekam_medis);
+
         $idk_psn = $this->session->userdata('id_kpesan');
         if (!empty($idk_psn)) {
             $id_kpesan = $this->session->userdata('id_kpesan');
@@ -83,26 +86,241 @@ class Dokter extends CI_Controller
             $data['id_kpesan'] = $id_kpesan;
         }
 
-        $tgl_awal = date('Y-m-d');
-
-        $rawat = $this->Pasien_model->get_one_rawat_by_id_medis($id_pasien, $tgl_awal, $id_rekam_medis);
         $data_rawat = json_decode(json_encode(@$rawat[0]), true);
         if ($data_rawat && is_array($data_rawat)) {
             $rawat = array_merge(@$data_rawat, array("detail_rawat" => array()));
         }
 
-        $data['rawat'] = $rawat;
-        $data['pasien'] = $pasien1;
-        $data['pasien2'] = $pasien2;
-        $data['_jadwal_pemeriksaan'] = 1;
-        $data['id_pasien'] = $id_pasien;
-
+        $data = [
+            'title' => 'Pemeriksaan Pasien | Tumbuh Sehat',
+            'judulHalaman' => 'Data Pemeriksaan',
+            'subJudulHalaman' => 'Pemeriksaan Pasien <b>' . $pasien1['nama_depan'] . ' ' . $pasien1['nama_belakang'] . '</b>',
+            'iconHalaman' => 'ik-calendar',
+            'breadcrumbs' => '<li class="breadcrumb-item active"><i class="ik ik-home"></i></li> <li class="breadcrumb-item active">Jadwal Pemeriksaan</i></li>',
+            'layanan' => $this->Layanan_model->getLayananAktif(),
+            'diskon' => $this->Layanan_model->getDiskonAktif(),
+            'rawat' => $rawat,
+            'id_pasien' => $id_pasien,
+            'pasien' => $pasien1,
+            'id_kpesan' => $id_kpesan,
+            'pasien2' => $pasien2,
+            '_jadwal_pemeriksaan' => 1,
+            'pem_umum' => $this->Pemeriksaan_model->getLastPemeriksaanUmum($id_pasien),
+            'pem_penunjang' => $this->Pemeriksaan_model->getLastPemeriksaanPenunjang($id_pasien),
+            'pem_khusus' => $this->Pemeriksaan_model->getLastPemeriksaanKhusus($id_pasien),
+            'tgl_pemeriksaan_umum' => $this->Pemeriksaan_model->getTanggalPemeriksaanUmum($id_pasien),
+            'tgl_pemeriksaan_khusus' => $this->Pemeriksaan_model->getTanggalPemeriksaanKhusus($id_pasien),
+            'tgl_pemeriksaan_penunjang' => $this->Pemeriksaan_model->getTanggalPemeriksaanPenunjang($id_pasien),
+        ];
+        // var_dump($data);die;
         $this->load->view('components/header', $data);
         $this->load->view('components/sidebar_dokter');
         $this->load->view('components/breadcrumbs', $data);
         $this->load->view('pages/home/dokter/pemeriksaan', $data);
         $this->load->view('components/footer');
-        // end resepsionis
+    }
+
+    private function _updateRekam()
+    {
+        date_default_timezone_set("Asia/Jakarta");
+        $data = array(
+            'jam_selesai_periksa' =>  date("H:i:s"),
+            'status' => '2',
+            'elemen_gigi' => $this->input->post('elemen_gigi'),
+            'keluhan_utama' => $this->input->post('anamnesa'),
+            'diagnosis' => $this->input->post('diagnosa'),
+            'keadaan_umum' => $this->input->post('kondisi-kesehatan'),
+            'subtotal' => $this->input->post('subtotal'),
+            'grandtotal' => $this->input->post('grandtotal')
+        );
+
+        $this->db->update('rekam_medis', $data, ['id_rekam_medis' => $this->input->post('id_rm')]);
+    }
+
+    private function _updatePasien()
+    {
+        $data = [
+            'id_pasien' => $this->input->post('id_pasien'),
+            'id_user' => $this->input->post('id_user'),
+            'nama_depan' => $this->input->post('first-name', true),
+            'nama_belakang' => $this->input->post('last-name', true),
+            'tempat_lahir' => $this->input->post('tmp-lahir', true),
+            'tanggal_lahir' => $this->input->post('tgl-lahir', true),
+            'jenis_kelamin' => $this->input->post('jns-kelamin', true),
+            'status_nikah' => $this->input->post('status-pernikahan', true),
+            'pekerjaan' => $this->input->post('pekerjaan', true),
+            'pendidikan' => $this->input->post('pendidikan', true),
+            'jenis_id' => $this->input->post('jns-id', true),
+            'no_id' => $this->input->post('no-id', true),
+            'alamat' => $this->input->post('jalan', true),
+            'city_id' => $this->input->post('kota', true),
+            'province_id' => $this->input->post('provinsi', true),
+            'kode_pos' => $this->input->post('kode-pos', true),
+            'provinsi' => $this->input->post('provinsi-nama', true),
+            'kota_kab' => $this->input->post('kota-nama', true),
+            'email' => $this->input->post('email', true),
+            'no_hp' => $this->input->post('no-hp', true),
+            'gol_darah' => $this->input->post('gol-dar', true),
+            'alergi' => $this->input->post('alergi', true),
+            'riwayat_penyakit' => $this->input->post('rwyt-penyakit', true),
+        ];
+        // var_dump($data);
+
+        $this->db->update('pasien', $data, ['id_pasien' => $data['id_pasien']]);
+    }
+
+    private function _updateBooking()
+    {
+        $data = [
+            'status' => '2'
+        ];
+        // var_dump($data);
+
+        $this->db->update('booking', $data, ['id_booking' => $this->input->post('id_booking')]);
+    }
+
+    private function _addPemeriksaanUmum()
+    {
+        $bibir = $this->input->post('bibir') != "" ? $this->input->post('bibir') : $this->input->post('bibir-lain');
+        $gingiva = $this->input->post('gingiva') != "" ? $this->input->post('gingiva') : $this->input->post('gingiva-lain');
+        $debris = $this->input->post('debris') != "" ? $this->input->post('debris') : $this->input->post('debris-lain');
+        $mukosa = $this->input->post('mukosa') != "" ? $this->input->post('mukosa') : $this->input->post('mukosa-lain');
+        $palatum = $this->input->post('palatum') != "" ? $this->input->post('palatum') : $this->input->post('palatum-lain');
+        $lidah = $this->input->post('lidah') != "" ? $this->input->post('lidah') : $this->input->post('lidah-lain');
+        $dsr_mulut = $this->input->post('dsr-mulut') != "" ? $this->input->post('dsr-mulut') : $this->input->post('dsr-mulut-lain');
+        $geligi = $this->input->post('geligi') != "" ? $this->input->post('geligi') : $this->input->post('geligi-lain');
+
+        $submandibula_kanan = $this->input->post('subman-kanan-raba') . ',' . $this->input->post('subman-kanan-sakit');
+        $submandibula_kiri = $this->input->post('subman-kiri-raba') . ',' . $this->input->post('subman-kiri-sakit');
+
+        $data = [
+            'id_pasien' => $this->input->post('id_pasien'),
+            'id_booking' => $this->input->post('id_booking'),
+            'id_rekam_medis' => $this->input->post('id_rm'),
+            'wajah' => $this->input->post('wajah'),
+            'bibir' => $bibir,
+            'submandibula_kanan' => $submandibula_kanan,
+            'subkanan_kondisi' => $this->input->post('subman-kanan-ket'),
+            'submandibula_kiri' => $submandibula_kiri,
+            'subkiri_kondisi' => $this->input->post('subman-kiri-ket'),
+            'lainnya' => $this->input->post('getah-bening-lain'),
+            'stain' => $this->input->post('stain'),
+            'kalkulus' => $this->input->post('kalkulus'),
+            'hubungan_rahang' => $this->input->post('hub-rahang'),
+            'gingiva' => $gingiva,
+            'debris' => $debris,
+            'mukosa' => $mukosa,
+            'palatum' => $palatum,
+            'lidah' => $lidah,
+            'dasar_mulut' => $dsr_mulut,
+            'kelainan_gigi_geligi' => $geligi,
+            'date' => date('Y-m-d'),
+        ];
+        var_dump($data);
+
+        $this->db->insert('pemeriksaan_klinis_umum', $data);
+    }
+
+    private function _addPemeriksaanKhusus()
+    {
+        $data = [
+            'id_pasien' => $this->input->post('id_pasien'),
+            'id_booking' => $this->input->post('id_booking'),
+            'id_rekam_medis' => $this->input->post('id_rm'),
+            'keterangan' => $this->input->post('klinis-khusus'),
+            'date' => date('Y-m-d')
+        ];
+        var_dump($data);
+
+        $this->db->insert('pemeriksaan_klinis_khusus', $data);
+    }
+
+    private function _addPemeriksaanPenunjang()
+    {
+        $data = [
+            'id_pasien' => $this->input->post('id_pasien'),
+            'id_booking' => $this->input->post('id_booking'),
+            'id_rekam_medis' => $this->input->post('id_rm'),
+            'gigi' => $this->input->post('elemen_gigi'),
+            'radiologi' => implode(",", $this->input->post('radiologi')),
+            'keterangan_radiologi' => $this->input->post('radiologi-desk'),
+            'laboratorium' => implode(' ', $this->input->post('lab')),
+            'keterangan_laboratorium' => $this->input->post('lab-desk'),
+            'foto_radiologi' => $this->_uploadImage('radiologi'),
+            'foto_laboratorium' => $this->_uploadImage('laboratorium'),
+            'date' => date('Y-m-d'),
+        ];
+        var_dump($data);
+
+        $this->db->insert('pemeriksaan_penunjang', $data);
+    }
+
+    private function _uploadImage($type)
+    {
+        $config['upload_path']          = './uploads/foto_' . $type . '/';
+        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+        $config['file_name']            = $this->input->post('id_pasien') . '_' . $type . '_';
+        $config['max_size']             = 10240; // 10MB
+        $oldImg = $this->input->post("old-foto-$type");
+        $this->upload->initialize($config);
+        if ($this->upload->do_upload($type . '-img')) {
+            if ($oldImg != 'default.jpg') {
+                unlink(FCPATH . "/uploads/foto_$type/$oldImg");
+            }
+            return $this->upload->data("file_name");
+        }
+        return $oldImg;
+    }
+
+    private function _addPilihLayanan()
+    {
+        $data = [
+            'id_pasien' => $this->input->post('id_pasien'),
+            'id_rekam_medis' => $this->input->post('id_rm'),
+            'id_layanan' => $this->input->post('id-layanan'),
+            'jumlah' => $this->input->post('jml-gigi'),
+            'detail_layanan' => $this->input->post('detail-layanan'),
+            'id_diskon' => $this->input->post('id-diskon'),
+        ];
+        var_dump($data);
+
+        $this->db->insert("pilih_layanan", $data);
+    }
+
+    public function addPemeriksaan()
+    {
+        $this->_updateRekam();
+        $this->_updatePasien();
+        $this->_updateBooking();
+        $this->_addPemeriksaanUmum();
+        $this->_addPemeriksaanKhusus();
+        $this->_addPemeriksaanPenunjang();
+        $this->_addPilihLayanan();
+
+        $idPasien = $this->input->post('id_pasien');
+        $idBooking = $this->input->post('id_booking');
+        $idRM = $this->input->post('id_rm');
+
+        $this->session->set_tempdata('flash', 'Data Pemeriksaan Berhasil Ditambahkan', 4);
+        redirect("Pasien/detail_informasi_pasien/$idPasien/$idBooking/$idRM");
+    }
+
+    public function ajaxFilterPemeriksaanUmumByDate($id_pasien, $date)
+    {
+        $data = $this->Pemeriksaan_model->getPemeriksaanUmumByDate($id_pasien, $date);
+        echo json_encode($data);
+    }
+
+    public function ajaxFilterPemeriksaanPenunjangByDate($id_pasien, $date)
+    {
+        $data = $this->Pemeriksaan_model->getPemeriksaanPenunjangByDate($id_pasien, $date);
+        echo json_encode($data);
+    }
+
+    public function ajaxFilterPemeriksaanKhususByDate($id_pasien, $date)
+    {
+        $data = $this->Pemeriksaan_model->getPemeriksaanKhususByDate($id_pasien, $date);
+        echo json_encode($data);
     }
 
     public function ajax_check_id()
@@ -143,79 +361,6 @@ class Dokter extends CI_Controller
         return $str;
     }
 
-    private function _updateRekam()
-    {
-        date_default_timezone_set("Asia/Jakarta");
-        $data = array(
-            'jam_selesai_periksa' =>  date("H:i:s"),
-            'status' => '2',
-            'elemen_gigi' => $this->input->post('elemen_gigi'),
-            'keluhan_utama' => $this->input->post('anamnesa'),
-            'diagnosis' => $this->input->post('diagnosa'),
-            'keadaan_umum' => $this->input->post('kondisi-kesehatan'),
-            'subtotal' => $this->input->post('subtotal'),
-            'grandtotal' => $this->input->post('grandtotal')
-        );
-
-        $this->db->update('rekam_medis', $data, ['id_rekam_medis' => $this->input->post('id_rm')]);
-    }
-
-    private function _updatePasien()
-    {
-        $data = [
-            'id_pasien' => $this->input->post('id_pasien'),
-            'id_user' => $this->input->post('id_keluarga'),
-            'nama_depan' => $this->input->post('first-name', true),
-            'nama_belakang' => $this->input->post('last-name', true),
-            'tempat_lahir' => $this->input->post('tmp-lahir', true),
-            'tanggal_lahir' => $this->input->post('tgl-lahir', true),
-            'jenis_kelamin' => $this->input->post('jns-kelamin', true),
-            'status_nikah' => $this->input->post('status-pernikahan', true),
-            'pekerjaan' => $this->input->post('pekerjaan', true),
-            'pendidikan' => $this->input->post('pendidikan', true),
-            'jenis_id' => $this->input->post('jns-id', true),
-            'no_id' => $this->input->post('no-id', true),
-            'alamat' => $this->input->post('jalan', true),
-            'city_id' => $this->input->post('kota', true),
-            'province_id' => $this->input->post('provinsi', true),
-            'kode_pos' => $this->input->post('kode-pos', true),
-            'provinsi' => $this->input->post('provinsi-nama', true),
-            'kota_kab' => $this->input->post('kota-nama', true),
-            'email' => $this->input->post('email', true),
-            'no_hp' => $this->input->post('no-hp', true),
-            'gol_darah' => $this->input->post('gol-dar', true),
-            'alergi' => $this->input->post('alergi', true),
-            'riwayat_penyakit' => $this->input->post('rwyt-penyakit', true),
-        ];
-        $this->db->update('pasien', $data, ['id_pasien' => $data['id_pasien']]);
-    }
-
-    private function _updateBooking()
-    {
-        // ini buat update tabel booking
-    }
-
-    private function _updateOdontogram()
-    {
-        // ini buat update odontogram
-    }
-
-    private function _addPemeriksaanUmum()
-    {
-    }
-
-    private function _addPemeriksaanKhusus()
-    {
-    }
-
-    private function _addPemeriksaanPenunjang()
-    {
-    }
-
-    private function _addPilihLayanan()
-    {
-    }
-
     // ODONTOGRAM
     public function create_odontogram_periksa()
     {
@@ -239,321 +384,78 @@ class Dokter extends CI_Controller
         echo json_encode($data);
     }
 
-    public function create_action_periksa()
+    public function get_conversion_rate($id_dokter)
     {
-        $id_pemeriksaan_penunjang = $this->input->post('id_pemeriksaan_penunjang');
-        $id_pasien = $this->input->post('id_pasien');
-        $id_booking = $this->input->post('id_booking');
-        $id_rekam_medis = $this->input->post('id_rekam_medis');
-        $gigi = $this->input->post('gigi');
-        $keterangan_radiologi = $this->input->post('keterangan_radiologi');
-        $laboratorium = $this->input->post('laboratorium');
-        $keterangan_laboratorium = $this->input->post('keterangan_laboratorium');
-        $foto_radiologi = $this->input->post('foto_radiologi');
-        $foto_laboratorium = $this->input->post('foto_laboratorium');
-        $odontogram = $this->input->post('odontogram');
+        $cr = $_GET['cr'];
+        if ($cr == 0) {
+            $this->db->select('* ,COUNT(a.id_rekam_medis) as jml_id');
+            $this->db->from('rekam_medis a');
+            $this->db->join('booking b', 'a.id_booking = b.id_booking');
+            $this->db->where('b.konfirmasi', '1');
+            $this->db->where('b.status', '3');
+            $this->db->where('a.status', '3');
+            $this->db->where('b.id_dokter', $id_dokter);
+            $data = $this->db->get('')->result();
 
-        $config['upload_path']          = './assets/foto';
-        $config['allowed_types']        = 'jpg|png|jpeg|gif';
-        $config['max_size']             = 15000000;
-        $config['max_width']            = 1024000;
-        $config['max_height']           = 7680000;
-        $this->load->library('upload', $config);
-        $this->upload->do_upload('foto_radiologi');
-        $file1 = $this->upload->data();
-        $foto_radiologi = $file1['file_name'];
-        $this->upload->do_upload('foto_laboratorium');
-        $file2 = $this->upload->data();
-        $foto_laboratorium = $file2['file_name'];
+            $this->db->select('* ,COUNT(a.id_rekam_medis) as jml_all_id');
+            $this->db->from('rekam_medis a');
+            $this->db->join('booking b', 'a.id_booking = b.id_booking');
+            $this->db->where('b.konfirmasi', '1');
+            $this->db->where('b.id_dokter', $id_dokter);
+            $all = $this->db->get('')->result();
 
-        $data_pemeriksaan_penunjang = array(
-            'id_pemeriksaan_penunjang' => $id_pemeriksaan_penunjang,
-            'id_pasien' => $id_pasien,
-            'id_booking' => $id_booking,
-            'id_rekam_medis' => $id_rekam_medis,
-            'gigi' => $gigi,
-            'keterangan_radiologi' => $keterangan_radiologi,
-            'keterangan_laboratorium' => $keterangan_laboratorium,
-            'foto_radiologi' => $foto_radiologi,
-            'foto_laboratorium' => $foto_laboratorium
-        );
-
-        $panoramik = $this->input->post('panoramik');
-        $sefalometri = $this->input->post('sefalometri');
-        $transcranial = $this->input->post('transcranial');
-        $dental_regio = $this->input->post('dental_regio');
-
-        $laboratorium1 = $this->input->post('laboratorium1');
-        $laboratorium2 = $this->input->post('laboratorium2');
-
-        if ($laboratorium1 != NULL) {
-            $data_pemeriksaan_penunjang['laboratorium'] = $laboratorium1;
-        } elseif ($laboratorium2 != NULL) {
-            $data_pemeriksaan_penunjang['laboratorium'] = $laboratorium2;
-        }
-
-        if ($panoramik != NULL) {
-            $data_pemeriksaan_penunjang['radiologi'] = $panoramik;
-        }
-        if ($sefalometri != NULL) {
-            $data_pemeriksaan_penunjang['radiologi'] = $sefalometri;
-        }
-        if ($transcranial != NULL) {
-            $data_pemeriksaan_penunjang['radiologi'] = $transcranial;
-        }
-        if ($dental_regio != NULL) {
-            $data_pemeriksaan_penunjang['radiologi'] = $dental_regio;
-        }
-        /*========================== 2 */
-        if ($panoramik != NULL) {
-            if ($sefalometri != NULL) {
-                $data_pemeriksaan_penunjang['radiologi'] = $panoramik . "," . $sefalometri;
-            }
-        }
-        if ($panoramik != NULL) {
-            if ($transcranial != NULL) {
-                $data_pemeriksaan_penunjang['radiologi'] = $panoramik . "," . $transcranial;
-            }
-        }
-        if ($panoramik != NULL) {
-            if ($dental_regio != NULL) {
-                $data_pemeriksaan_penunjang['radiologi'] = $panoramik . "," . $dental_regio;
-            }
-        }
-        if ($sefalometri != NULL) {
-            if ($transcranial != NULL) {
-                $data_pemeriksaan_penunjang['radiologi'] = $sefalometri . "," . $transcranial;
-            }
-        }
-        if ($sefalometri != NULL) {
-            if ($dental_regio != NULL) {
-                $data_pemeriksaan_penunjang['radiologi'] = $sefalometri . "," . $dental_regio;
-            }
-        }
-        if ($transcranial != NULL) {
-            if ($dental_regio != NULL) {
-                $data_pemeriksaan_penunjang['radiologi'] = $transcranial . "," . $dental_regio;
-            }
-        }
-        /*=============================== 3 */
-        if ($panoramik != NULL) {
-            if ($sefalometri != NULL) {
-                if ($transcranial != NULL) {
-                    $data_pemeriksaan_penunjang['radiologi'] = $panoramik . "," . $sefalometri . "," . $transcranial;
+            foreach ($data as $key) {
+                foreach ($all as $value) {
+                    $total = ($key->jml_id * 100) / $value->jml_all_id;
+                    $hasil = substr($total, 0, 4);
+                    echo $hasil . "%";
                 }
             }
         }
-        if ($panoramik != NULL) {
-            if ($sefalometri != NULL) {
-                if ($dental_regio != NULL) {
-                    $data_pemeriksaan_penunjang['radiologi'] = $panoramik . "," . $sefalometri . "," . $dental_regio;
+    }
+
+    public function get_hubungan_pasien($id_user)
+    {
+        $id = $_GET['id'];
+        if ($id == 0) {
+            $this->db->select('*');
+            $this->db->from('pasien');
+            $this->db->where('id_user', $id_user);
+            $this->db->like('hubungan', 'Anda');
+            $data = $this->db->get('')->result();
+            foreach ($data as $key) {
+                echo $key->nama_depan . " " . $key->nama_belakang;
+            }
+        }
+    }
+
+    public function get_e_rekam_medis($id_dokter)
+    {
+        $cr = $_GET['cr'];
+        if ($cr == 0) {
+            $this->db->select('* ,COUNT(a.id_rekam_medis) as jml_id');
+            $this->db->from('rekam_medis a');
+            $this->db->join('booking b', 'a.id_booking = b.id_booking');
+            $this->db->where('b.konfirmasi', '1');
+            $this->db->where('b.status', '2');
+            $this->db->where('a.status', '2');
+            $this->db->where('b.id_dokter', $id_dokter);
+            $data = $this->db->get('')->result();
+
+            $this->db->select('* ,COUNT(a.id_rekam_medis) as jml_all_id');
+            $this->db->from('rekam_medis a');
+            $this->db->join('booking b', 'a.id_booking = b.id_booking');
+            $this->db->where('b.konfirmasi', '1');
+            $this->db->where('b.id_dokter', $id_dokter);
+            $all = $this->db->get('')->result();
+
+            foreach ($data as $key) {
+                foreach ($all as $value) {
+                    $total = ($key->jml_id * 100) / $value->jml_all_id;
+                    $hasil = substr($total, 0, 4);
+                    echo $hasil . "%";
                 }
             }
         }
-        if ($panoramik != NULL) {
-            if ($transcranial != NULL) {
-                if ($dental_regio != NULL) {
-                    $data_pemeriksaan_penunjang['radiologi'] = $panoramik . "," . $transcranial . "," . $dental_regio;
-                }
-            }
-        }
-        if ($sefalometri != NULL) {
-            if ($transcranial != NULL) {
-                if ($dental_regio != NULL) {
-                    $data_pemeriksaan_penunjang['radiologi'] = $sefalometri . "," . $transcranial . "," . $dental_regio;
-                }
-            }
-        }
-        /*============================= 4 panom*/
-        if ($panoramik != NULL) {
-            if ($sefalometri != NULL) {
-                if ($transcranial != NULL) {
-                    if ($dental_regio != NULL) {
-                        $data_pemeriksaan_penunjang['radiologi'] = $panoramik . "," . $sefalometri . "," . $transcranial . "," . $dental_regio;
-                    }
-                }
-            }
-        }
-
-        date_default_timezone_set("Asia/Jakarta");
-        $jam = date("H:i:s");
-        $status = '2';
-        $data_rekam = array(
-            'jam_selesai_periksa' => $jam,
-            'status' => $status,
-            'elemen_gigi' => $this->input->post('elemen_gigi'),
-            'keluhan_utama' => $this->input->post('keluhan_utama'),
-            'diagnosis' => $this->input->post('diagnosis'),
-            'keadaan_umum' => $this->input->post('keadaan_umum'),
-            'subtotal' => $this->input->post('subtotal'),
-            'grandtotal' => $this->input->post('grandtotal')
-        );
-
-        $data_booking = array(
-            'status' => $status,
-        );
-
-        $data_pasien = array(
-            'nama_depan' => $this->input->post('nama_depan'),
-            'nama_belakang' => $this->input->post('nama_belakang'),
-            'tempat_lahir' => $this->input->post('tempat_lahir'),
-            'tanggal_lahir' => $this->input->post('tanggal_lahir'),
-            'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-            'status_nikah' => $this->input->post('status_nikah'),
-            'pekerjaan' => $this->input->post('pekerjaan'),
-            'pendidikan' => $this->input->post('pendidikan'),
-            'jenis_id' => $this->input->post('jenis_id'),
-            'no_id' => $this->input->post('no_id'),
-            'alamat' => $this->input->post('alamat'),
-            'kota_kab' => $this->input->post('kota_kab'),
-            'provinsi' => $this->input->post('provinsi'),
-            'kode_pos' => $this->input->post('kode_pos'),
-            'email' => $this->input->post('email'),
-            'no_hp' => $this->input->post('no_hp'),
-            'gol_darah' => $this->input->post('gol_darah'),
-            'alergi' => $this->input->post('alergi'),
-            'riwayat_penyakit' => $this->input->post('riwayat_penyakit'),
-        );
-
-        $data_pemeriksaan_umum = array(
-            'id_pemeriksaan_umum' => $this->input->post('id_pemeriksaan_umum'),
-            'id_pasien' => $this->input->post('id_pasien'),
-            'id_booking' => $this->input->post('id_booking'),
-            'id_rekam_medis' => $this->input->post('id_rekam_medis'),
-            'wajah' => $this->input->post('wajah'),
-            'subkanan_kondisi' => $this->input->post('subkanan_kondisi'),
-            'subkiri_kondisi' => $this->input->post('subkiri_kondisi'),
-            'lainnya' => $this->input->post('lainnya'),
-            'stain' => $this->input->post('stain'),
-            'kalkulus' => $this->input->post('kalkulus'),
-
-
-        );
-
-        $data_pemeriksaan_odontogram = array(
-            'id_pasien' => $this->input->post('id_pasien'),
-            'id_booking' => $this->input->post('id_booking'),
-            'id_rekam_medis' => $this->input->post('id_rekam_medis'),
-            'odontogram' => $this->input->post('odontogram'),
-            'tgl_pemeriksaan' => date('Y-m-d')
-        );
-
-
-        $bibir1 = $this->input->post('bibir1');
-        $bibir2 = $this->input->post('bibir2');
-        $submandibula_kanan1 = $this->input->post('submandibula_kanan1');
-        $submandibula_kanan2 = $this->input->post('submandibula_kanan2');
-        $submandibula_kiri1 = $this->input->post('submandibula_kiri1');
-        $submandibula_kiri2 = $this->input->post('submandibula_kiri2');
-        $gingiva1 = $this->input->post('gingiva1');
-        $gingiva2 = $this->input->post('gingiva2');
-        $debris1 = $this->input->post('debris1');
-        $debris2 = $this->input->post('debris2');
-        $mukosa1 =  $this->input->post('mukosa1');
-        $mukosa2 =  $this->input->post('mukosa2');
-        $palatum1 = $this->input->post('palatum1');
-        $palatum2 = $this->input->post('palatum2');
-        $lidah1 = $this->input->post('lidah1');
-        $lidah2 = $this->input->post('lidah2');
-        $dasar_mulut1 = $this->input->post('dasar_mulut1');
-        $dasar_mulut2 = $this->input->post('dasar_mulut2');
-
-        if ($bibir1 != NULL) {
-            $data_pemeriksaan_umum['bibir'] = $bibir1;
-        } elseif ($bibir2 != NULL) {
-            $data_pemeriksaan_umum['bibir'] = $bibir2;
-        }
-        if ($submandibula_kanan1 != NULL) {
-            $data_pemeriksaan_umum['submandibula_kanan'] = $submandibula_kanan1;
-            if ($submandibula_kanan2 != NULL) {
-                $data_pemeriksaan_umum['submandibula_kanan'] = $submandibula_kanan1 . "," . $submandibula_kanan2;
-            }
-        } elseif ($submandibula_kanan2 != NULL) {
-            $data_pemeriksaan_umum['submandibula_kanan'] = $submandibula_kanan2;
-            if ($submandibula_kanan1 != NULL) {
-                $data_pemeriksaan_umum['submandibula_kanan'] = $submandibula_kanan2 . "," . $submandibula_kanan1;
-            }
-        }
-        if ($submandibula_kiri1 != NULL) {
-            $data_pemeriksaan_umum['submandibula_kiri'] = $submandibula_kiri1;
-            if ($submandibula_kiri2 != NULL) {
-                $data_pemeriksaan_umum['submandibula_kiri'] = $submandibula_kiri1 . "," . $submandibula_kiri2;
-            }
-        } elseif ($submandibula_kiri2 != NULL) {
-            $data_pemeriksaan_umum['submandibula_kiri'] = $submandibula_kiri2;
-            if ($submandibula_kiri1 != NULL) {
-                $data_pemeriksaan_umum['submandibula_kiri'] = $submandibula_kiri2 . "," . $submandibula_kiri1;
-            }
-        }
-        if ($gingiva1 != NULL) {
-            $data_pemeriksaan_umum['gingiva'] = $gingiva1;
-        } elseif ($gingiva2 != NULL) {
-            $data_pemeriksaan_umum['gingiva'] = $gingiva2;
-        }
-        if ($debris1 != NULL) {
-            $data_pemeriksaan_umum['debris'] = $debris1;
-        } elseif ($debris2 != NULL) {
-            $data_pemeriksaan_umum['debris'] = $debris2;
-        }
-        if ($mukosa1 != NULL) {
-            $data_pemeriksaan_umum['mukosa'] = $mukosa1;
-        } elseif ($mukosa2 != NULL) {
-            $data_pemeriksaan_umum['mukosa'] = $mukosa2;
-        }
-        if ($palatum1 != NULL) {
-            $data_pemeriksaan_umum['palatum'] = $palatum1;
-        } elseif ($palatum2 != NULL) {
-            $data_pemeriksaan_umum['palatum'] = $palatum2;
-        }
-        if ($lidah1 != NULL) {
-            $data_pemeriksaan_umum['lidah'] = $lidah1;
-        } elseif ($lidah2 != NULL) {
-            $data_pemeriksaan_umum['lidah'] = $lidah2;
-        }
-        if ($dasar_mulut1 != NULL) {
-            $data_pemeriksaan_umum['dasar_mulut'] = $dasar_mulut1;
-        } elseif ($dasar_mulut2 != NULL) {
-            $data_pemeriksaan_umum['dasar_mulut'] = $dasar_mulut2;
-        }
-
-        $data_pemeriksaan_umum['date'] = date('Y-m-d');
-
-        $data_pemeriksaan_khusus = array(
-            'id_pemeriksaan_khusus' => $this->input->post('id_pemeriksaan_khusus'),
-            'id_pasien' => $this->input->post('id_pasien'),
-            'id_booking' => $this->input->post('id_booking'),
-            'id_rekam_medis' => $this->input->post('id_rekam_medis'),
-            'keterangan' => $this->input->post('keterangan_khusus'),
-            'date' => date('Y-m-d')
-
-        );
-
-        $data_pilih_layanan = array(
-            'id_pil_layanan' => $this->input->post('id_pil_layanan'),
-            'id_pasien' => $this->input->post('id_pasien'),
-            'id_rekam_medis' => $this->input->post('id_rekam_medis'),
-            'id_layanan' => $this->input->post('id_layanan'),
-            'jumlah' => $this->input->post('jumlah'),
-            'detail_layanan' => $this->input->post('detail_layanan'),
-            'id_diskon' => $this->input->post('id_diskon'),
-        );
-
-        $this->Pemeriksaan_model->update_rekam($this->input->post('id_rekam_medis'), $data_rekam);
-        $this->Pemeriksaan_model->update_booking($id_booking, $data_booking);
-        $this->Pemeriksaan_model->insert_pemeriksaan_umum($data_pemeriksaan_umum);
-        $this->Pemeriksaan_model->insert_pemeriksaan_khusus($data_pemeriksaan_khusus);
-        $this->Pemeriksaan_model->insert_pemeriksaan_penunjang($data_pemeriksaan_penunjang);
-        $this->Pemeriksaan_model->insert_pilih_layanan($data_pilih_layanan);
-        $this->Pemeriksaan_model->update_pasien($this->input->post('id_pasien'), $data_pasien);
-        $this->Pemeriksaan_model->update_pemeriksaan_odontogram($data_pemeriksaan_odontogram, $this->input->post('id_booking'));
-        //print_r($this->db->last_query());
-
-        echo json_encode(array('status' => TRUE));
-
-        // $this->session->set_flashdata('notif', '<div class="alert alert-success alert-dismissible"> Data Mahasiswa berhasil ditambah.
-        //     </div>');
-
-        // //redirect
-        // redirect(site_url('doctor'));
     }
 }
