@@ -162,7 +162,7 @@ class Pemeriksaan extends CI_Controller
             'alamat' => $this->input->post('jalan',true),
             'city_id' => $this->input->post('kota',true),
             'province_id' => $this->input->post('provinsi',true),
-            'kode_pos' => $this->input->post('kode-pos',true),
+            'kode_pos' => $this->input->post('kodepos',true),
             'provinsi' => $this->input->post('provinsi-nama',true),
             'kota_kab' => $this->input->post('kota-nama',true),
             'email' => $this->input->post('email',true),

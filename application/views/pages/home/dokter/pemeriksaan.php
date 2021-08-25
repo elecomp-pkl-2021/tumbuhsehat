@@ -39,7 +39,7 @@
             </div>
             <div class="line"></div>
             <div class="step" data-target="#odontogram-after-part">
-                <button type="button" class="step-trigger" role="tab" aria-controls="odontogram-after-part" id="odontogram-after-part-trigger">
+                <button type="button" class="step-trigger" role="tab" aria-controls="odontogram-after-part" id="odontogram-after-part-trigger" >
                     <span class="bs-stepper-circle">6</span>
                     <span class="bs-stepper-label">Odontogram (after)</span>
                 </button>
