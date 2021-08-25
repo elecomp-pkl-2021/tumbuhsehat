@@ -706,9 +706,10 @@ class Klinik extends CI_Controller
         $this->form_validation->set_rules(
             'nama_depan',
             'Nama Depan',
-            'required',
+            'trim|required|alpha',
             array(
                 'required' => '%s masih kosong!',
+                'alpha' => '%s inputan harus berisi huruf'
             )
         );
         $this->form_validation->set_rules(
@@ -722,9 +723,10 @@ class Klinik extends CI_Controller
         $this->form_validation->set_rules(
             'nama_belakang',
             'Nama Belakang',
-            'required',
+            'trim|required|alpha',
             array(
                 'required' => '%s masih kosong!',
+                'alpha' => '%s inputan harus berisi huruf'
             )
         );
         $this->form_validation->set_rules(
@@ -738,9 +740,9 @@ class Klinik extends CI_Controller
         $this->form_validation->set_rules(
             'no_hp',
             'No Hp',
-            'required',
+            'trim|required|min_length[8]|max_length[12]',
             array(
-                'required' => '%s masih kosong!',
+                'required' => '%s masih kosong!'
             )
         );
 
@@ -760,7 +762,13 @@ class Klinik extends CI_Controller
             $this->load->view('pages/home/resepsionis/buatAkunKeluarga', $data);
             $this->load->view('components/footer');
         } else {
-            $this->add_pasien();
+            $insert = $this->add_pasien();
+            if ($insert) {
+                $this->session->set_flashdata('gagal', 'Data Gagal Ditambah!');
+            } else {
+                $this->session->set_flashdata('berhasil', 'Data Berhasil Ditambah!');
+            }
+            redirect('klinik/buatAkunKeluarga');
         }
     }
     public function add_pasien()
@@ -789,10 +797,6 @@ class Klinik extends CI_Controller
             'hubungan' => 'Anda',
         );
         $this->Klinik_model->insert_pasien($data_pasien);
-        $this->session->set_flashdata('notif', '<div class="alert alert-success alert-dismissible"> Data Mahasiswa berhasil ditambah.
-        </div>');
-
-        redirect(site_url('home'));
     }
 
     public function update_rencana_h_profil()

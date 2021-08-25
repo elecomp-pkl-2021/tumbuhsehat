@@ -85,7 +85,6 @@ class Dokter extends CI_Controller
             $id_kpesan = $this->randomString();
             $data['id_kpesan'] = $id_kpesan;
         }
-
         $data_rawat = json_decode(json_encode(@$rawat[0]), true);
         if ($data_rawat && is_array($data_rawat)) {
             $rawat = array_merge(@$data_rawat, array("detail_rawat" => array()));
