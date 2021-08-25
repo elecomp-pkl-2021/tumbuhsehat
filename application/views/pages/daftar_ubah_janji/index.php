@@ -269,16 +269,22 @@
 		</div>
 
 		<script>
-			// $.getJSON('/calender/load_jadwal/'+start+'/'+dt, {
-			// 	format: "json"
-			// })
-			// .done(function (data) {
-			// });	
 			var link = "<?php echo base_url() ?>";
 
-			// $(document).ready(function(){
-			// 	cari_data($("#cari_nama").val(), $("#cari_tgl_lahir").val(), $("#cari_rekam_medis").val(), $("#cari_dokter").val(),$("#cari_tgl").val(), $("#cari_jam").val(), $("#kode_booking_id").val());
-			// });	
+			var today = new Date();
+			var dd = today.getDate();
+			var mm = today.getMonth() + 1; //January is 0!
+			var yyyy = today.getFullYear();
+			if (dd < 10) {
+				dd = '0' + dd
+			}
+			if (mm < 10) {
+				mm = '0' + mm
+			}
+
+			today = yyyy + '-' + mm + '-' + dd;
+			document.getElementById("tanggal_rencana_date").setAttribute("min", today);
+			document.getElementById("tanggal_rencana_date_janji").setAttribute("min", today);
 
 			function runningFormatter(value, row, index) {
 				return index + 1;
@@ -327,34 +333,6 @@
 						$('#id_rekam_medis_daftar').val(result.id_rekam_medis);
 						$('#id_pasien_daftar').val(result.id_pasien);
 						$('#id_dokter_daftar').val(result.id_dokter);
-
-					},
-					error: function(jqXHR, textStatus, errorThrown) {
-						alert('Error get data from ajax');
-					}
-				});
-			}
-
-			function ubah_jadwal_terlambat(id_booking) {
-				$('#ModalUbahJanji').show();
-				let id_user_terima = '<?= $this->session->userdata("id_user") ?>';
-				$.ajax({
-					url: link + "janji/ajax_get_ubah_terlambat/" + id_booking,
-					type: "GET",
-					dataType: "JSON",
-					success: function(result) {
-						$('#nama_orang').html(result.nama_depan + ' ' + result.nama_belakang);
-						$('#tanggal_rencana_janji').val(result.tanggal_rencana);
-						$('#tanggal_rencana_date_janji').val(result.tanggal_rencana);
-						$('#id_rcn_janji').val(result.id_rcn);
-						$('#id_booking_janji').val(result.id_booking);
-						$('#jam_mulai_selesai_janji').html(result.jam_rencana_mulai + '-' + result
-							.jam_rencana_selesai);
-						$('#id_dokter_janji').val(result.id_dokter);
-						$('#jam_rencana_mulai_janji').val(result.jam_rencana_mulai);
-						$('#jam_rencana_selesai_janji').val(result.jam_rencana_selesai);
-
-						cek_waktu_booking_janji(result.id_booking, result.id_dokter, result.tanggal_rencana);
 
 					},
 					error: function(jqXHR, textStatus, errorThrown) {
@@ -428,7 +406,7 @@
 						$('#nama_belakang').html(data.nama_belakang);
 						$('#tanggal_rencana').val(data.tanggal_rencana);
 						$('#tanggal_rencana_date').val(data.tanggal_rencana);
-						$('#jam_mulai_selesai').html(data.jam_rencana_mulai+'-'+data.jam_rencana_selesai);
+						$('#jam_mulai_selesai').html(data.jam_rencana_mulai + '-' + data.jam_rencana_selesai);
 						$('#id_rcn').val(data.id_rcn);
 						$('#id_booking').val(data.id_booking);
 						$('#id_dokter').val(data.id_dokter);
@@ -440,8 +418,50 @@
 				});
 			}
 
+			function ubah_jadwal_terlambat(id_booking) {
+				$('#ModalUbahJanji').show();
+				let id_user_terima = '<?= $this->session->userdata("id_user") ?>';
+				$.ajax({
+					url: link + "janji/ajax_get_ubah_terlambat/" + id_booking,
+					type: "GET",
+					dataType: "JSON",
+					success: function(result) {
+						$('#nama_orang').html(result.nama_depan + ' ' + result.nama_belakang);
+						$('#tanggal_rencana_janji').val(result.tanggal_rencana);
+						$('#tanggal_rencana_date_janji').val(result.tanggal_rencana);
+						$('#id_rcn_janji').val(result.id_rcn);
+						$('#id_booking_janji').val(result.id_booking);
+						$('#jam_mulai_selesai_janji').html(result.jam_rencana_mulai + '-' + result
+							.jam_rencana_selesai);
+						$('#id_dokter_janji').val(result.id_dokter);
+						$('#jam_rencana_mulai_janji').val(result.jam_rencana_mulai);
+						$('#jam_rencana_selesai_janji').val(result.jam_rencana_selesai);
+
+						cek_waktu_booking_janji(result.id_booking, result.id_dokter, result.tanggal_rencana);
+
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						alert('Error get data from ajax');
+					}
+				});
+			}
+
 			$("#tanggal_rencana_date").on("change", function() {
+				var date = document.getElementById("tanggal_rencana_date").value;
+				if(date < today){
+					alert("Tanggal tidak boleh kurang dari hari ini");
+					document.getElementById("tanggal_rencana_date").value = today;
+				}
 				cek_waktu_booking($('#id_booking').val(), $('#id_dokter').val(), $(this).val());
+			});
+			
+			$("#tanggal_rencana_date_janji").on("change", function() {
+				var date = document.getElementById("tanggal_rencana_date_janji").value;
+				if(date < today){
+					alert("Tanggal tidak boleh kurang dari hari ini");
+					document.getElementById("tanggal_rencana_date_janji").value = today;
+				}
+				cek_waktu_booking_janji($('#id_booking_janji').val(), $('#id_dokter_janji').val(), $(this).val());
 			});
 
 			$("#tanggal_rencana_date").datepicker({
