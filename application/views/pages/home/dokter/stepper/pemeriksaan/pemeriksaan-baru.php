@@ -310,7 +310,7 @@
                                         Kelainan</label>
                                 </div>
                                 <div class="col">
-                                    <input class="form-control " type="text" name="palatum-lain" id="palatum-lain" placeholder="Kelainan Palatum" autocomplete="off" >
+                                    <input class="form-control " type="text" name="palatum-lain" id="palatum-lain" placeholder="Kelainan Palatum" autocomplete="off" disabled>
                                 </div>
                             </div>
                         </div>
