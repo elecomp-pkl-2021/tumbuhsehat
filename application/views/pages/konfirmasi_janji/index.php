@@ -170,9 +170,10 @@
 
             function action(value, row, index) {
                 return `
-            <a href="#" type="button" class="btn col-md-6" onclick="terima(${row.id_pasien})"  style=" color: white; background-color: #00b050; border-radius: 0px;"> Terima </a>
-            <a href="#" type="button" class="btn col-md-6" onclick="tolak(${row.id_pasien})" style=" color: white; background-color: #c00000; border-radius: 0px;"> Tolak </a>
-    `;
+                <div class="input-group-prepend justify-content-center">					
+						<a href="#" type="button" class="btn btn-primary col-md-6 mr-2" onclick="terima(${row.id_pasien})">Terima</a>
+						<a href="#" class="btn btn-danger col-md-6" onclick="tolak(${row.id_pasien})">Tolak</a>
+					</div>`;
             }
 
             function terima(id_pasien) {
