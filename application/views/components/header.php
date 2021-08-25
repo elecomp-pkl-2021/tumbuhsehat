@@ -47,6 +47,7 @@ $hari = date('l ');
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/radioInput.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/style.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/odontogram.css">
+
 </head>
 
 <body>
@@ -66,6 +67,8 @@ $hari = date('l ');
                             <button class="btn btn-light"> <i class="ik ik-user mr-2"></i> <b>Frontliner</b> </button>
                         <?php elseif ($this->session->userdata("level") == "Owner") : ?>
                             <button class="btn btn-light"> <i class="ik ik-user mr-2"></i> <b>Owner</b> </button>
+                        <?php elseif ($this->session->userdata("level") == "Superadmin") : ?>
+                            <button class="btn btn-light"> <i class="ik ik-user mr-2"></i> <b>Superadmin</b> </button>
                         <?php else : ?>
                             <button class="btn btn-light"> <i class="ik ik-user mr-2"></i>
                                 <b><?= $this->session->userdata('nama_dokter'); ?></b> </button>

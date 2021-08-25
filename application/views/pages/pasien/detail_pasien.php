@@ -4,7 +4,7 @@
     $diff  = $akhir - $awal;
 	$id_pasien = $info_umum['id_pasien'];
 ?>
-
+<div class="flash-data" data-flashdata="<?= $this->session->tempdata('flash');?>"></div>
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
@@ -690,4 +690,17 @@
 		});
 	});
 
+</script>
+<script src="<?= base_url('assets')?>/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+<script>
+    const flashData = $('.flash-data').data('flashdata');
+	console.log(`flash data = ${flashData}`);
+    if (flashData) {
+        Swal.fire(
+            'Sukses',
+            flashData,
+            'success'
+        )
+    }
+	
 </script>

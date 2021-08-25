@@ -28,15 +28,8 @@
                                     <?php endif ?>
                                 </div>
                                 <div class="form-group">
-                                    <div class="input-group">
-                                        <?php if (form_error('tanggal_lahir')) : ?>
-                                            <input type="date" name="tanggal_lahir" id="date" class="form-control form-control-warning form-txt-warning" value="<?= strip_tags(form_error('tanggal_lahir')) ?>">
-                                            <i class="ik ik-calendar"></i>
-                                        <?php else : ?>
-                                            <input type="date" name="tanggal_lahir" id="date" class="form-control" placeholder="Tanggal Lahir" value="<?= set_value('tanggal_lahir') ?>">
-                                            <i class="ik ik-calendar"></i>
-                                        <?php endif ?>
-                                    </div>
+                                    <input type="text" class="form-control" rows="3" name="tanggal_lahir" id="tanggal_lahir" required="required" placeholder="Masukkan Tanggal Lahir" autocomplete="off">
+                                    <i class="ik ik-calendar"></i>
                                 </div>
                                 <div class="form-group">
                                     <?php if (form_error('alamat')) : ?>
@@ -49,10 +42,10 @@
                                 </div>
                                 <div class="form-group">
                                     <?php if (form_error('handphone')) : ?>
-                                        <input type="handphone" name="handphone" class="form-control form-control-warning form-txt-warning" placeholder="<?= strip_tags(form_error('handphone')) ?>">
+                                        <input type="number" name="handphone" class="form-control form-control-warning form-txt-warning" placeholder="<?= strip_tags(form_error('handphone')) ?>">
                                         <i class="ik ik-phone"></i>
                                     <?php else : ?>
-                                        <input type="handphone" name="handphone" class="form-control" placeholder="Handphone" value="<?= set_value('handphone') ?>">
+                                        <input type="number" name="handphone" class="form-control" placeholder="Handphone" value="<?= set_value('handphone') ?>">
                                         <i class="ik ik-phone"></i>
                                     <?php endif ?>
                                 </div>

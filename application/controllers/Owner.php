@@ -154,6 +154,7 @@ class Owner extends CI_Controller
         echo json_encode($this->Klinik_model->get_konfirmasi_janji($nama, $tgl_lahir, $rekam_medis, $id_dokter, $tanggal_rencana, $jam_rencana_mulai)->result());
         // $this->Klinik_model->get_konfirmasi_janji()->result();
         // print_r($this->db->last_query());
+
     }
     public function konfirmasi()
     {
@@ -301,7 +302,15 @@ class Owner extends CI_Controller
             <li class="breadcrumb-item active">Pembayaran</li>';
         // print_r($data['diskonnya']);
         $this->load->view('components/header', $data);
-        $this->load->view('components/sidebar_resepsionis');
+        
+        if ($this->session->userdata('level') == "Owner") {
+            $this->load->view('components/sidebar_owner');
+        } elseif ($this->session->userdata('level') == "Klinik") {
+            $this->load->view('components/sidebar_resepsionis');
+        } elseif ($this->session->userdata('level') == "Superadmin") {
+            $this->load->view('components/sidebar_superadmin');
+        } 
+        
         $this->load->view('components/breadcrumbs', $data);
         $this->load->view('pages/Pembayaran/metode_pembayaran', $data);
         $this->load->view('components/footer');
