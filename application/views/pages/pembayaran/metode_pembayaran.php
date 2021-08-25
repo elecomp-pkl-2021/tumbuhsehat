@@ -78,7 +78,7 @@
                                             Upload Foto Kartu Asuransi
                                         </div>
                                         <div class="col-lg-10">
-                                            <img src="<?php echo base_url('images/'); ?>asuransi/<?php echo $result->foto_asuransi ?>" width="300px">
+                                            <!-- <img src="<?php echo base_url('images/'); ?>asuransi/<?php echo $result->foto_asuransi ?>" width="300px" height="500px"> -->
                                             <div class="form-group">
                                                 <input type="file" class="form-control" rows="3" name="foto_asuransi" id="foto_asuransi">
                                             </div>

@@ -12,12 +12,12 @@
                             <input type="text" class="form-control" id="cari_nama" value="" placeholder="Cari Nama Pasien" autocomplete="off" style="background: #fff;border: 1px solid #eee;color:#000;" onkeyup="cari_data()">
                         </div>
                         <div class="col-lg-4 col-md-4 col-6">
-                            <label for="">Cari No. Rekam Medis</label>
-                            <input type="text" class="form-control" id="cari_tgl_lahir" value="" placeholder="Cari No. Rekam Medis" autocomplete="off" style="background: #fff;border: 1px solid #eee;color:#000;" onkeyup="cari_data()">
+                            <label for="">Cari Tanggal Lahir</label>
+                            <input type="text" class="form-control" id="cari_tgl_lahir" value="" placeholder="Cari Tanggal Lahir" autocomplete="off" style="background: #fff;border: 1px solid #eee;color:#000;" onkeyup="cari_data()">
                         </div>
                         <div class="col-lg-4 col-md-4 col-6">
-                            <label for="">Cari Tanggal Lahir</label>
-                            <input type="text" class="form-control" id="cari_id_booking" value="" placeholder="Cari Tanggal Lahir" autocomplete="off" style="background: #fff;border: 1px solid #eee;color:#000;" onkeyup="cari_data()">
+                            <label for="">Cari No. Rekam Medis</label>
+                            <input type="text" class="form-control" id="cari_id_booking" value="" placeholder="Cari No. Rekam Medis" autocomplete="off" style="background: #fff;border: 1px solid #eee;color:#000;" onkeyup="cari_data()">
                         </div>
                         <div class="col-lg-4 col-md-4 col-6 mt-2">
                             <label for="">Cari Dokter</label>
